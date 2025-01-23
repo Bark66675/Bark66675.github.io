@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IdA超全使用方法, Bark66675">
+    <meta name="keywords" content="IDA超全使用方法, Bark66675">
     <meta name="description" content="一、IDA的下载ida的官网下载地址ida下载，包含x64和x32.   
 也可以在52破解上下载。
 二、IDA的介绍及如何使用1.IDA简介IDA，全称为交互式反汇编器专业版（Interactive Disassembler  Profe">
@@ -19,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>IdA超全使用方法 | Bark66675</title>
+    <title>IDA超全使用方法 | Bark66675</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -275,12 +275,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IdA超全使用方法</h1>
+                    <h1 class="description center-align post-title">IDA超全使用方法</h1>
                 </div>
             </div>
         </div>
@@ -304,8 +304,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/re%E9%A2%98%E7%9B%AE%E8%AE%B2%E8%A7%A3/">
-                                <span class="chip bg-color">re题目讲解</span>
+                            <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
+                                <span class="chip bg-color">IDA教程</span>
                             </a>
                         
                     </div>
@@ -329,7 +329,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.9k
                 </div>
                 
 
@@ -362,9 +362,9 @@
 <blockquote>
 <p><strong>new</strong>会打开一个空白页面，把想逆向的文件拖进去即可，或者点击<strong>go</strong>直接去打开文件。 </p>
 </blockquote>
-<p><img src="/image/buzhouwenjian1.png" alt="tu">  </p>
+<p><img src="/image/buzhouwenjian1.png" alt="ida">  </p>
 <h2 id="3-界面简介"><a href="#3-界面简介" class="headerlink" title="3.界面简介"></a>3.界面简介</h2><p> 打开后如下界面  </p>
-<p><img src="/image/jiemianjieshao1.png" alt="ida">    </p>
+<p><img src="/image/jiemianjieshao1.png" alt="界面简介">    </p>
 <hr>
 <h3 id="界面各个窗口介绍"><a href="#界面各个窗口介绍" class="headerlink" title="界面各个窗口介绍"></a>界面各个窗口介绍</h3><ul>
 <li><p><em><strong>导航条</strong></em>的<strong>含义</strong>：</p>
@@ -407,8 +407,8 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">空格键</td>
-<td align="center">反汇编窗口切换文本跟图形</td>
+<td align="center">空格键(space)</td>
+<td align="center">反汇编窗口切换文本与图形</td>
 </tr>
 <tr>
 <td align="center">Enter</td>
@@ -416,27 +416,27 @@
 </tr>
 <tr>
 <td align="center"><strong>Esc</strong></td>
-<td align="center">返回跟进处，返回上一个操作地址</td>
+<td align="center">在反汇编窗口中使用为后退到上个操作的地址处</td>
 </tr>
 <tr>
 <td align="center"><strong>A</strong></td>
-<td align="center">解释光标处的地址为一个字符串的首地址 /C–&gt;代码/D–&gt;数据/A–&gt;ascii字符串/U–&gt;解析成未定义的内容</td>
+<td align="center">将选择的信息转换成ASCII(转换成可读性跟强的字符串)</td>
 </tr>
 <tr>
 <td align="center">B</td>
 <td align="center">十六进制与二进制数转换</td>
 </tr>
 <tr>
-<td align="center"><strong>C</strong></td>
-<td align="center">解释光标处的地址为一条指令</td>
+<td align="center">C</td>
+<td align="center">解释光标处的地址为一条指令（代码）</td>
 </tr>
 <tr>
-<td align="center"><strong>D</strong></td>
+<td align="center">D</td>
 <td align="center">解释光标处的地址为数据，每按一次将会转换这个地址的数据长度</td>
 </tr>
 <tr>
 <td align="center">G</td>
-<td align="center">快速查找对应地址</td>
+<td align="center">跳转到指定地址</td>
 </tr>
 <tr>
 <td align="center">H</td>
@@ -447,16 +447,8 @@
 <td align="center">将数据解释为栈变量</td>
 </tr>
 <tr>
-<td align="center"><strong>:</strong></td>
-<td align="center">添加注释</td>
-</tr>
-<tr>
-<td align="center">R</td>
-<td align="center">编码转换</td>
-</tr>
-<tr>
 <td align="center">M</td>
-<td align="center">解释为枚举成员</td>
+<td align="center">解释为枚举成员（转换为枚举类型常量）</td>
 </tr>
 <tr>
 <td align="center">N</td>
@@ -467,64 +459,140 @@
 <td align="center">解释地址为数据段偏移量，用于字符串标号</td>
 </tr>
 <tr>
+<td align="center">P</td>
+<td align="center">创建函数</td>
+</tr>
+<tr>
+<td align="center">R</td>
+<td align="center">将ASCII转换为字符</td>
+</tr>
+<tr>
 <td align="center">T</td>
 <td align="center">解释数据为一个结构体成员（解析结构体偏移）</td>
+</tr>
+<tr>
+<td align="center">U（indefine）</td>
+<td align="center">取消定义光标处函数、代码、数据的定义</td>
 </tr>
 <tr>
 <td align="center">X</td>
 <td align="center">转换视图到交叉参考模式</td>
 </tr>
 <tr>
-<td align="center">Shift + F9</td>
-<td align="center">添加结构体</td>
+<td align="center">Y</td>
+<td align="center">设置变量类型</td>
 </tr>
 <tr>
-<td align="center">空格</td>
-<td align="center">切换文本视图与图表视图</td>
+<td align="center"><strong>/</strong></td>
+<td align="center">伪代码中进行注释</td>
 </tr>
 <tr>
-<td align="center">ALT + M</td>
-<td align="center">添加标签</td>
+<td align="center"><strong>:</strong></td>
+<td align="center">光标所在位置添加<strong>常规注释</strong>和可重复注释</td>
 </tr>
 <tr>
-<td align="center">CTRL + M</td>
-<td align="center">查看标签</td>
+<td align="center"><strong>F2</strong></td>
+<td align="center">设置断点（F2在十六进制窗口进行修改，然后再按F2应用）</td>
 </tr>
 <tr>
-<td align="center">CTRL + S</td>
-<td align="center">查看段的信息</td>
-</tr>
-<tr>
-<td align="center">冒号</td>
-<td align="center">常规注释</td>
-</tr>
-<tr>
-<td align="center">CTRL + F12</td>
-<td align="center">函数调用图</td>
-</tr>
-<tr>
-<td align="center"><strong>Ctrl + F9</strong></td>
-<td align="center">导入c头文件</td>
+<td align="center">F4</td>
+<td align="center">运行到光标所在处（可用于跳出循环）</td>
 </tr>
 <tr>
 <td align="center">F5</td>
 <td align="center">查看伪代码</td>
 </tr>
 <tr>
+<td align="center">F7</td>
+<td align="center">单步步进</td>
+</tr>
+<tr>
+<td align="center">F9</td>
+<td align="center">动态调试程序(其实IDA主要用作静态分析用的)</td>
+</tr>
+<tr>
+<td align="center">F10</td>
+<td align="center">打开反汇编选项菜单快捷键</td>
+</tr>
+<tr>
+<td align="center">F12</td>
+<td align="center">暂时停止</td>
+</tr>
+<tr>
+<td align="center">Ctrl+F2</td>
+<td align="center">重新开始</td>
+</tr>
+<tr>
+<td align="center">Art+F2</td>
+<td align="center">结束跟踪</td>
+</tr>
+<tr>
+<td align="center">Ctrl+F7</td>
+<td align="center">自动步入，在所有的函数调用中一条一条地执行命令，断点或异常时，自动 停止</td>
+</tr>
+<tr>
+<td align="center"><strong>Shift + E</strong></td>
+<td align="center">提取数据</td>
+</tr>
+<tr>
+<td align="center"><strong>Shift</strong> + F5</td>
+<td align="center">打开签名窗口</td>
+</tr>
+<tr>
+<td align="center">Shift + F9</td>
+<td align="center">添加结构体</td>
+</tr>
+<tr>
+<td align="center">Shift + F12</td>
+<td align="center">自动分析出参考字符串</td>
+</tr>
+<tr>
+<td align="center"><strong>Ctrl</strong> + F</td>
+<td align="center">搜索字符串</td>
+</tr>
+<tr>
+<td align="center">Ctrl + M</td>
+<td align="center">查看标签（列举出当前已经添加的标签）</td>
+</tr>
+<tr>
+<td align="center">Ctrl + S</td>
+<td align="center">查看段的信息（列举出二进制程序的段的开始地址、结束地址、权限等信息）</td>
+</tr>
+<tr>
+<td align="center">Ctrl + X</td>
+<td align="center">交叉引用,类似于OD中的栈回溯操作</td>
+</tr>
+<tr>
+<td align="center">Ctrl + F9</td>
+<td align="center">导入c头文件</td>
+</tr>
+<tr>
+<td align="center">CTRL + F12</td>
+<td align="center">函数调用图</td>
+</tr>
+<tr>
 <td align="center"><strong>Alt+T</strong></td>
-<td align="center">搜索文本</td>
+<td align="center">搜索字符串(文本搜索)(可用于搜索main函数)</td>
 </tr>
 <tr>
 <td align="center">Alt+B</td>
-<td align="center">搜索十六进制</td>
+<td align="center">搜索十六进制（用于搜索十六进制字节序列，通常在分析过程中可以用来搜索opcode）</td>
 </tr>
 <tr>
-<td align="center">ctrl+shift+w</td>
+<td align="center">Alt+G</td>
+<td align="center">转换局部变量为结构体</td>
+</tr>
+<tr>
+<td align="center">Alt+L</td>
+<td align="center">标记(Label)</td>
+</tr>
+<tr>
+<td align="center">ALT + M</td>
+<td align="center">添加标签(mark)</td>
+</tr>
+<tr>
+<td align="center">Ctrl+Shift+W</td>
 <td align="center">拍摄IDA快照</td>
-</tr>
-<tr>
-<td align="center">u</td>
-<td align="center">undefine，取消定义函数、代码、数据的定义</td>
 </tr>
 <tr>
 <td align="center">view–&gt;open subviews</td>
@@ -543,17 +611,25 @@
 <td align="center">自动添加反汇编注释</td>
 </tr>
 </tbody></table>
+<h2 id="5-判断IDA分析可执行文件完毕的三种方法"><a href="#5-判断IDA分析可执行文件完毕的三种方法" class="headerlink" title="5.判断IDA分析可执行文件完毕的三种方法"></a>5.判断IDA分析可执行文件完毕的三种方法</h2><p>1.图中IDA的“Output Window”窗口输出“The initial autoanalysis has been<br> finished”日志时，则说明IDA已分析完毕。  </p>
+<p>2.如图所示进度条处黄色向上箭头消失时，则表明IDA分析完毕。  </p>
+<p>3.图中IDA界面左下角AU处于”idle”状态时，也表明IDA分析完毕。</p>
 </li>
 </ul>
-<h1 id="三、使用IDA的事前准备"><a href="#三、使用IDA的事前准备" class="headerlink" title="三、使用IDA的事前准备"></a>三、使用IDA的事前准备</h1><h2 id="1-查壳"><a href="#1-查壳" class="headerlink" title="1.查壳"></a>1.查壳</h2><ul>
+<h1 id="三、用IDA分析程序实例"><a href="#三、用IDA分析程序实例" class="headerlink" title="三、用IDA分析程序实例"></a>三、用IDA分析程序实例</h1><h2 id="1-查壳"><a href="#1-查壳" class="headerlink" title="1.查壳"></a>1.查壳</h2><ul>
 <li><p>使用exeinfo pe<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1837928-1-1.html">52破解</a>查壳看他是64位还是32位的程序或者其他类型的如ELF等，以便于事后进行分析。  </p>
 </li>
 <li><p>或者使用peid来进行查壳<a target="_blank" rel="noopener" href="https://www.softpedia.com/get/Programming/Packers-Crypters-Protectors/PEiD-updated.shtml">peid官网地址</a>。   </p>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><img src="/image/1000.png" alt="程序1000.exe">  </p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p><img src="/image/easy64.png" alt="程序easy-64">  </p>
 <p>拖入exeinfope后如图  </p>
-<p><img src="/image/exeinfope.png" alt="如图"></p>
-<p>得到程序为32位的。  </p>
-<h1 id="2、把"><a href="#2、把" class="headerlink" title="2、把"></a>2、把</h1></li>
+<p><img src="/image/exeinfope.png" alt="壳"></p>
+<p>得到程序为ELF类型的。  </p>
+<h2 id="2-用IDA进行分析"><a href="#2-用IDA进行分析" class="headerlink" title="2.用IDA进行分析"></a>2.用IDA进行分析</h2><p>拖入IDA打开后点击main函数进行查看  </p>
+<p>由于对于汇编代码不熟悉，点击tab键进入伪代码。  </p>
+<p><img src="/image/easy64ida.png" alt="ida分析">  </p>
+<p><img src="/image/easy64flag.png" alt="伪代码">  </p>
+<p>由此我们得到了flag</p>
+</li>
 </ul>
 
                 
@@ -619,8 +695,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/re%E9%A2%98%E7%9B%AE%E8%AE%B2%E8%A7%A3/">
-                                    <span class="chip bg-color">re题目讲解</span>
+                                <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
+                                    <span class="chip bg-color">IDA教程</span>
                                 </a>
                             
                         </div>
@@ -708,9 +784,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="IdA超全使用方法">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="IDA超全使用方法">
                         
-                        <span class="card-title">IdA超全使用方法</span>
+                        <span class="card-title">IDA超全使用方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -735,8 +811,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/re%E9%A2%98%E7%9B%AE%E8%AE%B2%E8%A7%A3/">
-                        <span class="chip bg-color">re题目讲解</span>
+                    <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">IDA教程</span>
                     </a>
                     
                 </div>
@@ -970,7 +1046,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">1.6k</span>
+                        class="white-color">2k</span>
             
             
             
