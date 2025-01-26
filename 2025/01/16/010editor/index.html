@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IDA超全使用方法, Bark66675">
-    <meta name="description" content="一、IDA的下载ida的官网下载地址ida下载，包含x64和x32.   
-也可以在52破解上下载。
-二、IDA的介绍及如何使用1.IDA简介IDA，全称为交互式反汇编器专业版（Interactive Disassembler  Profe">
+    <meta name="keywords" content="逆向破解010 Editor, Bark66675">
+    <meta name="description" content="前几天做misc的时候发现010Editor试用期结束了，这回无论怎么卸载再安装也没法使用了，也找不到注册码，于是我想着逆向分析一下这个程序看能不能把他给破解了，多次尝试无果，于是上网查找相关资料，最后真的成功破解了！  
+接下来记录一下这">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>IDA超全使用方法 | Bark66675</title>
+    <title>逆向破解010 Editor | Bark66675</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -275,12 +274,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IDA超全使用方法</h1>
+                    <h1 class="description center-align post-title">逆向破解010 Editor</h1>
                 </div>
             </div>
         </div>
@@ -304,8 +303,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
-                                <span class="chip bg-color">IDA教程</span>
+                            <a href="/tags/010-Editor/">
+                                <span class="chip bg-color">010 Editor</span>
                             </a>
                         
                     </div>
@@ -320,7 +319,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-01-14
+                    2025-01-16
                 </div>
                 
 
@@ -329,7 +328,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    1.5k
                 </div>
                 
 
@@ -351,287 +350,166 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、IDA的下载"><a href="#一、IDA的下载" class="headerlink" title="一、IDA的下载"></a>一、IDA的下载</h1><p>ida的官网下载地址<a target="_blank" rel="noopener" href="https://hex-rays.com/ida-free#download" title="ida官网">ida下载</a>，包含x64和x32.   </p>
-<p>也可以在52破解上下载。</p>
-<h1 id="二、IDA的介绍及如何使用"><a href="#二、IDA的介绍及如何使用" class="headerlink" title="二、IDA的介绍及如何使用"></a>二、IDA的介绍及如何使用</h1><h2 id="1-IDA简介"><a href="#1-IDA简介" class="headerlink" title="1.IDA简介"></a>1.IDA简介</h2><p>IDA，全称为<strong>交互式反汇编器专业版</strong>（Interactive Disassembler  Professional），是一款功能强大的静态反编译软件。它被广泛用于软件安全分析，尤其是在0day研究和ShellCode分析中不可或缺。IDA  Pro以其交互性、可编程性、可扩展性以及对多处理器的支持而闻名，能够在Windows、Linux、WinCE、MacOS等多个平台上运行，分析各种程序代码。  </p>
-<p>IDA Pro支持多种CPU指令集，包括但不限于Intel  x86、x64、MIPS、PowerPC、ARM、Z80、68000和c8051。这使得IDA  Pro能够分析各种不同架构的程序，成为逆向工程领域的重要工具。IDA  Pro的递归下降反汇编能力，以及其在区分代码和数据、确定数据类型方面的高效算法，使得它能够提供接近源代码的反汇编输出。 </p>
-<h2 id="2-在IDA中打开文件"><a href="#2-在IDA中打开文件" class="headerlink" title="2.在IDA中打开文件"></a>2.在IDA中打开文件</h2><blockquote>
-<p><em>双击</em>ida  </p>
-</blockquote>
-<p><img src="/image/idajiemian.png" alt="ida"></p>
+                <p>前几天做misc的时候发现010Editor试用期结束了，这回无论怎么卸载再安装也没法使用了，也找不到注册码，于是我想着逆向分析一下这个程序看能不能把他给破解了，多次尝试无果，于是上网查找相关资料，最后真的成功破解了！  </p>
+<p>接下来记录一下这次破解过程：  </p>
+<h1 id="一-明确思路："><a href="#一-明确思路：" class="headerlink" title="一.明确思路："></a>一.明确思路：</h1><p>破解010 Editor需要注册码，如果找不出注册码，只要始终把注册标志标记为已注册，就可以成功破解。  </p>
+<p><img src="/image/010editor.png">  </p>
+<h1 id="二-完整流程："><a href="#二-完整流程：" class="headerlink" title="二.完整流程："></a>二.完整流程：</h1><h2 id="1-下载010-Editor"><a href="#1-下载010-Editor" class="headerlink" title="1.下载010 Editor"></a>1.下载010 Editor</h2><p>从官网<a target="_blank" rel="noopener" href="https://www.sweetscape.com/010editor/" title="官网">下载010 Editor</a>  </p>
+<h2 id="2-固定PE基址"><a href="#2-固定PE基址" class="headerlink" title="2.固定PE基址"></a>2.固定PE基址</h2><p>我们在windows逆向时，经常会遇到PE文件的基地址随机的情况，不利于反汇编的对比分析，比如利用OD反汇编时的地址和<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1874203-1-1.html">IDA</a>反汇编时就会有不同，两者在对比分析过程中就很难对应上。  </p>
+<p>这时我们利用反汇编查壳神器<a target="_blank" rel="noopener" href="https://down.52pojie.cn/?query=studype">study PE++ x64</a>来固定基址  </p>
+<p>把exe拖入studype，点击固定PE基址，再点击文件保存更改。  </p>
+<p><img src="/image/studype++.png">  </p>
+<h2 id="3-拖入x64dbg分析"><a href="#3-拖入x64dbg分析" class="headerlink" title="3.拖入x64dbg分析"></a>3.拖入x64dbg分析</h2><h3 id="1-找程序入口："><a href="#1-找程序入口：" class="headerlink" title="1>找程序入口："></a>1&gt;找程序入口：</h3><p><img src="/image/x64dbgkaishi.png" alt="拖入后的界面">  </p>
+<p>按F9运行程序直到出现程序入口(Entrypoint)，能看到一堆jmp指令。  </p>
+<p><img src="/image/x64dbgentrypoint.png" alt="找到了程序入口">  </p>
+<h3 id="2-找Evaluation-Version-n："><a href="#2-找Evaluation-Version-n：" class="headerlink" title="2>找Evaluation Version\n："></a>2&gt;找Evaluation Version\n：</h3><p>接下来找突破口：</p>
+<p><strong>！！！重点</strong>：由于一打开010editor界面会出现<em><strong>Evaluation</strong></em>！  </p>
+<p><img src="/image/010Editorkaishi.png">  </p>
+<p>在程序入口按<strong>Shift + D</strong>，在当前模块进行字符搜索，输入<strong>Evaluation</strong>。  </p>
+<p><img src="/image/x64dbgEvaluation.png">  </p>
+<p>发现四个带有换行的Evaluation Version，这四个便是我们要找的（已设置断点(f2设置断点)的四个）。  </p>
+<p>运行一下发现听到断点处，说明这段子程序就是在程序启动时用于检查注册状态的。  </p>
+<h3 id="3-找注册标志："><a href="#3-找注册标志：" class="headerlink" title="3>找注册标志："></a>3&gt;找注册标志：</h3><p>选一个点进去发现他们都在同一个函数的下面。  </p>
+<p><img src="/image/dainjidasimfocasmnviapsvni.png">  </p>
+<p>向上翻找这个函数的头部。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126170549.png" alt="子程序头部">  </p>
+<p>点击这个子程序函数的第一条指令查看流程图。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126170902.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126171328.png" alt="流程图">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126171420.png" alt="总览"></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmp   edi,DB</span><br><span class="line">jne   010editor.140392FC0 // 结果不为零（或不相等）的情况下进行跳转</span><br></pre></td></tr></tbody></table></figure>
+
 <blockquote>
-<p><strong>new</strong>会打开一个空白页面，把想逆向的文件拖进去即可，或者点击<strong>go</strong>直接去打开文件。 </p>
+<p>通过分析流程图可知，子程序流程在这里分成两个方向：EAX = 0xDB，表示各种已注册的状态，EAX &lt;&gt; 0xDB，表示各种未注册状态。由此可知，EAX = 0xDB是成功注册标志。  </p>
+<p>找到注册标志后，改程序流向是无效的，必须找到设置注册标志的公共CALL，在CALL里边改程序流向，才能真正实现破解。</p>
+<p>在这个程序中，判断注册标志指令是cmp edi, 0xDB，它上面的CALL是一个模块外的系统子程序调用，再往上没有CALL了，怎么办？这说明这个标志已经提前由真正的CALL算好了，下面的关键是怎么找到这个真正的CALL</p>
 </blockquote>
-<p><img src="/image/buzhouwenjian1.png" alt="ida">  </p>
-<h2 id="3-界面简介"><a href="#3-界面简介" class="headerlink" title="3.界面简介"></a>3.界面简介</h2><p> 打开后如下界面  </p>
-<p><img src="/image/jiemianjieshao1.png" alt="界面简介">    </p>
 <hr>
-<h3 id="界面各个窗口介绍"><a href="#界面各个窗口介绍" class="headerlink" title="界面各个窗口介绍"></a>界面各个窗口介绍</h3><ul>
-<li><p><em><strong>导航条</strong></em>的<strong>含义</strong>：</p>
-<p>蓝色：表示常规的指令函数，绝大部分为用户编写的代码，上图中绝大部分数据属于蓝色数据。 </p>
-<p>黑色：表示间隙部分内容，可执行文件中包含多个节段，相邻节段之间存在空隙，红色表示空隙部分。 </p>
-<p>银白色：表示数据项部分内容，可执行文件中会包含大量数据，银白色表示数据项部分内容。 </p>
-<p>粉色：表示外部导入符号，通常可执行文件会导入外部的库函数。 </p>
-<p>暗黄色：表示IDA未识别的内容，需要用户根据需求自行分析。  </p>
+<ul>
+<li><p><strong>cmp指令</strong>的使用和理解：  </p>
+<p><em><strong>cmp指令</strong></em>是汇编语言中用于比较两个操作数的大小的指令。它执行的是一个隐含的减法操作，即从目的操作数中减去源操作数，但不会改变任何操作数的值。CMP指令的结果会影响处理器的标志位，这些标志位随后可以用于条件跳转指令。</p>
 </li>
-<li><p><em><strong>IDA View</strong></em>（反汇编窗口）的<strong>含义</strong>：  </p>
-<p>包括三种反汇编视图:文本视图、图表视图、路径视图。  </p>
-<p>反汇编窗口属于逆向分析过程中关注频率最高的窗口，通过此窗口可以逆向分析反汇编代码。  </p>
-</li>
-<li><p><em><strong>Hex View</strong></em>的<strong>含义</strong>：  </p>
-<p>二进制查看窗口总共分为三部分，三部分内容分别位于上图左、中、右，三处含义分别为：  </p>
-<p>左边数据：表示二进制数据对应的内存相对偏移。  </p>
-<p>中间数据：表示内存中数据的具体内容。  </p>
-<p>右边数据：表示内存数据的字符串显示，该功能可辅助读者快速识别字符串内容。  </p>
-<p>用户可在二进制查看窗口中编辑二进制数据，从而满足篡改数据的测试需求。  </p>
-<p><img src="/image/view.png" alt="图标视图中红黄蓝线的应用">   </p>
-</li>
-<li><p><em><strong>Structures</strong></em>的<strong>含义</strong>：  </p>
-<p>结构窗口提供用户查询已定义的结构体，同时IDA可识别出可执行文件包含的部分结构体数据，结构窗口可通过快捷键“+”、“-”展开和收缩结构体，IDA结构窗口支持用户自定义结构体。  </p>
-</li>
-<li><p><em><strong>Imports</strong></em>的<strong>含义</strong>：  </p>
-<p>IDA提供导入函数窗口，用于可在导入函数窗口中查看当前可执行文件导入哪些外部函数库及函数，通过导入函数窗口可获取到函数内存相对偏移地址、函数名、导入函数所属的库文件。  </p>
-</li>
-<li><p><em><strong>Exports</strong></em>的<strong>含义</strong>：  </p>
-<p>IDA的导出函数窗口提供可执行文件导出函数信息，通过导出函数窗口可获取到导出的函数名、函数对应的内存相对偏移地址。  </p>
-</li>
-<li><p><em><strong>Function</strong></em>的<strong>含义</strong>：</p>
-<p>IDA提供函数窗口供玩家查找函数信息，在窗口按下“CTRL + F”快捷键便可根据需求搜索函数名，快速定位函数名方式可提供逆向分析效率。  </p>
-</li>
-<li><p><em><strong>Enum</strong></em>的<strong>含义</strong>：  </p>
-<p>枚举窗口。   </p>
-<h2 id="4-快捷键详细介绍"><a href="#4-快捷键详细介绍" class="headerlink" title="4.快捷键详细介绍"></a>4.快捷键详细介绍</h2><table>
+</ul>
+<p>两个<strong>无符号数</strong>的比较：</p>
+<table>
 <thead>
 <tr>
-<th align="center"><strong>快捷键</strong></th>
-<th align="center"><strong>功能说明</strong></th>
+<th>CMP结果</th>
+<th>ZF</th>
+<th>CF</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">空格键(space)</td>
-<td align="center">反汇编窗口切换文本与图形</td>
+<td>目的操作数 ＜ 源操作数</td>
+<td>0</td>
+<td>1</td>
 </tr>
 <tr>
-<td align="center">Enter</td>
-<td align="center">跟进函数实现，查看标号对应的地址</td>
+<td>目的操作数 ＞ 源操作数</td>
+<td>0</td>
+<td>0</td>
 </tr>
 <tr>
-<td align="center"><strong>Esc</strong></td>
-<td align="center">在反汇编窗口中使用为后退到上个操作的地址处</td>
-</tr>
-<tr>
-<td align="center"><strong>A</strong></td>
-<td align="center">将选择的信息转换成ASCII(转换成可读性跟强的字符串)</td>
-</tr>
-<tr>
-<td align="center">B</td>
-<td align="center">十六进制与二进制数转换</td>
-</tr>
-<tr>
-<td align="center">C</td>
-<td align="center">解释光标处的地址为一条指令（代码）</td>
-</tr>
-<tr>
-<td align="center">D</td>
-<td align="center">解释光标处的地址为数据，每按一次将会转换这个地址的数据长度</td>
-</tr>
-<tr>
-<td align="center">G</td>
-<td align="center">跳转到指定地址</td>
-</tr>
-<tr>
-<td align="center">H</td>
-<td align="center">十六进制与十进制数转换</td>
-</tr>
-<tr>
-<td align="center">K</td>
-<td align="center">将数据解释为栈变量</td>
-</tr>
-<tr>
-<td align="center">M</td>
-<td align="center">解释为枚举成员（转换为枚举类型常量）</td>
-</tr>
-<tr>
-<td align="center">N</td>
-<td align="center">对符号重新命名</td>
-</tr>
-<tr>
-<td align="center">O</td>
-<td align="center">解释地址为数据段偏移量，用于字符串标号</td>
-</tr>
-<tr>
-<td align="center">P</td>
-<td align="center">创建函数</td>
-</tr>
-<tr>
-<td align="center">R</td>
-<td align="center">将ASCII转换为字符</td>
-</tr>
-<tr>
-<td align="center">T</td>
-<td align="center">解释数据为一个结构体成员（解析结构体偏移）</td>
-</tr>
-<tr>
-<td align="center">U（indefine）</td>
-<td align="center">取消定义光标处函数、代码、数据的定义</td>
-</tr>
-<tr>
-<td align="center">X</td>
-<td align="center">转换视图到交叉参考模式</td>
-</tr>
-<tr>
-<td align="center">Y</td>
-<td align="center">设置变量类型</td>
-</tr>
-<tr>
-<td align="center"><strong>/</strong></td>
-<td align="center">伪代码中进行注释</td>
-</tr>
-<tr>
-<td align="center"><strong>:</strong></td>
-<td align="center">光标所在位置添加<strong>常规注释</strong>和可重复注释</td>
-</tr>
-<tr>
-<td align="center"><strong>F2</strong></td>
-<td align="center">设置断点（F2在十六进制窗口进行修改，然后再按F2应用）</td>
-</tr>
-<tr>
-<td align="center">F4</td>
-<td align="center">运行到光标所在处（可用于跳出循环）</td>
-</tr>
-<tr>
-<td align="center">F5</td>
-<td align="center">查看伪代码</td>
-</tr>
-<tr>
-<td align="center">F7</td>
-<td align="center">单步步进</td>
-</tr>
-<tr>
-<td align="center">F9</td>
-<td align="center">动态调试程序(其实IDA主要用作静态分析用的)</td>
-</tr>
-<tr>
-<td align="center">F10</td>
-<td align="center">打开反汇编选项菜单快捷键</td>
-</tr>
-<tr>
-<td align="center">F12</td>
-<td align="center">暂时停止</td>
-</tr>
-<tr>
-<td align="center">Ctrl+F2</td>
-<td align="center">重新开始</td>
-</tr>
-<tr>
-<td align="center">Art+F2</td>
-<td align="center">结束跟踪</td>
-</tr>
-<tr>
-<td align="center">Ctrl+F7</td>
-<td align="center">自动步入，在所有的函数调用中一条一条地执行命令，断点或异常时，自动 停止</td>
-</tr>
-<tr>
-<td align="center"><strong>Shift + E</strong></td>
-<td align="center">提取数据</td>
-</tr>
-<tr>
-<td align="center"><strong>Shift</strong> + F5</td>
-<td align="center">打开签名窗口</td>
-</tr>
-<tr>
-<td align="center">Shift + F9</td>
-<td align="center">添加结构体</td>
-</tr>
-<tr>
-<td align="center">Shift + F12</td>
-<td align="center">自动分析出参考字符串</td>
-</tr>
-<tr>
-<td align="center"><strong>Ctrl</strong> + F</td>
-<td align="center">搜索字符串</td>
-</tr>
-<tr>
-<td align="center">Ctrl + M</td>
-<td align="center">查看标签（列举出当前已经添加的标签）</td>
-</tr>
-<tr>
-<td align="center">Ctrl + S</td>
-<td align="center">查看段的信息（列举出二进制程序的段的开始地址、结束地址、权限等信息）</td>
-</tr>
-<tr>
-<td align="center">Ctrl + X</td>
-<td align="center">交叉引用,类似于OD中的栈回溯操作</td>
-</tr>
-<tr>
-<td align="center">Ctrl + F9</td>
-<td align="center">导入c头文件</td>
-</tr>
-<tr>
-<td align="center">CTRL + F12</td>
-<td align="center">函数调用图</td>
-</tr>
-<tr>
-<td align="center"><strong>Alt+T</strong></td>
-<td align="center">搜索字符串(文本搜索)(可用于搜索main函数)</td>
-</tr>
-<tr>
-<td align="center">Alt+B</td>
-<td align="center">搜索十六进制（用于搜索十六进制字节序列，通常在分析过程中可以用来搜索opcode）</td>
-</tr>
-<tr>
-<td align="center">Alt+G</td>
-<td align="center">转换局部变量为结构体</td>
-</tr>
-<tr>
-<td align="center">Alt+L</td>
-<td align="center">标记(Label)</td>
-</tr>
-<tr>
-<td align="center">ALT + M</td>
-<td align="center">添加标签(mark)</td>
-</tr>
-<tr>
-<td align="center">Ctrl+Shift+W</td>
-<td align="center">拍摄IDA快照</td>
-</tr>
-<tr>
-<td align="center">view–&gt;open subviews</td>
-<td align="center">可以恢复你无意中关闭的数据显示窗口</td>
-</tr>
-<tr>
-<td align="center">windows–&gt;reset desktop</td>
-<td align="center">可以恢复初始ida布局</td>
-</tr>
-<tr>
-<td align="center">option–&gt;font</td>
-<td align="center">option–&gt;font</td>
-</tr>
-<tr>
-<td align="center">option–&gt;general-&gt;Auto comments</td>
-<td align="center">自动添加反汇编注释</td>
+<td>目的操作数 = 源操作数</td>
+<td>1</td>
+<td>0</td>
 </tr>
 </tbody></table>
-<h2 id="5-判断IDA分析可执行文件完毕的三种方法"><a href="#5-判断IDA分析可执行文件完毕的三种方法" class="headerlink" title="5.判断IDA分析可执行文件完毕的三种方法"></a>5.判断IDA分析可执行文件完毕的三种方法</h2><p>1.图中IDA的“Output Window”窗口输出“The initial autoanalysis has been<br> finished”日志时，则说明IDA已分析完毕。  </p>
-<p>2.如图所示进度条处黄色向上箭头消失时，则表明IDA分析完毕。  </p>
-<p>3.图中IDA界面左下角AU处于”idle”状态时，也表明IDA分析完毕。</p>
+<p>两个<strong>有符号数</strong>的比较：</p>
+<table>
+<thead>
+<tr>
+<th>CMP结果</th>
+<th>标志位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目的操作数 ＜ 源操作数</td>
+<td>SF ≠ OF</td>
+</tr>
+<tr>
+<td>目的操作数 ＞ 源操作数</td>
+<td>SF = OF</td>
+</tr>
+<tr>
+<td>目的操作数 = 源操作数</td>
+<td>ZF = 1</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><em><strong>jnz</strong></em>指令：</p>
+<p><strong>JNZ</strong> 指令，全称为 <strong>Jump if Not Zero</strong>，是汇编语言中的条件转移指令。这条指令的作用是在结果不为零（或不相等）的情况下进行跳转。 </p>
+</li>
+<li><p><em><strong>jz</strong></em>指令</p>
+<p>与之相对的是 <strong>JZ</strong> 指令，它在结果为零时触发跳转。在实际编程中，<strong>JNZ</strong> 通常与比较指令 <strong>CMP</strong> 或测试指令 <strong>TEST</strong> 结合使用，以根据比较或测试的结果决定程序的执行流程。</p>
 </li>
 </ul>
-<h1 id="三、用IDA分析程序实例"><a href="#三、用IDA分析程序实例" class="headerlink" title="三、用IDA分析程序实例"></a>三、用IDA分析程序实例</h1><h2 id="1-查壳"><a href="#1-查壳" class="headerlink" title="1.查壳"></a>1.查壳</h2><ul>
-<li><p>使用exeinfo pe<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1837928-1-1.html">52破解</a>查壳看他是64位还是32位的程序或者其他类型的如ELF等，以便于事后进行分析。  </p>
-</li>
-<li><p>或者使用peid来进行查壳<a target="_blank" rel="noopener" href="https://www.softpedia.com/get/Programming/Packers-Crypters-Protectors/PEiD-updated.shtml">peid官网地址</a>。   </p>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p><img src="/image/easy64.png" alt="程序easy-64">  </p>
-<p>拖入exeinfope后如图  </p>
-<p><img src="/image/exeinfope.png" alt="壳"></p>
-<p>得到程序为ELF类型的。  </p>
-<h2 id="2-用IDA进行分析"><a href="#2-用IDA进行分析" class="headerlink" title="2.用IDA进行分析"></a>2.用IDA进行分析</h2><p>拖入IDA打开后点击main函数进行查看  </p>
-<p>由于对于汇编代码不熟悉，点击tab键进入伪代码。  </p>
-<p><img src="/image/easy64ida.png" alt="ida分析">  </p>
-<p><img src="/image/easy64flag.png" alt="伪代码">  </p>
-<p>由此我们得到了flag</p>
-</li>
-</ul>
+<hr>
+<h3 id="4-找真正的call"><a href="#4-找真正的call" class="headerlink" title="4>找真正的call"></a>4&gt;找真正的call</h3><p>接下来脱离流程图。  </p>
+<p>找到并选中代表<strong>注册标志</strong>的指令：cmp edi,D8  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126181532.png">  </p>
+<p>复制他的二进制指令码，并在当前模块进行<strong>匹配特征搜索</strong>，查找所有的注册标志指令。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126181949.png" alt="复制二进制指令码">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126182205.png" alt="匹配特征搜索">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126182316.png" alt="粘贴二进制码搜索">  </p>
+<p>结果只有一个  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126182434.png">  </p>
+<p>之后上网搜索发现使用了别的寄存器：</p>
+<p><code>cmp eax,DB // 3D DB 00 00 00 </code>  </p>
+<p>重新搜索匹配特征  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183108.png" alt="3D DB 00 00 00">  </p>
+<p>得到七个结果。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183330.png" alt="结果"> </p>
+<p>挨个点击去查看  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183632.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183731.png">   </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183830.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183950.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184022.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184046.png">  </p>
+<p>发现四个代码中都出现了<code>ca11 010editor.140007630</code>，所以是这个call影响了寄存器eax的值，是<em><strong>真正的call</strong></em>！    </p>
+<p>持续跟进这个call的代码段  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184907.png" alt="跟进">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184933.png" alt="再跟进">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184948.png" alt="最终子程序的代码段">  </p>
+<h3 id="5-修改注册标志"><a href="#5-修改注册标志" class="headerlink" title="5>修改注册标志"></a>5&gt;修改注册标志</h3><p>由图可知这个子程序出口有很多，只要把eax的值修改为0xD8即可注册成功。  </p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">74 10          je 010editor.140392A95  </span><br><span class="line">B8 13010000    mov eax,113  </span><br></pre></td></tr></tbody></table></figure>
+
+<p>修改为  </p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">74 00          je 010editor.140392A85  </span><br><span class="line">B8 DB000000    eax,DB</span><br></pre></td></tr></tbody></table></figure>
+
+<p>修改前  </p>
+<p><img src="/iamge/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126192129.png" alt="修改前">  </p>
+<p>右键，点二进制，点编辑（Ctrl + E）,先修改je跳转，防止他乱赋值。   </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126192244.png" alt="二进制，编辑">  </p>
+<p>修改后为  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126192543.png" alt="修改后">   </p>
+<p>Ctrl + P或者右键，补丁，修补文件。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126193751.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194006.png">  </p>
+<p>发现无法修补文件</p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194035.png">  </p>
+<p>用IDA进行逆向，再修改Assembly（安装keypatch插件）  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194359.png">   </p>
+<p>发现encode值为···，点击Patch后无法修改。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194725.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194750.png">  </p>
+<blockquote>
+<p>这种情况只能通过kstool工具(支持很多架构)(git上)，手动去翻译汇编指令称机器码然后手动填写可以完成patch  </p>
+</blockquote>
+<blockquote>
+<p>-&gt;&gt;kstool arm64 “需要翻译的汇编指令” [指令所在的地址]<br>-&gt;&gt;得到机器码</p>
+</blockquote>
+<p>由于之前我们在x64dbg修改过，得到了指令对应的机器码。  </p>
+<h3 id="6-保存修改的补丁"><a href="#6-保存修改的补丁" class="headerlink" title="6>保存修改的补丁"></a>6&gt;保存修改的补丁</h3><p>右键机器码，点Patching，点Change byte…直接更改   </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200251.png" alt="change byte"></p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126195802.png" alt="修改前">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200053.png" alt="修改后">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200204.png" alt="修改后">  </p>
+<p>右键Edit，Program，Apply Patches to…来保存  </p>
+<p><img src="/iamge/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200449.png">   </p>
+<h3 id="7-成功逆向"><a href="#7-成功逆向" class="headerlink" title="7>成功逆向"></a>7&gt;成功逆向</h3><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200942.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126201302.png" alt="成功打开"></p>
 
                 
             </div>
@@ -658,7 +536,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Bark66675.github.io/2025/01/14/my-first-blog/">https://Bark66675.github.io/2025/01/14/my-first-blog/</a>
+                    <a href="https://Bark66675.github.io/2025/01/16/010editor/">https://Bark66675.github.io/2025/01/16/010editor/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -696,8 +574,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
-                                    <span class="chip bg-color">IDA教程</span>
+                                <a href="/tags/010-Editor/">
+                                    <span class="chip bg-color">010 Editor</span>
                                 </a>
                             
                         </div>
@@ -776,9 +654,56 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2025/01/16/010editor/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="逆向破解010 Editor">
+                        
+                        <span class="card-title">逆向破解010 Editor</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Bark66675
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/010-Editor/">
+                        <span class="chip bg-color">010 Editor</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2025/01/15/webknow/">
                     <div class="card-image">
@@ -796,9 +721,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -814,43 +739,6 @@
                         <span class="chip bg-color">web学习笔记</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2025/01/14/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-14
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Bark66675
-                            
-                        </span>
-                    </div>
                 </div>
                 
             </div>
