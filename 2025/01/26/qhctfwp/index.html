@@ -4,13 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="qhctf re wp, Bark66675">
-    <meta name="description" content="1.rainbow1&amp;gt;查壳拖入ida查看伪代码
+    <meta name="keywords" content="启航杯rewp, Bark66675">
+    <meta name="description" content=".rainbow一、rainbow1&amp;gt;查壳拖入ida查看伪代码
   
 点击跟进hide-flag。  
   
 2&amp;gt;分析代码点开 xor_encrypt发现是简单的异或，分析得出flag异或后得到encryped-flag。  
-打开output">
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +22,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>qhctf re wp | Bark66675</title>
+    <title>启航杯rewp | Bark66675</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -278,12 +278,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">qhctf re wp</h1>
+                    <h1 class="description center-align post-title">启航杯rewp</h1>
                 </div>
             </div>
         </div>
@@ -332,7 +332,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    205
+                    206
                 </div>
                 
 
@@ -354,7 +354,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-rainbow"><a href="#1-rainbow" class="headerlink" title="1.rainbow"></a>1.rainbow</h2><h3 id="1-查壳拖入ida"><a href="#1-查壳拖入ida" class="headerlink" title="1>查壳拖入ida"></a>1&gt;查壳拖入ida</h3><p>查看伪代码</p>
+                <h2 id="rainbow"><a href="#rainbow" class="headerlink" title=".rainbow"></a>.rainbow</h2><h2 id="一、rainbow"><a href="#一、rainbow" class="headerlink" title="一、rainbow"></a>一、rainbow</h2><h3 id="1-查壳拖入ida"><a href="#1-查壳拖入ida" class="headerlink" title="1>查壳拖入ida"></a>1&gt;查壳拖入ida</h3><p>查看伪代码</p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126230527.png">  </p>
 <p>点击跟进hide-flag。  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126230702.png">  </p>
@@ -364,7 +364,7 @@
 <h3 id="3-写脚本"><a href="#3-写脚本" class="headerlink" title="3>写脚本"></a>3&gt;写脚本</h3><p>发现是十六进制字符串，写代码把它转换成字节再进行异或即可得到flag。  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126231702.png">  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126231742.png">   </p>
-<h2 id="2-小明的note"><a href="#2-小明的note" class="headerlink" title="2.小明的note"></a>2.小明的note</h2><h3 id="1-查壳拖入ida-1"><a href="#1-查壳拖入ida-1" class="headerlink" title="1>查壳拖入ida"></a>1&gt;查壳拖入ida</h3><p>upx -d脱壳，进入主函数查看伪代码。  </p>
+<h2 id="二、小明的note"><a href="#二、小明的note" class="headerlink" title="二、小明的note"></a>二、小明的note</h2><h3 id="1-查壳拖入ida-1"><a href="#1-查壳拖入ida-1" class="headerlink" title="1>查壳拖入ida"></a>1&gt;查壳拖入ida</h3><p>upx -d脱壳，进入主函数查看伪代码。  </p>
 <p><img src="/image%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126233934.png"></p>
 <h3 id="2-分析伪代码"><a href="#2-分析伪代码" class="headerlink" title="2>分析伪代码"></a>2&gt;分析伪代码</h3><p>进入decryped_flag，发现是dest的异或，又是异或！并且v6又是十六进制字符，要转化为字节。  </p>
 <p>a1是dest，即长度便是dest的长度</p>
@@ -372,7 +372,7 @@
 <p>往前看发现unk_2010值赋给了dest，查看unk_2010。  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127000135.png">  </p>
 <h3 id="3-写脚本-1"><a href="#3-写脚本-1" class="headerlink" title="3>写脚本"></a>3&gt;写脚本</h3><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127000517.png"></p>
-<h2 id="3-checker"><a href="#3-checker" class="headerlink" title="3.checker"></a>3.checker</h2><p>查壳32位ida分析，跟进check_flag，跟进encrypt flag，发现又是异或。</p>
+<h2 id="三、checker"><a href="#三、checker" class="headerlink" title="三、checker"></a>三、checker</h2><p>查壳32位ida分析，跟进check_flag，跟进encrypt flag，发现又是异或。</p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127001503.png">  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127001534.png">  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127001556.png">  </p>
@@ -524,18 +524,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/01/26/qhctfwp/">
+                <a href="/2025/01/27/gfsj/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="qhctf re wp">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="攻防世界re题目">
                         
-                        <span class="card-title">qhctf re wp</span>
+                        <span class="card-title">攻防世界re题目</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -545,9 +544,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-27
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -556,12 +555,11 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%AF%94%E8%B5%9Bre%E9%A2%98%E7%9B%AEwp/">
-                        <span class="chip bg-color">比赛re题目wp</span>
+                    <a href="/tags/re%E9%A2%98%E7%9B%AEwp/">
+                        <span class="chip bg-color">re题目wp</span>
                     </a>
                     
                 </div>
@@ -575,7 +573,7 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/01/21/010editor/">
+                <a href="/2025/01/22/010editor/">
                     <div class="card-image">
                         
                         
@@ -592,7 +590,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-22
                             </span>
                         <span class="publish-author">
                             
@@ -803,7 +801,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">4.1k</span>
+                        class="white-color">4.3k</span>
             
             
             
