@@ -326,7 +326,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    718
+                    1.1k
                 </div>
                 
 
@@ -368,7 +368,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305200132.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305200132.png">   </p>
 <p>3.<code>call analysis failed</code></p>
 <ul>
 <li><p>成因：F5在分析调用时，未能成功解析<em>参数位置/参数个苏</em></p>
@@ -394,7 +394,29 @@
 </li>
 <li>非常罕见</li>
 </ul>
-<p>5.<code>local variable allocation failed</code>  </p>
+<p>5.<code>too big function</code> </p>
+<ul>
+<li><p>成因：当前函数大小大于允许的最大值，函数大小最大值有配置文件中的<code>MAX_FUNCSIZE </code>变量控制。  </p>
+</li>
+<li><pre><code>MAX_FUNCSIZE 的定义:
+反编译函数大小最大值，使用KB单位计算。只有可读的基本块被统计在内。默认值是64，即64KB。
+出现这个报错，说明反编译函数的大小已经超过了64。
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 解决方案：</span><br><span class="line"></span><br><span class="line">  ​     1.修改配置文件：`【IDA 安装目录】\cfg\hexrays.cfg`</span><br><span class="line"></span><br><span class="line">  ​      源文件为：</span><br><span class="line"></span><br><span class="line">  * ```</span><br><span class="line">    MAX_FUNCSIZE            = 64        // Functions over 64K are not decompiled</span><br></pre></td></tr></tbody></table></figure>
+
+  修改为：
+
+* ```
+  MAX_FUNCSIZE            = 1024        // Functions over 64K are not decompiled
+  
+</code></pre>
+<p>  2.重新启动IDA，使配置生效。  </p>
+<p>  <img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305204340.png"></p>
+</li>
+</ul>
+<p>如果函数太大，逻辑太负载，及时调大<code>MAX_FUNCSIZE</code>也会出现新的错误，比如<code>too complex function</code>，这种情况就无能为力了。官方也解决不了。</p>
+<p>如果调大以后，出现卡死问题，建议把值调小一些。</p>
+<p>6.<code>local variable allocation failed</code>  </p>
 <ul>
 <li>成因： 分析函数时，有部分变量对应的区域发生重叠，多见于ARM平台出现Point、Rect等8字节、16字节、32字节结构</li>
 <li>解决方案<ul>
@@ -403,13 +425,32 @@
 </ul>
 </li>
 </ul>
-<p>6.<code> F5结果不正确</code></p>
+<p>7.<code> F5结果不正确</code></p>
 <ul>
 <li>成因：F5会自动删除其认为不可能到达的死代码</li>
 <li>常见起因是一个函数错误的标注为noretur函数</li>
 <li>解决方案<ul>
 <li>进到目前反编译结果，找到最后被调用的函数(被错误分析的函数)，双击进入（迫使HexRays重新分析相应函数）</li>
 <li>如果上述方案不成功，那么进到被错误分析的函数，按Tab切换到反汇编界面，按Alt+P进入界面取消函数的Does not return 属性</li>
+</ul>
+</li>
+</ul>
+<p>8.<code>local variable allocation failed</code></p>
+<ul>
+<li><p><strong>成因</strong>：</p>
+<ul>
+<li><p>分析函数 时，有部分变量对应的区域发生重叠，多见于ARM平台出现point rect等8字节，16字节，32字节结构时尤其多见。  </p>
+</li>
+<li><p>此错误消息意味着反编译器无法使用寄存器和堆栈位置分配本地变量。  </p>
+</li>
+<li><p>只有在配置文件中启用了HO_IGNORE_OVERLAPS之后，才会看到这个错误消息。如果输出中允许有重叠的变量，则以红色显示。</p>
+</li>
+</ul>
+</li>
+<li><p>解决方案：</p>
+<ul>
+<li>修改对应参数为多个int。  </li>
+<li>更新函数堆栈帧并创建正确的堆栈变量也可以帮助解决这个问题。</li>
 </ul>
 </li>
 </ul>
@@ -824,7 +865,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5k</span>
+                        class="white-color">5.4k</span>
             
             
             
