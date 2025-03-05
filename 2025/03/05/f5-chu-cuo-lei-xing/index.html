@@ -353,10 +353,11 @@
 <ul>
 <li><p><strong>成因</strong>：IDA会自动分析SP寄存器的变化量，由于缺少调用约定、参数个数等信息，导致分析出错。 一般是程序代码有一些干扰代码，让IDA的反汇编分析出现错误。比如用push + n条指令 + retn来实际跳转，而IDA会以为retn是函数要结束，结果它分析后发现调用栈不平衡，因此就提示sp analysis failed。  </p>
 </li>
-<li><p><strong>解决方案</strong>：Option-&gt;General设置显示Stack Pointer，检查对应地址附近的调用约定以及栈指针变化。直接使用alt+k修改sp指针，将其修改为应有的值即可（可以改为指向上一行的sp或者修改为0）。（有风险）</p>
+<li><p><strong>解决方案</strong>：Option-&gt;General设置显示Stack Pointer，检查对应地址附近的调用约定以及栈指针变化。直接使用alt+k修改sp指针，将其修改为应有的值即可（可以改为指向上一行的sp或者修改为0）。（有风险）    </p>
+</li>
+<li><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305210451.png"></p>
 </li>
 </ul>
-<p>​     <img src="/imgae/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305210451.png">   </p>
 <p>2.<code> cannot convert to microcode</code></p>
 <ul>
 <li><p><strong>成因</strong>：部分指令无法被反编译，有未设置成指令的数据字节。  </p>
@@ -365,10 +366,10 @@
 <ul>
 <li>最常见起因是函数中有未设置成指令的数据字节，按c将其设置为指令即可。  </li>
 <li>其次常见的是x86中的rep前缀，比如repxx  jmp等。可以将该指令的第一个字节(repxx前缀的对应位置)patch为0x90 (NOP)。</li>
+<li><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305200132.png"></li>
 </ul>
 </li>
 </ul>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305200132.png">   </p>
 <p>3.<code>call analysis failed</code></p>
 <ul>
 <li><p>成因：F5在分析调用时，未能成功解析<em>参数位置/参数个苏</em></p>
@@ -420,7 +421,7 @@
 </ul>
 </li>
 </ul>
-<p>如果函数太大，逻辑太负载，及时调大<code>MAX_FUNCSIZE</code>也会出现新的错误，比如<code>too complex function</code>，这种情况就无能为力了。官方也解决不了。</p>
+<p>如果函数太大，逻辑太负载，及时调大<strong>MAX_FUNCSIZE</strong>也会出现新的错误，比如<strong>too complex function</strong>，这种情况就无能为力了。官方也解决不了。</p>
 <p>如果调大以后，出现卡死问题，建议把值调小一些。</p>
 <p>6.<code>local variable allocation failed</code>  </p>
 <ul>
