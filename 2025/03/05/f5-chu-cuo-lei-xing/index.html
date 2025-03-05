@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="f5出错类型, Bark66675">
     <meta name="description" content="f5生成伪代码出错的几种类型
-常见F5出错信息1.posutuve sp value  
+常见F5出错信息1.posutuve sp value has been found  
 
-成因：IDA会自动分析SP寄存器的变化量，由于缺少调用约定、参数个数等信息，导致分析出错。 一般是程序代码有一些干扰代码，让IDA的反汇编分析出现错">
+成因：IDA会自动分析SP寄存器的变化量，由于缺少调用约定、参数个数等信息，导致分析出错。 一般是程序代码有一些干扰代">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -349,14 +349,14 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="f5生成伪代码出错的几种类型"><a href="#f5生成伪代码出错的几种类型" class="headerlink" title="f5生成伪代码出错的几种类型"></a>f5生成伪代码出错的几种类型</h1><hr>
-<h2 id="常见F5出错信息"><a href="#常见F5出错信息" class="headerlink" title="常见F5出错信息"></a>常见F5出错信息</h2><p>1.<code>posutuve sp value </code> </p>
+<h2 id="常见F5出错信息"><a href="#常见F5出错信息" class="headerlink" title="常见F5出错信息"></a>常见F5出错信息</h2><p>1.<code>posutuve sp value has been found </code> </p>
 <ul>
 <li><p><strong>成因</strong>：IDA会自动分析SP寄存器的变化量，由于缺少调用约定、参数个数等信息，导致分析出错。 一般是程序代码有一些干扰代码，让IDA的反汇编分析出现错误。比如用push + n条指令 + retn来实际跳转，而IDA会以为retn是函数要结束，结果它分析后发现调用栈不平衡，因此就提示sp analysis failed。  </p>
 </li>
 <li><p><strong>解决方案</strong>：Option-&gt;General设置显示Stack Pointer，检查对应地址附近的调用约定以及栈指针变化。直接使用alt+k修改sp指针，将其修改为应有的值即可（可以改为指向上一行的sp或者修改为0）。（有风险）</p>
 </li>
 </ul>
-<p>​     <img src="/imgae/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305200542.png">   </p>
+<p>​     <img src="/imgae/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250305210451.png">   </p>
 <p>2.<code> cannot convert to microcode</code></p>
 <ul>
 <li><p><strong>成因</strong>：部分指令无法被反编译，有未设置成指令的数据字节。  </p>
@@ -401,10 +401,12 @@
 <blockquote>
 <p>反编译函数大小最大值，使用KB单位计算。只有可读的基本块被统计在内。默认值是64，即64KB。</p>
 </blockquote>
+</li>
+</ul>
 <blockquote>
 <p>出现这个报错，说明反编译函数的大小已经超过了64。</p>
 </blockquote>
-</li>
+<ul>
 <li><p>解决方案：</p>
 <p>​     1.修改配置文件：<code>【IDA 安装目录】\cfg\hexrays.cfg</code></p>
 <p>​      源文件为：</p>
