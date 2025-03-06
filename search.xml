@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Base64编码解析</title>
+      <link href="/2025/03/06/bit/"/>
+      <url>/2025/03/06/bit/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Base64编码解析"><a href="#Base64编码解析" class="headerlink" title="Base64编码解析"></a>Base64编码解析</h1><hr><h2 id="计算机单位解析"><a href="#计算机单位解析" class="headerlink" title="计算机单位解析"></a>计算机单位解析</h2><h3 id="一、位，字节，的定义"><a href="#一、位，字节，的定义" class="headerlink" title="一、位，字节，的定义"></a>一、位，字节，的定义</h3><p>1.<a href="https://www.baidu.com/s?wd=bit&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao">bit</a>（Binary Digits）就是<a href="https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E5%AD%97/5920908?fromModule=lemma_inlink">二进制数字</a>中的位，是信息量的度量单位，为信息量的最小单位，也叫<a href="https://www.baidu.com/s?wd=%E6%AF%94%E7%89%B9%E4%BD%8D&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao">比特位</a>，<em><strong>存放一位二进制数，即0或1</strong></em>，是计算机表示数据最小的单位。  （b）</p><p>2.<a href="https://www.baidu.com/s?wd=byte&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao">byte</a>就是字节，字节(Byte)是计量单位，是计算机的基本存储单位，表示数据量多少，是计算机信息技术用于计量存储容量的一种计量单位.通常情况下一字节等于8位，一个字节由8个相邻的二进制位组成，每个位由0或1组成。字节是计算机技术中最小的可操作存储单位。  （B）  </p><h3 id="二、换算"><a href="#二、换算" class="headerlink" title="二、换算"></a>二、换算</h3><ol><li>​    1byte=8bit</li><li>​    1KB=1024B</li><li>​    1MB=1024KB</li><li>​    1G=1024MB</li><li>​    1tb=1024gb  </li><li>​    1pb=1024tb</li></ol><h3 id="三、字节与字符"><a href="#三、字节与字符" class="headerlink" title="三、字节与字符"></a>三、字节与字符</h3><ul><li><p>字符的定义：</p><ul><li><p>字符(Character)计算机中使用的字母、数字、字和符号，比如’A’、’B’、’$’、’&amp;’等。</p><p>一般在英文状态下一个字母或字符占用一个字节，一个汉字用两个字节表示。</p><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250306205915.png"></p></li></ul></li></ul><ol><li>ASCII 码中，一个英文字母（不分大小写）为一个字节，一个中文汉字为两个字节。</li><li>UTF-8 编码中，一个英文字为一个字节，一个中文为三个字节。  </li><li>Unicode 编码中，一个英文为一个字节，一个中文为两个字节。  </li><li>符号：英文标点为一个字节，中文标点为两个字节。例如：英文句号 . 占1个字节的大小，中文句号  。占2个字节的大小。  </li><li>UTF-16 编码中，一个英文字母字符或一个汉字字符存储都需要 2 个字节（Unicode 扩展区的一些汉字存储需要 4 个字节）。  </li><li>UTF-32 编码中，世界上任何字符的存储都需要 4 个字节。</li></ol><h2 id="base64原理解析"><a href="#base64原理解析" class="headerlink" title="base64原理解析"></a>base64原理解析</h2><h3 id="1-base64是什么："><a href="#1-base64是什么：" class="headerlink" title="1.base64是什么："></a>1.base64是什么：</h3><blockquote><p>Base64 是一种基于 64 个可打印字符来表示<a href="https://zhida.zhihu.com/search?content_id=112952835&amp;content_type=Article&amp;match_order=1&amp;q=%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E6%8D%AE&amp;zhida_source=entity">二进制数据</a>的表示方法。由于 2^6=64，所以每 6 个比特为一个单元，对应某个可打印字符。3 个字节有 24 个比特，对应于 4 个 Base64 单元，即 3 个字节可由 4 个可打印字符来表示。<br>——维基百科</p></blockquote><p>它不是一种加解密技术，是一种简单的编解码技术。  </p><p>Base64 常用于表示、传输、存储二进制数据，也可以用于将一些含有特殊字符的文本内容编码，以便传输。</p><p>比如：</p><ol><li>在电子邮件的传输中，Base64 可以用来将 binary 的字节序列，比如附件，编码成 ASCII 字节序列；</li><li>将一些体积不大的图片 Base64 编码后，直接内嵌到网页源码里；</li><li>将要传递给 HTTP 请求的参数做简单的转换，降低肉眼可读性；<br><em>注：用于 URL 的 Base64 非标准 Base64，是一种变种。</em></li><li>网友们在论坛等公开场合习惯将邮箱地址 Base64 后再发出来，防止被爬虫抓取后发送垃圾邮件。</li></ol><h3 id="2-base64编码原理："><a href="#2-base64编码原理：" class="headerlink" title="2.base64编码原理："></a>2.base64编码原理：</h3><p>标准 Base64 里的 64 个可打印字符是 <code>A-Za-z0-9+/</code>，分别依次对应索引值 0-63。  </p><p>其中：  </p><p>​         <code>A-Z</code>、<code>a-z</code>、<code>0-9</code> 共 62 个字符</p><p>​         <code>+</code> 和 <code>/</code> 用作填充字符</p><p>​         <code>=</code> 用作填充符，使数据长度对齐到 4 字节</p><ul><li><p><strong>具体步骤</strong>：  </p><ol><li><p>将输入数据转换为二进制</p></li><li><p>将待转换的字符串每三个字节分为一组，每个字节占8bit，那么共有24个二进制位。 </p></li><li><p>将上面的24个二进制位每6个一组，共分为4组，每组对应 Base64 字符集中的一个字符，根据 Base64 字符集查找对应字符  </p></li><li><p>如果数据长度不是 3 的倍数，则先进行补0处理，再使用 <code>=</code> 填充</p><ul><li>如果最后剩下 1 个字节，那么将补 4 个 0 位，编码成 2 个 Base64 字符，然后补两个 <code>=</code></li><li>如果最后剩下 2 个字节，那么将补 2 个 0 位，编码成 3 个 Base64 字符，然后补一个 <code>=</code></li></ul><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250306212941.png">   </p><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250306213033.png"></p></li></ol><hr><p>参考文章：</p><p><a href="https://zhuanlan.zhihu.com/p/111700349">https://zhuanlan.zhihu.com/p/111700349</a></p><p><a href="https://www.cnblogs.com/happy-coding/p/18747324">https://www.cnblogs.com/happy-coding/p/18747324</a></p><p><a href="https://www.runoob.com/w3cnote/byte-character.html">https://www.runoob.com/w3cnote/byte-character.html</a></p></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 计算机单位 字节与字符 base64编码原理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>f5报错的几种类型</title>
       <link href="/2025/03/05/f5-chu-cuo-lei-xing/"/>
       <url>/2025/03/05/f5-chu-cuo-lei-xing/</url>
