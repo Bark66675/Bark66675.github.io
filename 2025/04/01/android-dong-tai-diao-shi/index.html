@@ -331,7 +331,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.8k
                 </div>
                 
 
@@ -383,7 +383,6 @@
 <li>在Android Killer工具中，<strong>“default”</strong> 和 <strong>“AndroidKiller”</strong> 是两种不同的编译配置选项，它们的核心区别在于 <strong>签名配置</strong> 和 <strong>编译参数</strong>。以下是具体分析：</li>
 </ul>
 <blockquote>
-<hr>
 <h3 id="1-两者的核心区别"><a href="#1-两者的核心区别" class="headerlink" title="1. 两者的核心区别"></a><strong>1. 两者的核心区别</strong></h3><table>
 <thead>
 <tr>
@@ -413,6 +412,7 @@
 <td>需要重新打包并安装到设备的调试场景</td>
 </tr>
 </tbody></table>
+<hr>
 <h3 id="2-如何选择？"><a href="#2-如何选择？" class="headerlink" title="2. 如何选择？"></a><strong>2. 如何选择？</strong></h3><ul>
 <li><strong>选择 <code>AndroidKiller</code> 配置的情况</strong>：<ul>
 <li>需要重新打包APK并安装到设备（尤其是非Root设备）。</li>
@@ -426,6 +426,7 @@
 </ul>
 </li>
 </ul>
+<hr>
 <h3 id="3-验证配置差异的方法"><a href="#3-验证配置差异的方法" class="headerlink" title="3. 验证配置差异的方法"></a><strong>3. 验证配置差异的方法</strong></h3><ol>
 <li><strong>检查签名配置</strong>：<ul>
 <li>在Android Killer中打开 <strong><code>配置</code></strong> → <strong><code>签名配置</code></strong>，查看两种选项是否使用不同的 <code>.keystore</code> 文件。</li>
@@ -458,6 +459,7 @@
 <li><strong>优先选择 <code>AndroidKiller</code> 配置</strong>：它能自动处理签名和对齐，适合大多数重新打包场景。</li>
 <li><strong>仅在特殊需求时使用 <code>default</code></strong>：如需自定义签名或调试未安装的APK逻辑。</li>
 </ul>
+<p>通过理解配置差异并针对性选择，可显著提高逆向工程和APK修改的效率。</p>
 </blockquote>
 </li>
 <li><p>最后用jeb再进行动态调试，发现可以附上了，click一下flag就出来了。  </p>
@@ -504,6 +506,45 @@
 <li><p>直接click得到flag。</p>
 </li>
 </ol>
+<blockquote>
+<h3 id="1-原APK无法调试的原因"><a href="#1-原APK无法调试的原因" class="headerlink" title="1. 原APK无法调试的原因"></a><strong>1. 原APK无法调试的原因</strong></h3><ul>
+<li><strong>默认不可调试属性</strong>：原APK可能在构建时未设置 <code>android:debuggable="true"</code>，导致JEB/Jadx无法附加调试器（端口报错是典型表现）。</li>
+<li><strong>调试依赖条件</strong>：正常调试需要APK的 <code>AndroidManifest.xml</code> 中明确声明可调试，否则ADB会拒绝连接。</li>
+</ul>
+<hr>
+<h3 id="2-修改APK后安装失败的原因"><a href="#2-修改APK后安装失败的原因" class="headerlink" title="2. 修改APK后安装失败的原因"></a><strong>2. 修改APK后安装失败的原因</strong></h3><ul>
+<li><strong>签名问题</strong>：修改APK后需重新签名。若未正确签名（如使用调试密钥对齐签名），雷电模拟器会拒绝安装。</li>
+<li><strong>Manifest格式错误</strong>：手动修改XML可能导致格式错误（如标签未闭合），引发解析失败。</li>
+<li><strong>回编工具问题</strong>：使用<code>apktool</code>等工具解包/回编时，若版本不兼容或参数错误，可能导致APK损坏。</li>
+</ul>
+<hr>
+<h3 id="3-Root权限-远程ADB成功的原因"><a href="#3-Root权限-远程ADB成功的原因" class="headerlink" title="3. Root权限+远程ADB成功的原因"></a><strong>3. Root权限+远程ADB成功的原因</strong></h3><ul>
+<li><strong>绕过调试属性限制</strong>：Root权限允许通过系统级操作（如修改 <code>ro.debuggable</code> 属性）强制开启全局调试，此时<strong>无需APK自身可调试</strong>。</li>
+<li><strong>ADB远程连接模式</strong>：远程连接可能绕过了本地ADB的某些限制，或直接以更高权限附加到进程（如通过<code>ptrace</code>）。</li>
+<li><strong>原APK的漏洞利用</strong>：若APK本身存在逻辑漏洞（如硬编码密钥），Root后可直接提取内存数据或修改运行时行为，无需动态调试。</li>
+</ul>
+<hr>
+<h3 id="关键结论"><a href="#关键结论" class="headerlink" title="关键结论"></a><strong>关键结论</strong></h3><ul>
+<li><strong>Root权限的作用</strong>：开启Root后，可通过系统命令（如 <code>setprop ro.debuggable 1</code>）强制允许调试所有应用，此时原APK即使未标记为可调试也能被调试。</li>
+<li><strong>修改APK的替代方案</strong>：直接使用Root权限调试，避免了因签名或打包错误导致安装失败的问题，是一种更高效的绕过手段。</li>
+</ul>
+<hr>
+<h3 id="解决方案建议"><a href="#解决方案建议" class="headerlink" title="解决方案建议"></a><strong>解决方案建议</strong></h3><ol>
+<li><p><strong>签名验证</strong>：若需修改APK，务必用 <code>jarsigner</code> 或 <code>apksigner</code> 重新签名，并使用 <code>zipalign</code> 对齐。</p>
+</li>
+<li><p><strong>Root环境利用</strong>：优先在Root环境下调试，通过<code>frida</code>、<code>GDB</code>等工具直接注入或分析内存，避免修改APK的繁琐流程。</p>
+</li>
+<li><p><strong>系统属性修改</strong>：Root后执行以下命令强制开启全局调试：</p>
+<p>bash</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb root          # 获取ADB Root权限</span><br><span class="line">adb shell setprop ro.debuggable 1</span><br><span class="line">adb shell stop &amp;&amp; adb shell start  # 重启ADB</span><br></pre></td></tr></tbody></table></figure>
+
+<p>此后可调试任意APK，无需修改Manifest。</p>
+</li>
+</ol>
+<hr>
+<p>通过Root权限绕过APK本身的调试限制，是CTF中常见的技巧，既能避免打包错误，又能直接深入分析进程内存，是高效解题的关键。</p>
+</blockquote>
 <hr>
 <p>参考文献：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25844803/article/details/84953332?ops_request_misc=%257B%2522request%255Fid%2522%253A%25221d689afc40bfd0ce9087069360d7897a%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=1d689afc40bfd0ce9087069360d7897a&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-84953332-null-null.nonecase&amp;utm_term=APK%E5%8F%8D%E7%BC%96%E8%AF%91%E9%87%8D%E6%89%93%E5%8C%85&amp;spm=1018.2226.3001.4450">APK反编译、重打包、签名之apktool实现</a></p>
@@ -931,7 +972,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">7.9k</span>
+                        class="white-color">8.6k</span>
             
             
             
