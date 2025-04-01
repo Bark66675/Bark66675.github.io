@@ -5,11 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Android动态调试小记, Bark66675">
-    <meta name="description" content="安卓动态调试
+    <meta name="description" content="给apk加上动态可调试属性安卓动态调试——apk加上动态可调试属性
 刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。
-一、给apk加上动态可调试属性用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  
+
+用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  
   
-先用雷电模拟器在程序里面运行这个程序">
+先用雷电模">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -306,8 +307,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/apk%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
-                                <span class="chip bg-color">apk动态调试</span>
+                            <a href="/tags/%E5%AE%89%E5%8D%93%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
+                                <span class="chip bg-color">安卓动态调试</span>
                             </a>
                         
                     </div>
@@ -353,9 +354,10 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="安卓动态调试"><a href="#安卓动态调试" class="headerlink" title="安卓动态调试"></a>安卓动态调试</h1><hr>
+                <h1 id="给apk加上动态可调试属性"><a href="#给apk加上动态可调试属性" class="headerlink" title="给apk加上动态可调试属性"></a>给apk加上动态可调试属性</h1><h1 id="安卓动态调试——apk加上动态可调试属性"><a href="#安卓动态调试——apk加上动态可调试属性" class="headerlink" title="安卓动态调试——apk加上动态可调试属性"></a>安卓动态调试——apk加上动态可调试属性</h1><hr>
 <p>刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。</p>
-<h2 id="一、给apk加上动态可调试属性"><a href="#一、给apk加上动态可调试属性" class="headerlink" title="一、给apk加上动态可调试属性"></a>一、给apk加上动态可调试属性</h2><p>用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  </p>
+<hr>
+<p>用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401200202.png">  </p>
 <p>先用雷电模拟器在程序里面运行这个程序，接着用adb测试远程连接：输入adb devices。如图显示就算端口连接好了。</p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401200756.png">  </p>
@@ -368,10 +370,10 @@
 <p>提示程序不可调试nondebuggable。  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201623.png">  </p>
 <p>提示无法attach上。   </p>
-<h3 id="1-用Android-Killer编译的方法修改apk为可调式"><a href="#1-用Android-Killer编译的方法修改apk为可调式" class="headerlink" title="1.用Android Killer编译的方法修改apk为可调式"></a>1.用Android Killer编译的方法修改apk为可调式</h3><ol>
+<h2 id="一、用Android-Killer编译的方法修改apk为可调式"><a href="#一、用Android-Killer编译的方法修改apk为可调式" class="headerlink" title="一、用Android Killer编译的方法修改apk为可调式"></a>一、用Android Killer编译的方法修改apk为可调式</h2><ol>
 <li>用Android Killer打开apk，可以解包这个程序。</li>
 </ol>
-<p>​    <img src="/iamge/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201957.png">  </p>
+<p>​    <img src="/iamge/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401213521.png">  </p>
 <ol start="2">
 <li><p>点开AndroidMainfest.xml，在&lt;application那一行后面加上android:debuggable=”true”这个属性（记得要ctrl+s保存）。  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202410.png" alt="原本的样子">  </p>
@@ -466,7 +468,7 @@
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401204037.jpg"></p>
 </li>
 </ol>
-<h3 id="2-用apktool手动解包修改他的属性，再进行对齐签名的方法"><a href="#2-用apktool手动解包修改他的属性，再进行对齐签名的方法" class="headerlink" title="2.用apktool手动解包修改他的属性，再进行对齐签名的方法"></a>2.用apktool手动解包修改他的属性，再进行对齐签名的方法</h3><p>​    <em><strong>参考自视频<a href="%E3%80%90JNSEC2023-2024%E5%B9%B4%E5%BA%A6Android%E9%80%86%E5%90%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BE%8B%E4%BC%9A%E3%80%91https://www.bilibili.com/video/BV182421T7BS?vd_source=5f5c761091725078a8c620d82a23116b">27分21秒开始</a></strong></em>    </p>
+<h2 id="二、用apktool手动解包修改他的属性，再进行对齐签名的方法"><a href="#二、用apktool手动解包修改他的属性，再进行对齐签名的方法" class="headerlink" title="二、用apktool手动解包修改他的属性，再进行对齐签名的方法"></a>二、用apktool手动解包修改他的属性，再进行对齐签名的方法</h2><p>​    <em><strong>参考自视频<a href="%E3%80%90JNSEC2023-2024%E5%B9%B4%E5%BA%A6Android%E9%80%86%E5%90%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BE%8B%E4%BC%9A%E3%80%91https://www.bilibili.com/video/BV182421T7BS?vd_source=5f5c761091725078a8c620d82a23116b">27分21秒开始</a></strong></em>    </p>
 <p>​    参考自文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25844803/article/details/84953332?ops_request_misc=%257B%2522request%255Fid%2522%253A%25221d689afc40bfd0ce9087069360d7897a%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=1d689afc40bfd0ce9087069360d7897a&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-84953332-null-null.nonecase&amp;utm_term=APK%E5%8F%8D%E7%BC%96%E8%AF%91%E9%87%8D%E6%89%93%E5%8C%85&amp;spm=1018.2226.3001.4450">APK反编译、重打包、签名之apktool实现</a></p>
 <ol>
 <li><p>把apk放到apk目录下面，并且在apktool目录下打开cmd输入<code>apktool d DebugeMe.apk</code>会将解包的数据输出在其目录下。  </p>
@@ -493,7 +495,7 @@
 <p>至此，apk反编译，修改文件，重打包，签名全部完成。</p>
 </li>
 </ol>
-<h3 id="3-绕过apk不可调试的属性限制"><a href="#3-绕过apk不可调试的属性限制" class="headerlink" title="3.绕过apk不可调试的属性限制"></a>3.绕过apk不可调试的属性限制</h3><ul>
+<h2 id="三、绕过apk不可调试的属性限制"><a href="#三、绕过apk不可调试的属性限制" class="headerlink" title="三、绕过apk不可调试的属性限制"></a>三、绕过apk不可调试的属性限制</h2><ul>
 <li><strong>无需</strong>开启apk的可调试（debuggable）属性</li>
 </ul>
 <ol>
@@ -613,8 +615,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/apk%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
-                                    <span class="chip bg-color">apk动态调试</span>
+                                <a href="/tags/%E5%AE%89%E5%8D%93%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
+                                    <span class="chip bg-color">安卓动态调试</span>
                                 </a>
                             
                         </div>
@@ -729,8 +731,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/apk%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
-                        <span class="chip bg-color">apk动态调试</span>
+                    <a href="/tags/%E5%AE%89%E5%8D%93%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
+                        <span class="chip bg-color">安卓动态调试</span>
                     </a>
                     
                 </div>
