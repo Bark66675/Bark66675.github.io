@@ -4,15 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="攻防世界re题目, Bark66675">
-    <meta name="description" content="攻防世界逆向题目一、1000click思路一：点开程序后发现是游戏，点击1000下可以获得flag，利用CE可以破解游戏。  
-打开程序  
+    <meta name="keywords" content="Android动态调试小记, Bark66675">
+    <meta name="description" content="安卓动态调试
+刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。
+一、给apk加上动态可调试属性用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  
   
-  
-click一下，修改数值，首次扫描。  
-  
-  
-随便click，输入click后">
+先用雷电模拟器在程序里面运行这个程序">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -24,7 +21,7 @@ click一下，修改数值，首次扫描。
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>攻防世界re题目 | Bark66675</title>
+    <title>Android动态调试小记 | Bark66675</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -280,12 +277,12 @@ click一下，修改数值，首次扫描。
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">攻防世界re题目</h1>
+                    <h1 class="description center-align post-title">Android动态调试小记</h1>
                 </div>
             </div>
         </div>
@@ -309,8 +306,8 @@ click一下，修改数值，首次扫描。
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/re%E9%A2%98%E7%9B%AEwp/">
-                                <span class="chip bg-color">re题目wp</span>
+                            <a href="/tags/apk%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
+                                <span class="chip bg-color">apk动态调试</span>
                             </a>
                         
                     </div>
@@ -325,7 +322,7 @@ click一下，修改数值，首次扫描。
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-01-27
+                    2025-04-01
                 </div>
                 
 
@@ -334,7 +331,7 @@ click一下，修改数值，首次扫描。
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    162
+                    1.2k
                 </div>
                 
 
@@ -356,31 +353,161 @@ click一下，修改数值，首次扫描。
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="攻防世界逆向题目"><a href="#攻防世界逆向题目" class="headerlink" title="攻防世界逆向题目"></a>攻防世界逆向题目</h1><h2 id="一、1000click"><a href="#一、1000click" class="headerlink" title="一、1000click"></a>一、1000click</h2><h3 id="思路一："><a href="#思路一：" class="headerlink" title="思路一："></a>思路一：</h3><p>点开程序后发现是游戏，点击1000下可以获得flag，利用CE可以破解游戏。  </p>
-<p>打开程序  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127005601.png">  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127010341.png">  </p>
-<p>click一下，修改数值，首次扫描。  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127010551.png">  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127010656.png" alt="首次扫描结果">  </p>
-<p>随便click，输入click后的值再次扫描。  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127010901.png">  </p>
-<p>得到唯一的基址，双击基址添加它。  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127010955.png">  </p>
-<p>双击下面的数值更改它成999。 </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127011150.png">  </p>
-<p>最后点击程序click一下，得到flag  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127011217.png">  </p>
-<h3 id="思路二："><a href="#思路二：" class="headerlink" title="思路二："></a>思路二：</h3><p>利用ida静态分析。</p>
-<p>点击程序check，出现error。  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127011530.png">  </p>
-<p>查壳发现是32位的无壳，拖入idax32。  </p>
-<p>在字符串处查找error。  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127011854.png">  </p>
-<p>跟进，ctrl x交叉引用  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127011919.png">  </p>
-<p>向上划一下便得到flag。  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250127012058.png">  </p>
+                <h1 id="安卓动态调试"><a href="#安卓动态调试" class="headerlink" title="安卓动态调试"></a>安卓动态调试</h1><hr>
+<p>刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。</p>
+<h2 id="一、给apk加上动态可调试属性"><a href="#一、给apk加上动态可调试属性" class="headerlink" title="一、给apk加上动态可调试属性"></a>一、给apk加上动态可调试属性</h2><p>用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401200202.png">  </p>
+<p>先用雷电模拟器在程序里面运行这个程序，接着用adb测试远程连接：输入adb devices。如图显示就算端口连接好了。</p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401200756.png">  </p>
+<p>  adb devices -l查看连接的设备  </p>
+<p>  adb shell ps查看线程状态  </p>
+<p>然后才能在jeb里面点击调试器或者甲虫下图标进行动态调试，不然会显示调试的目标不存在。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201241.png" alt="有可以连接的设备">    </p>
+<p>点击attach附上。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201443.png" alt="报错">   </p>
+<p>提示程序不可调试nondebuggable。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201623.png">  </p>
+<p>提示无法attach上。   </p>
+<h3 id="1-用Android-Killer编译的方法修改apk为可调式"><a href="#1-用Android-Killer编译的方法修改apk为可调式" class="headerlink" title="1.用Android Killer编译的方法修改apk为可调式"></a>1.用Android Killer编译的方法修改apk为可调式</h3><ol>
+<li>用Android Killer打开apk，可以解包这个程序。</li>
+</ol>
+<p>​    <img src="/iamge/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201957.png">  </p>
+<ol start="2">
+<li><p>点开AndroidMainfest.xml，在&lt;application那一行后面加上android:debuggable=”true”这个属性（记得要ctrl+s保存）。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202410.png" alt="原本的样子">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202526.png" alt="更改后的样子"></p>
+</li>
+<li><p>把编译先设置成AndroidKiller选项，然后进行编译。会生成编译后可调试的apk（如果有报错根据提示修改）。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202951.png">  </p>
+<ul>
+<li>在Android Killer工具中，<strong>“default”</strong> 和 <strong>“AndroidKiller”</strong> 是两种不同的编译配置选项，它们的核心区别在于 <strong>签名配置</strong> 和 <strong>编译参数</strong>。以下是具体分析：</li>
+</ul>
+<blockquote>
+<hr>
+<h3 id="1-两者的核心区别"><a href="#1-两者的核心区别" class="headerlink" title="1. 两者的核心区别"></a><strong>1. 两者的核心区别</strong></h3><table>
+<thead>
+<tr>
+<th><strong>配置项</strong></th>
+<th><strong>default（默认配置）</strong></th>
+<th><strong>AndroidKiller（工具自定义配置）</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>签名文件</strong></td>
+<td>通常使用空签名或无有效签名</td>
+<td>预置工具自带的调试签名（如 <code>debug.keystore</code>）</td>
+</tr>
+<tr>
+<td><strong>签名对齐</strong></td>
+<td>可能未启用 <code>zipalign</code> 优化</td>
+<td>默认启用 <code>zipalign</code> 对齐优化</td>
+</tr>
+<tr>
+<td><strong>兼容性</strong></td>
+<td>可能因签名问题导致安装失败</td>
+<td>针对重新打包场景优化，兼容性更好</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>临时测试或无需安装的场景（如静态分析）</td>
+<td>需要重新打包并安装到设备的调试场景</td>
+</tr>
+</tbody></table>
+<h3 id="2-如何选择？"><a href="#2-如何选择？" class="headerlink" title="2. 如何选择？"></a><strong>2. 如何选择？</strong></h3><ul>
+<li><strong>选择 <code>AndroidKiller</code> 配置的情况</strong>：<ul>
+<li>需要重新打包APK并安装到设备（尤其是非Root设备）。</li>
+<li>希望自动处理签名和对齐，避免手动操作。</li>
+<li>遇到安装失败问题时（如 <code>INSTALL_PARSE_FAILED_NO_CERTIFICATES</code> 错误）。</li>
+</ul>
+</li>
+<li><strong>选择 <code>default</code> 配置的情况</strong>：<ul>
+<li>仅需反编译查看代码/资源，无需重新安装。</li>
+<li>已手动配置签名文件（如自有证书）或有特殊编译需求。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-验证配置差异的方法"><a href="#3-验证配置差异的方法" class="headerlink" title="3. 验证配置差异的方法"></a><strong>3. 验证配置差异的方法</strong></h3><ol>
+<li><strong>检查签名配置</strong>：<ul>
+<li>在Android Killer中打开 <strong><code>配置</code></strong> → <strong><code>签名配置</code></strong>，查看两种选项是否使用不同的 <code>.keystore</code> 文件。</li>
+<li>若 <code>AndroidKiller</code> 使用 <code>debug.keystore</code> 而 <code>default</code> 为空，则前者能生成有效签名的APK。</li>
+</ul>
+</li>
+<li><strong>查看编译日志</strong>：<ul>
+<li>编译时观察日志中是否包含 <code>zipalign</code> 步骤。<code>AndroidKiller</code> 配置通常会自动对齐优化。</li>
+</ul>
+</li>
+<li><strong>安装测试</strong>：<ul>
+<li>分别用两种配置编译APK，尝试安装到模拟器或真机。若 <code>default</code> 失败，说明其签名无效。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="4-常见问题解决"><a href="#4-常见问题解决" class="headerlink" title="4. 常见问题解决"></a><strong>4. 常见问题解决</strong></h3><ul>
+<li><strong>安装失败（签名错误）</strong>：<ul>
+<li>使用 <code>AndroidKiller</code> 配置（自带有效签名）。</li>
+<li>若仍需自定义签名，手动替换配置中的 <code>.keystore</code> 文件。</li>
+</ul>
+</li>
+<li><strong>APK无法运行（对齐问题）</strong>：<ul>
+<li>确保启用 <code>zipalign</code>（在 <code>AndroidKiller</code> 配置中默认开启）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li><strong>优先选择 <code>AndroidKiller</code> 配置</strong>：它能自动处理签名和对齐，适合大多数重新打包场景。</li>
+<li><strong>仅在特殊需求时使用 <code>default</code></strong>：如需自定义签名或调试未安装的APK逻辑。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>最后用jeb再进行动态调试，发现可以附上了，click一下flag就出来了。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401204037.jpg"></p>
+</li>
+</ol>
+<h3 id="2-用apktool手动解包修改他的属性，再进行对齐签名的方法"><a href="#2-用apktool手动解包修改他的属性，再进行对齐签名的方法" class="headerlink" title="2.用apktool手动解包修改他的属性，再进行对齐签名的方法"></a>2.用apktool手动解包修改他的属性，再进行对齐签名的方法</h3><p>​    <em><strong>参考自视频<a href="%E3%80%90JNSEC2023-2024%E5%B9%B4%E5%BA%A6Android%E9%80%86%E5%90%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BE%8B%E4%BC%9A%E3%80%91https://www.bilibili.com/video/BV182421T7BS?vd_source=5f5c761091725078a8c620d82a23116b">27分21秒开始</a></strong></em>    </p>
+<p>​    参考自文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25844803/article/details/84953332?ops_request_misc=%257B%2522request%255Fid%2522%253A%25221d689afc40bfd0ce9087069360d7897a%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=1d689afc40bfd0ce9087069360d7897a&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-84953332-null-null.nonecase&amp;utm_term=APK%E5%8F%8D%E7%BC%96%E8%AF%91%E9%87%8D%E6%89%93%E5%8C%85&amp;spm=1018.2226.3001.4450">APK反编译、重打包、签名之apktool实现</a></p>
+<ol>
+<li><p>把apk放到apk目录下面，并且在apktool目录下打开cmd输入<code>apktool d DebugeMe.apk</code>会将解包的数据输出在其目录下。  </p>
+</li>
+<li><p>在<em><strong>AndroidMainfest.xml</strong></em>的<strong>application</strong>里面添加<code>android:debuggable="true"</code>的<strong>属性</strong>。</p>
+</li>
+<li><p>再输入<code>apktool b DebugeMe</code>进行打包，打包后在DebugeMe的dist目录下看到新的apk。</p>
+</li>
+<li><p>生成keystone：</p>
+<p>Keystore生成命令：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -alias abc.<span class="property">keystore</span> -keyalg <span class="variable constant_">RSA</span> -validity <span class="number">20000</span> -keystore abc.<span class="property">keystore</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211050.png"></p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211117.png"></p>
+</li>
+<li><p>签名  </p>
+<p>签名命令：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jarsigner -verbose -keystore abc.<span class="property">keystore</span> -signedjar <span class="title class_">TestPrint</span>_1.<span class="property">apk</span> <span class="title class_">TestPrint</span>.<span class="property">APK</span> abc.<span class="property">keystore</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>输入之前填写的密码  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211213.png">  </p>
+<p>此时，签名完毕，apktool文件夹下出现新的APK–&gt;TestPrint_1.apk  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211307.png">  </p>
+<p>至此，apk反编译，修改文件，重打包，签名全部完成。</p>
+</li>
+</ol>
+<h3 id="3-绕过apk不可调试的属性限制"><a href="#3-绕过apk不可调试的属性限制" class="headerlink" title="3.绕过apk不可调试的属性限制"></a>3.绕过apk不可调试的属性限制</h3><ul>
+<li><strong>无需</strong>开启apk的可调试（debuggable）属性</li>
+</ul>
+<ol>
+<li><p>打开<em><strong>Root权限</strong></em>和<em><strong>adb调试的远程连接模式</strong></em>  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211754.png">  </p>
+</li>
+<li><p>adb devices后，直接用jadx远程调试（点击甲虫图标）  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401212652.png"></p>
+</li>
+<li><p>直接click得到flag。</p>
+</li>
+</ol>
+<hr>
+<p>参考文献：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25844803/article/details/84953332?ops_request_misc=%257B%2522request%255Fid%2522%253A%25221d689afc40bfd0ce9087069360d7897a%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=1d689afc40bfd0ce9087069360d7897a&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-84953332-null-null.nonecase&amp;utm_term=APK%E5%8F%8D%E7%BC%96%E8%AF%91%E9%87%8D%E6%89%93%E5%8C%85&amp;spm=1018.2226.3001.4450">APK反编译、重打包、签名之apktool实现</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zerorzeror/article/details/138043395">XYCTF 2024</a></p>
 
                 
             </div>
@@ -407,7 +534,7 @@ click一下，修改数值，首次扫描。
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Bark66675.github.io/2025/01/27/gfsj/">https://Bark66675.github.io/2025/01/27/gfsj/</a>
+                    <a href="https://Bark66675.github.io/2025/04/01/android-dong-tai-diao-shi/">https://Bark66675.github.io/2025/04/01/android-dong-tai-diao-shi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -445,8 +572,8 @@ click一下，修改数值，首次扫描。
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/re%E9%A2%98%E7%9B%AEwp/">
-                                    <span class="chip bg-color">re题目wp</span>
+                                <a href="/tags/apk%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
+                                    <span class="chip bg-color">apk动态调试</span>
                                 </a>
                             
                         </div>
@@ -525,17 +652,18 @@ click一下，修改数值，首次扫描。
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/03/05/f5-chu-cuo-lei-xing/">
+                <a href="/2025/04/01/android-dong-tai-diao-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="f5报错的几种类型">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Android动态调试小记">
                         
-                        <span class="card-title">f5报错的几种类型</span>
+                        <span class="card-title">Android动态调试小记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -545,9 +673,9 @@ click一下，修改数值，首次扫描。
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -556,11 +684,12 @@ click一下，修改数值，首次扫描。
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/f5%E6%8A%A5%E9%94%99/">
-                        <span class="chip bg-color">f5报错</span>
+                    <a href="/tags/apk%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
+                        <span class="chip bg-color">apk动态调试</span>
                     </a>
                     
                 </div>
@@ -574,13 +703,13 @@ click一下，修改数值，首次扫描。
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/01/26/qhctfwp/">
+                <a href="/2025/03/08/gcc-bian-yi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="启航杯rewp">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="“gcc编译”">
                         
-                        <span class="card-title">启航杯rewp</span>
+                        <span class="card-title">“gcc编译”</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -591,7 +720,7 @@ click一下，修改数值，首次扫描。
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-08
                             </span>
                         <span class="publish-author">
                             
@@ -604,8 +733,8 @@ click一下，修改数值，首次扫描。
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%AF%94%E8%B5%9Bre%E9%A2%98%E7%9B%AEwp/">
-                        <span class="chip bg-color">比赛re题目wp</span>
+                    <a href="/tags/C-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
+                        <span class="chip bg-color">C++编译过程</span>
                     </a>
                     
                 </div>
@@ -802,7 +931,7 @@ click一下，修改数值，首次扫描。
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">6.7k</span>
+                        class="white-color">7.9k</span>
             
             
             
