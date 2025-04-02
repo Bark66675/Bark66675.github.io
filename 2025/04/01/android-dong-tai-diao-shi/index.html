@@ -5,12 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Android动态调试小记, Bark66675">
-    <meta name="description" content="给apk加上动态可调试属性安卓动态调试——apk加上动态可调试属性
+    <meta name="description" content="安卓动态调试——apk加上动态可调试属性
 刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。
 
 用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  
   
-先用雷电模">
+先用雷电模拟器在程序里面运行这个程序">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -354,7 +354,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="给apk加上动态可调试属性"><a href="#给apk加上动态可调试属性" class="headerlink" title="给apk加上动态可调试属性"></a>给apk加上动态可调试属性</h1><h1 id="安卓动态调试——apk加上动态可调试属性"><a href="#安卓动态调试——apk加上动态可调试属性" class="headerlink" title="安卓动态调试——apk加上动态可调试属性"></a>安卓动态调试——apk加上动态可调试属性</h1><hr>
+                <h1 id="安卓动态调试——apk加上动态可调试属性"><a href="#安卓动态调试——apk加上动态可调试属性" class="headerlink" title="安卓动态调试——apk加上动态可调试属性"></a>安卓动态调试——apk加上动态可调试属性</h1><hr>
 <p>刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。</p>
 <hr>
 <p>用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  </p>
@@ -371,21 +371,19 @@
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201623.png">  </p>
 <p>提示无法attach上。   </p>
 <h2 id="一、用Android-Killer编译的方法修改apk为可调式"><a href="#一、用Android-Killer编译的方法修改apk为可调式" class="headerlink" title="一、用Android Killer编译的方法修改apk为可调式"></a>一、用Android Killer编译的方法修改apk为可调式</h2><ol>
-<li>用Android Killer打开apk，可以解包这个程序。</li>
+<li><h3 id="用Android-Killer打开apk，可以解包这个程序。"><a href="#用Android-Killer打开apk，可以解包这个程序。" class="headerlink" title="用Android Killer打开apk，可以解包这个程序。"></a>用Android Killer打开apk，可以解包这个程序。</h3></li>
 </ol>
 <p>​    <img src="/iamge/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401213521.png">  </p>
 <ol start="2">
-<li><p>点开AndroidMainfest.xml，在&lt;application那一行后面加上android:debuggable=”true”这个属性（记得要ctrl+s保存）。  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202410.png" alt="原本的样子">  </p>
+<li><h3 id="点开AndroidMainfest-xml，在"><a href="#点开AndroidMainfest-xml，在" class="headerlink" title="点开AndroidMainfest.xml，在<application那一行后面加上android:debuggable=”true”这个属性（记得要ctrl+s保存）。"></a>点开AndroidMainfest.xml，在&lt;application那一行后面加上android:debuggable=”true”这个属性（记得要ctrl+s保存）。</h3><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202410.png" alt="原本的样子">  </p>
 <p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202526.png" alt="更改后的样子"></p>
 </li>
-<li><p>把编译先设置成AndroidKiller选项，然后进行编译。会生成编译后可调试的apk（如果有报错根据提示修改）。  </p>
-<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202951.png">  </p>
-<ul>
-<li>在Android Killer工具中，<strong>“default”</strong> 和 <strong>“AndroidKiller”</strong> 是两种不同的编译配置选项，它们的核心区别在于 <strong>签名配置</strong> 和 <strong>编译参数</strong>。以下是具体分析：</li>
-</ul>
+<li><h3 id="把编译先设置成AndroidKiller选项，然后进行编译。会生成编译后可调试的apk（如果有报错根据提示修改）。"><a href="#把编译先设置成AndroidKiller选项，然后进行编译。会生成编译后可调试的apk（如果有报错根据提示修改）。" class="headerlink" title="把编译先设置成AndroidKiller选项，然后进行编译。会生成编译后可调试的apk（如果有报错根据提示修改）。"></a>把编译先设置成AndroidKiller选项，然后进行编译。会生成编译后可调试的apk（如果有报错根据提示修改）。</h3><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202951.png">  </p>
 <blockquote>
-<h3 id="1-两者的核心区别"><a href="#1-两者的核心区别" class="headerlink" title="1. 两者的核心区别"></a><strong>1. 两者的核心区别</strong></h3><table>
+<p>在Android Killer工具中，<strong>“default”</strong> 和 <strong>“AndroidKiller”</strong> 是两种不同的编译配置选项，它们的核心区别在于 <strong>签名配置</strong> 和 <strong>编译参数</strong>。以下是具体分析：</p>
+</blockquote>
+<blockquote>
+<h4 id="1-两者的核心区别"><a href="#1-两者的核心区别" class="headerlink" title="1. 两者的核心区别"></a><strong>1. 两者的核心区别</strong></h4><table>
 <thead>
 <tr>
 <th><strong>配置项</strong></th>
@@ -415,7 +413,7 @@
 </tr>
 </tbody></table>
 <hr>
-<h3 id="2-如何选择？"><a href="#2-如何选择？" class="headerlink" title="2. 如何选择？"></a><strong>2. 如何选择？</strong></h3><ul>
+<h4 id="2-如何选择？"><a href="#2-如何选择？" class="headerlink" title="2. 如何选择？"></a><strong>2. 如何选择？</strong></h4><ul>
 <li><strong>选择 <code>AndroidKiller</code> 配置的情况</strong>：<ul>
 <li>需要重新打包APK并安装到设备（尤其是非Root设备）。</li>
 <li>希望自动处理签名和对齐，避免手动操作。</li>
@@ -429,7 +427,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="3-验证配置差异的方法"><a href="#3-验证配置差异的方法" class="headerlink" title="3. 验证配置差异的方法"></a><strong>3. 验证配置差异的方法</strong></h3><ol>
+<h4 id="3-验证配置差异的方法"><a href="#3-验证配置差异的方法" class="headerlink" title="3. 验证配置差异的方法"></a><strong>3. 验证配置差异的方法</strong></h4><ol>
 <li><strong>检查签名配置</strong>：<ul>
 <li>在Android Killer中打开 <strong><code>配置</code></strong> → <strong><code>签名配置</code></strong>，查看两种选项是否使用不同的 <code>.keystore</code> 文件。</li>
 <li>若 <code>AndroidKiller</code> 使用 <code>debug.keystore</code> 而 <code>default</code> 为空，则前者能生成有效签名的APK。</li>
@@ -445,7 +443,7 @@
 </li>
 </ol>
 <hr>
-<h3 id="4-常见问题解决"><a href="#4-常见问题解决" class="headerlink" title="4. 常见问题解决"></a><strong>4. 常见问题解决</strong></h3><ul>
+<h4 id="4-常见问题解决"><a href="#4-常见问题解决" class="headerlink" title="4. 常见问题解决"></a><strong>4. 常见问题解决</strong></h4><ul>
 <li><strong>安装失败（签名错误）</strong>：<ul>
 <li>使用 <code>AndroidKiller</code> 配置（自带有效签名）。</li>
 <li>若仍需自定义签名，手动替换配置中的 <code>.keystore</code> 文件。</li>
@@ -457,7 +455,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h4><ul>
 <li><strong>优先选择 <code>AndroidKiller</code> 配置</strong>：它能自动处理签名和对齐，适合大多数重新打包场景。</li>
 <li><strong>仅在特殊需求时使用 <code>default</code></strong>：如需自定义签名或调试未安装的APK逻辑。</li>
 </ul>
