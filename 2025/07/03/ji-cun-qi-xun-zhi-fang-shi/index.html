@@ -4,10 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IDA超全使用方法, Bark66675">
-    <meta name="description" content="一、IDA的下载ida的官网下载地址ida下载，包含x64和x32.   
-也可以在52破解上下载。
-二、IDA的介绍及如何使用1.IDA简介IDA，全称为交互式反汇编器专业版（Interactive Disassembler  Profe">
+    <meta name="keywords" content="寄存器寻址方式, Bark66675">
+    <meta name="description" content="寄存器寻址section .data    msg db “Welcome_to_CTFshow_PWN”, 0
+section .text    global _start
+_start:
+; 立即寻址方式    mov eax, 11 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>IDA超全使用方法 | Bark66675</title>
+    <title>寄存器寻址方式 | Bark66675</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -275,12 +276,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IDA超全使用方法</h1>
+                    <h1 class="description center-align post-title">寄存器寻址方式</h1>
                 </div>
             </div>
         </div>
@@ -304,8 +305,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
-                                <span class="chip bg-color">IDA教程</span>
+                            <a href="/tags/%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80/">
+                                <span class="chip bg-color">寄存器寻址</span>
                             </a>
                         
                     </div>
@@ -320,7 +321,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-01-14
+                    2025-07-03
                 </div>
                 
 
@@ -329,7 +330,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    413
                 </div>
                 
 
@@ -351,287 +352,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、IDA的下载"><a href="#一、IDA的下载" class="headerlink" title="一、IDA的下载"></a>一、IDA的下载</h1><p>ida的官网下载地址<a target="_blank" rel="noopener" href="https://hex-rays.com/ida-free#download" title="ida官网">ida下载</a>，包含x64和x32.   </p>
-<p>也可以在52破解上下载。</p>
-<h1 id="二、IDA的介绍及如何使用"><a href="#二、IDA的介绍及如何使用" class="headerlink" title="二、IDA的介绍及如何使用"></a>二、IDA的介绍及如何使用</h1><h2 id="1-IDA简介"><a href="#1-IDA简介" class="headerlink" title="1.IDA简介"></a>1.IDA简介</h2><p>IDA，全称为<strong>交互式反汇编器专业版</strong>（Interactive Disassembler  Professional），是一款功能强大的静态反编译软件。它被广泛用于软件安全分析，尤其是在0day研究和ShellCode分析中不可或缺。IDA  Pro以其交互性、可编程性、可扩展性以及对多处理器的支持而闻名，能够在Windows、Linux、WinCE、MacOS等多个平台上运行，分析各种程序代码。  </p>
-<p>IDA Pro支持多种CPU指令集，包括但不限于Intel  x86、x64、MIPS、PowerPC、ARM、Z80、68000和c8051。这使得IDA  Pro能够分析各种不同架构的程序，成为逆向工程领域的重要工具。IDA  Pro的递归下降反汇编能力，以及其在区分代码和数据、确定数据类型方面的高效算法，使得它能够提供接近源代码的反汇编输出。 </p>
-<h2 id="2-在IDA中打开文件"><a href="#2-在IDA中打开文件" class="headerlink" title="2.在IDA中打开文件"></a>2.在IDA中打开文件</h2><blockquote>
-<p><em>双击</em>ida  </p>
-</blockquote>
-<p><img src="/image/idajiemian.png" alt="ida"></p>
-<blockquote>
-<p><strong>new</strong>会打开一个空白页面，把想逆向的文件拖进去即可，或者点击<strong>go</strong>直接去打开文件。 </p>
-</blockquote>
-<p><img src="/image/buzhouwenjian1.png" alt="ida">  </p>
-<h2 id="3-界面简介"><a href="#3-界面简介" class="headerlink" title="3.界面简介"></a>3.界面简介</h2><p> 打开后如下界面  </p>
-<p><img src="/image/jiemianjieshao1.png" alt="界面简介">    </p>
-<hr>
-<h3 id="界面各个窗口介绍"><a href="#界面各个窗口介绍" class="headerlink" title="界面各个窗口介绍"></a>界面各个窗口介绍</h3><ul>
-<li><p><em><strong>导航条</strong></em>的<strong>含义</strong>：</p>
-<p>蓝色：表示常规的指令函数，绝大部分为用户编写的代码，上图中绝大部分数据属于蓝色数据。 </p>
-<p>黑色：表示间隙部分内容，可执行文件中包含多个节段，相邻节段之间存在空隙，红色表示空隙部分。 </p>
-<p>银白色：表示数据项部分内容，可执行文件中会包含大量数据，银白色表示数据项部分内容。 </p>
-<p>粉色：表示外部导入符号，通常可执行文件会导入外部的库函数。 </p>
-<p>暗黄色：表示IDA未识别的内容，需要用户根据需求自行分析。  </p>
-</li>
-<li><p><em><strong>IDA View</strong></em>（反汇编窗口）的<strong>含义</strong>：  </p>
-<p>包括三种反汇编视图:文本视图、图表视图、路径视图。  </p>
-<p>反汇编窗口属于逆向分析过程中关注频率最高的窗口，通过此窗口可以逆向分析反汇编代码。  </p>
-</li>
-<li><p><em><strong>Hex View</strong></em>的<strong>含义</strong>：  </p>
-<p>二进制查看窗口总共分为三部分，三部分内容分别位于上图左、中、右，三处含义分别为：  </p>
-<p>左边数据：表示二进制数据对应的内存相对偏移。  </p>
-<p>中间数据：表示内存中数据的具体内容。  </p>
-<p>右边数据：表示内存数据的字符串显示，该功能可辅助读者快速识别字符串内容。  </p>
-<p>用户可在二进制查看窗口中编辑二进制数据，从而满足篡改数据的测试需求。  </p>
-<p><img src="/image/view.png" alt="图标视图中红黄蓝线的应用">   </p>
-</li>
-<li><p><em><strong>Structures</strong></em>的<strong>含义</strong>：  </p>
-<p>结构窗口提供用户查询已定义的结构体，同时IDA可识别出可执行文件包含的部分结构体数据，结构窗口可通过快捷键“+”、“-”展开和收缩结构体，IDA结构窗口支持用户自定义结构体。  </p>
-</li>
-<li><p><em><strong>Imports</strong></em>的<strong>含义</strong>：  </p>
-<p>IDA提供导入函数窗口，用于可在导入函数窗口中查看当前可执行文件导入哪些外部函数库及函数，通过导入函数窗口可获取到函数内存相对偏移地址、函数名、导入函数所属的库文件。  </p>
-</li>
-<li><p><em><strong>Exports</strong></em>的<strong>含义</strong>：  </p>
-<p>IDA的导出函数窗口提供可执行文件导出函数信息，通过导出函数窗口可获取到导出的函数名、函数对应的内存相对偏移地址。  </p>
-</li>
-<li><p><em><strong>Function</strong></em>的<strong>含义</strong>：</p>
-<p>IDA提供函数窗口供玩家查找函数信息，在窗口按下“CTRL + F”快捷键便可根据需求搜索函数名，快速定位函数名方式可提供逆向分析效率。  </p>
-</li>
-<li><p><em><strong>Enum</strong></em>的<strong>含义</strong>：  </p>
-<p>枚举窗口。   </p>
-<h2 id="4-快捷键详细介绍"><a href="#4-快捷键详细介绍" class="headerlink" title="4.快捷键详细介绍"></a>4.快捷键详细介绍</h2><table>
-<thead>
-<tr>
-<th align="center"><strong>快捷键</strong></th>
-<th align="center"><strong>功能说明</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">空格键(space)</td>
-<td align="center">反汇编窗口切换文本与图形</td>
-</tr>
-<tr>
-<td align="center">Enter</td>
-<td align="center">跟进函数实现，查看标号对应的地址</td>
-</tr>
-<tr>
-<td align="center"><strong>Esc</strong></td>
-<td align="center">在反汇编窗口中使用为后退到上个操作的地址处</td>
-</tr>
-<tr>
-<td align="center"><strong>A</strong></td>
-<td align="center">将选择的信息转换成ASCII(转换成可读性跟强的字符串)</td>
-</tr>
-<tr>
-<td align="center">B</td>
-<td align="center">十六进制与二进制数转换</td>
-</tr>
-<tr>
-<td align="center">C</td>
-<td align="center">解释光标处的地址为一条指令（代码）</td>
-</tr>
-<tr>
-<td align="center">D</td>
-<td align="center">解释光标处的地址为数据，每按一次将会转换这个地址的数据长度</td>
-</tr>
-<tr>
-<td align="center">G</td>
-<td align="center">跳转到指定地址</td>
-</tr>
-<tr>
-<td align="center">H</td>
-<td align="center">十六进制与十进制数转换</td>
-</tr>
-<tr>
-<td align="center">K</td>
-<td align="center">将数据解释为栈变量</td>
-</tr>
-<tr>
-<td align="center">M</td>
-<td align="center">解释为枚举成员（转换为枚举类型常量）</td>
-</tr>
-<tr>
-<td align="center">N</td>
-<td align="center">对符号重新命名</td>
-</tr>
-<tr>
-<td align="center">O</td>
-<td align="center">解释地址为数据段偏移量，用于字符串标号</td>
-</tr>
-<tr>
-<td align="center">P</td>
-<td align="center">创建函数</td>
-</tr>
-<tr>
-<td align="center">R</td>
-<td align="center">将ASCII转换为字符</td>
-</tr>
-<tr>
-<td align="center">T</td>
-<td align="center">解释数据为一个结构体成员（解析结构体偏移）</td>
-</tr>
-<tr>
-<td align="center">U（indefine）</td>
-<td align="center">取消定义光标处函数、代码、数据的定义</td>
-</tr>
-<tr>
-<td align="center">X</td>
-<td align="center">转换视图到交叉参考模式</td>
-</tr>
-<tr>
-<td align="center">Y</td>
-<td align="center">设置变量类型</td>
-</tr>
-<tr>
-<td align="center"><strong>/</strong></td>
-<td align="center">伪代码中进行注释</td>
-</tr>
-<tr>
-<td align="center"><strong>:</strong></td>
-<td align="center">光标所在位置添加<strong>常规注释</strong>和可重复注释</td>
-</tr>
-<tr>
-<td align="center"><strong>F2</strong></td>
-<td align="center">设置断点（F2在十六进制窗口进行修改，然后再按F2应用）</td>
-</tr>
-<tr>
-<td align="center">F4</td>
-<td align="center">运行到光标所在处（可用于跳出循环）</td>
-</tr>
-<tr>
-<td align="center">F5</td>
-<td align="center">查看伪代码</td>
-</tr>
-<tr>
-<td align="center">F7</td>
-<td align="center">单步步进</td>
-</tr>
-<tr>
-<td align="center">F9</td>
-<td align="center">动态调试程序(其实IDA主要用作静态分析用的)</td>
-</tr>
-<tr>
-<td align="center">F10</td>
-<td align="center">打开反汇编选项菜单快捷键</td>
-</tr>
-<tr>
-<td align="center">F12</td>
-<td align="center">暂时停止</td>
-</tr>
-<tr>
-<td align="center">Ctrl+F2</td>
-<td align="center">重新开始</td>
-</tr>
-<tr>
-<td align="center">Art+F2</td>
-<td align="center">结束跟踪</td>
-</tr>
-<tr>
-<td align="center">Ctrl+F7</td>
-<td align="center">自动步入，在所有的函数调用中一条一条地执行命令，断点或异常时，自动 停止</td>
-</tr>
-<tr>
-<td align="center"><strong>Shift + E</strong></td>
-<td align="center">提取数据</td>
-</tr>
-<tr>
-<td align="center"><strong>Shift</strong> + F5</td>
-<td align="center">打开签名窗口</td>
-</tr>
-<tr>
-<td align="center">Shift + F9</td>
-<td align="center">添加结构体</td>
-</tr>
-<tr>
-<td align="center">Shift + F12</td>
-<td align="center">自动分析出参考字符串</td>
-</tr>
-<tr>
-<td align="center"><strong>Ctrl</strong> + F</td>
-<td align="center">搜索字符串</td>
-</tr>
-<tr>
-<td align="center">Ctrl + M</td>
-<td align="center">查看标签（列举出当前已经添加的标签）</td>
-</tr>
-<tr>
-<td align="center">Ctrl + S</td>
-<td align="center">查看段的信息（列举出二进制程序的段的开始地址、结束地址、权限等信息）</td>
-</tr>
-<tr>
-<td align="center">Ctrl + X</td>
-<td align="center">交叉引用,类似于OD中的栈回溯操作</td>
-</tr>
-<tr>
-<td align="center">Ctrl + F9</td>
-<td align="center">导入c头文件</td>
-</tr>
-<tr>
-<td align="center">CTRL + F12</td>
-<td align="center">函数调用图</td>
-</tr>
-<tr>
-<td align="center"><strong>Alt+T</strong></td>
-<td align="center">搜索字符串(文本搜索)(可用于搜索main函数)</td>
-</tr>
-<tr>
-<td align="center">Alt+B</td>
-<td align="center">搜索十六进制（用于搜索十六进制字节序列，通常在分析过程中可以用来搜索opcode）</td>
-</tr>
-<tr>
-<td align="center">Alt+G</td>
-<td align="center">转换局部变量为结构体</td>
-</tr>
-<tr>
-<td align="center">Alt+L</td>
-<td align="center">标记(Label)</td>
-</tr>
-<tr>
-<td align="center">ALT + M</td>
-<td align="center">添加标签(mark)</td>
-</tr>
-<tr>
-<td align="center">Ctrl+Shift+W</td>
-<td align="center">拍摄IDA快照</td>
-</tr>
-<tr>
-<td align="center">view–&gt;open subviews</td>
-<td align="center">可以恢复你无意中关闭的数据显示窗口</td>
-</tr>
-<tr>
-<td align="center">windows–&gt;reset desktop</td>
-<td align="center">可以恢复初始ida布局</td>
-</tr>
-<tr>
-<td align="center">option–&gt;font</td>
-<td align="center">option–&gt;font</td>
-</tr>
-<tr>
-<td align="center">option–&gt;general-&gt;Auto comments</td>
-<td align="center">自动添加反汇编注释</td>
-</tr>
-</tbody></table>
-<h2 id="5-判断IDA分析可执行文件完毕的三种方法"><a href="#5-判断IDA分析可执行文件完毕的三种方法" class="headerlink" title="5.判断IDA分析可执行文件完毕的三种方法"></a>5.判断IDA分析可执行文件完毕的三种方法</h2><p>1.图中IDA的“Output Window”窗口输出“The initial autoanalysis has been<br> finished”日志时，则说明IDA已分析完毕。  </p>
-<p>2.如图所示进度条处黄色向上箭头消失时，则表明IDA分析完毕。  </p>
-<p>3.图中IDA界面左下角AU处于”idle”状态时，也表明IDA分析完毕。</p>
-</li>
-</ul>
-<h1 id="三、用IDA分析程序实例"><a href="#三、用IDA分析程序实例" class="headerlink" title="三、用IDA分析程序实例"></a>三、用IDA分析程序实例</h1><h2 id="1-查壳"><a href="#1-查壳" class="headerlink" title="1.查壳"></a>1.查壳</h2><ul>
-<li><p>使用exeinfo pe<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1837928-1-1.html">52破解</a>查壳看他是64位还是32位的程序或者其他类型的如ELF等，以便于事后进行分析。  </p>
-</li>
-<li><p>或者使用peid来进行查壳<a target="_blank" rel="noopener" href="https://www.softpedia.com/get/Programming/Packers-Crypters-Protectors/PEiD-updated.shtml">peid官网地址</a>。   </p>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p><img src="/image/easy64.png" alt="程序easy-64">  </p>
-<p>拖入exeinfope后如图  </p>
-<p><img src="/image/exeinfope.png" alt="壳"></p>
-<p>得到程序为ELF类型的。  </p>
-<h2 id="2-用IDA进行分析"><a href="#2-用IDA进行分析" class="headerlink" title="2.用IDA进行分析"></a>2.用IDA进行分析</h2><p>拖入IDA打开后点击main函数进行查看  </p>
-<p>由于对于汇编代码不熟悉，点击tab键进入伪代码。  </p>
-<p><img src="/image/easy64ida.png" alt="ida分析">  </p>
-<p><img src="/image/easy64flag.png" alt="伪代码">  </p>
-<p>由此我们得到了flag</p>
-</li>
-</ul>
+                <h1 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h1><p>section .data<br>    msg db “Welcome_to_CTFshow_PWN”, 0</p>
+<p>section .text<br>    global _start</p>
+<p>_start:</p>
+<p>; 立即寻址方式<br>    mov eax, 11         ; 将11赋值给eax<br>    add eax, 114504     ; eax加上114504<br>    sub eax, 1          ; eax减去1</p>
+<p>; 寄存器寻址方式<br>    mov ebx, 0x36d      ; 将0x36d赋值给ebx<br>    mov edx, ebx        ; 将ebx的值赋值给edx</p>
+<p>; 直接寻址方式<br>    mov ecx, msg      ; 将msg的地址赋值给ecx**（找msg的地址）**。</p>
+<p>; 寄存器间接寻址方式<br>    mov esi, msg        ; 将msg的地址赋值给esi<br>    mov eax, [esi]      ; 将esi所指向的地址的值赋值给eax**（等于找msg地址存储的值）**。</p>
+<p>; 寄存器相对寻址方式<br>    mov ecx, msg        ; 将msg的地址赋值给ecx<br>    add ecx, 4          ; 将ecx加上4<br>    mov eax, [ecx]      ; 将ecx所指向的地址的值赋值给eax**（ecx加上4后的值作为地址，他指向的值再赋给eax）**。</p>
+<p>; 基址变址寻址方式<br>    mov ecx, msg        ; 将msg的地址赋值给ecx<br>    mov edx, 2          ; 将2赋值给edx<br>    mov eax, [ecx + edx<em>2]  ; 将ecx+edx</em>2所指向的地址的值赋值给eax**（将ecx+edx*2的值作为地址）**。</p>
+<p>; 相对基址变址寻址方式<br>    mov ecx, msg        ; 将msg的地址赋值给ecx<br>    mov edx, 1          ; 将1赋值给edx<br>    add ecx, 8          ; 将ecx加上8<br>    mov eax, [ecx + edx<em>2 - 6]  ; 将ecx+edx</em>2-6所指向的地址的值赋值给eax</p>
+<p>; 输出字符串<br>    mov eax, 4          ; 系统调用号4代表输出字符串<br>    mov ebx, 1          ; 文件描述符1代表标准输出<br>    mov ecx, msg        ; 要输出的字符串的地址<br>    mov edx, 22         ; 要输出的字符串的长度<br>    int 0x80            ; 调用系统调用</p>
+<p>; 退出程序<br>    mov eax, 1          ; 系统调用号1代表退出程序<br>    xor ebx, ebx        ; 返回值为0<br>    int 0x80            ; 调用系统调用</p>
 
                 
             </div>
@@ -658,7 +390,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Bark66675.github.io/2025/01/14/my-first-blog/">https://Bark66675.github.io/2025/01/14/my-first-blog/</a>
+                    <a href="https://Bark66675.github.io/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/">https://Bark66675.github.io/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -696,8 +428,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
-                                    <span class="chip bg-color">IDA教程</span>
+                                <a href="/tags/%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80/">
+                                    <span class="chip bg-color">寄存器寻址</span>
                                 </a>
                             
                         </div>
@@ -780,13 +512,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/01/19/webknow/">
+                <a href="/2025/07/03/chang-jian-han-shu-yong-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="web学习记录">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="常见函数用法">
                         
-                        <span class="card-title">web学习记录</span>
+                        <span class="card-title">常见函数用法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -797,7 +529,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-19
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-03
                         </span>
                         <span class="publish-author">
                             
@@ -810,8 +542,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/web%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">web学习笔记</span>
+                    <a href="/tags/%E5%87%BD%E6%95%B0/">
+                        <span class="chip bg-color">函数</span>
                     </a>
                     
                 </div>
@@ -825,13 +557,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/01/14/hello-world/">
+                <a href="/2025/04/01/android-dong-tai-diao-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Android动态调试小记">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">Android动态调试小记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -842,7 +574,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-01
                             </span>
                         <span class="publish-author">
                             
@@ -851,6 +583,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AE%89%E5%8D%93%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">
+                        <span class="chip bg-color">安卓动态调试</span>
+                    </a>
+                    
                 </div>
                 
             </div>

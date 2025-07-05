@@ -4,10 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IDA超全使用方法, Bark66675">
-    <meta name="description" content="一、IDA的下载ida的官网下载地址ida下载，包含x64和x32.   
-也可以在52破解上下载。
-二、IDA的介绍及如何使用1.IDA简介IDA，全称为交互式反汇编器专业版（Interactive Disassembler  Profe">
+    <meta name="keywords" content="常见函数用法, Bark66675">
+    <meta name="description" content="常见函数用法1.read1read(0, buf, 0xAuLL);
+
+用法：
+12ssize_t read(int fd, void *buf, size_t count);bash
+
+参数解释：
+
+fd：文件描述符，表示要读取的文件或者">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +24,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>IDA超全使用方法 | Bark66675</title>
+    <title>常见函数用法 | Bark66675</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -275,12 +280,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IDA超全使用方法</h1>
+                    <h1 class="description center-align post-title">常见函数用法</h1>
                 </div>
             </div>
         </div>
@@ -304,8 +309,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
-                                <span class="chip bg-color">IDA教程</span>
+                            <a href="/tags/%E5%87%BD%E6%95%B0/">
+                                <span class="chip bg-color">函数</span>
                             </a>
                         
                     </div>
@@ -320,7 +325,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-01-14
+                    2025-07-03
                 </div>
                 
 
@@ -329,7 +334,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    1.8k
                 </div>
                 
 
@@ -351,287 +356,137 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、IDA的下载"><a href="#一、IDA的下载" class="headerlink" title="一、IDA的下载"></a>一、IDA的下载</h1><p>ida的官网下载地址<a target="_blank" rel="noopener" href="https://hex-rays.com/ida-free#download" title="ida官网">ida下载</a>，包含x64和x32.   </p>
-<p>也可以在52破解上下载。</p>
-<h1 id="二、IDA的介绍及如何使用"><a href="#二、IDA的介绍及如何使用" class="headerlink" title="二、IDA的介绍及如何使用"></a>二、IDA的介绍及如何使用</h1><h2 id="1-IDA简介"><a href="#1-IDA简介" class="headerlink" title="1.IDA简介"></a>1.IDA简介</h2><p>IDA，全称为<strong>交互式反汇编器专业版</strong>（Interactive Disassembler  Professional），是一款功能强大的静态反编译软件。它被广泛用于软件安全分析，尤其是在0day研究和ShellCode分析中不可或缺。IDA  Pro以其交互性、可编程性、可扩展性以及对多处理器的支持而闻名，能够在Windows、Linux、WinCE、MacOS等多个平台上运行，分析各种程序代码。  </p>
-<p>IDA Pro支持多种CPU指令集，包括但不限于Intel  x86、x64、MIPS、PowerPC、ARM、Z80、68000和c8051。这使得IDA  Pro能够分析各种不同架构的程序，成为逆向工程领域的重要工具。IDA  Pro的递归下降反汇编能力，以及其在区分代码和数据、确定数据类型方面的高效算法，使得它能够提供接近源代码的反汇编输出。 </p>
-<h2 id="2-在IDA中打开文件"><a href="#2-在IDA中打开文件" class="headerlink" title="2.在IDA中打开文件"></a>2.在IDA中打开文件</h2><blockquote>
-<p><em>双击</em>ida  </p>
-</blockquote>
-<p><img src="/image/idajiemian.png" alt="ida"></p>
+                <h1 id="常见函数用法"><a href="#常见函数用法" class="headerlink" title="常见函数用法"></a>常见函数用法</h1><h2 id="1-read"><a href="#1-read" class="headerlink" title="1.read"></a>1.<em><strong>read</strong></em></h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span>(0, buf, 0xAuLL);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>用法：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssize_t <span class="built_in">read</span>(int fd, void *buf, size_t count);</span><br><span class="line">bash</span><br></pre></td></tr></tbody></table></figure>
+
+<p>参数解释：</p>
 <blockquote>
-<p><strong>new</strong>会打开一个空白页面，把想逆向的文件拖进去即可，或者点击<strong>go</strong>直接去打开文件。 </p>
+<p>fd：文件描述符，表示要读取的文件或者输入源。在 UNIX 系统中，0 表示标准输入(STDIN)，1 表示标准输出(STDOUT)，2 表示标准错误(STDERR)。</p>
+<ul>
+<li>文件描述符0：用于接收用户输入或者从管道、重定向或者其他输入源读取数据。</li>
+<li>文件描述符1：用于向终端或者其他输出目标输出数据。</li>
+</ul>
+<p>buf：指向存储读取数据的缓冲区的指针。</p>
+<p>count：要读取的最大字节数。</p>
 </blockquote>
-<p><img src="/image/buzhouwenjian1.png" alt="ida">  </p>
-<h2 id="3-界面简介"><a href="#3-界面简介" class="headerlink" title="3.界面简介"></a>3.界面简介</h2><p> 打开后如下界面  </p>
-<p><img src="/image/jiemianjieshao1.png" alt="界面简介">    </p>
-<hr>
-<h3 id="界面各个窗口介绍"><a href="#界面各个窗口介绍" class="headerlink" title="界面各个窗口介绍"></a>界面各个窗口介绍</h3><ul>
-<li><p><em><strong>导航条</strong></em>的<strong>含义</strong>：</p>
-<p>蓝色：表示常规的指令函数，绝大部分为用户编写的代码，上图中绝大部分数据属于蓝色数据。 </p>
-<p>黑色：表示间隙部分内容，可执行文件中包含多个节段，相邻节段之间存在空隙，红色表示空隙部分。 </p>
-<p>银白色：表示数据项部分内容，可执行文件中会包含大量数据，银白色表示数据项部分内容。 </p>
-<p>粉色：表示外部导入符号，通常可执行文件会导入外部的库函数。 </p>
-<p>暗黄色：表示IDA未识别的内容，需要用户根据需求自行分析。  </p>
-</li>
-<li><p><em><strong>IDA View</strong></em>（反汇编窗口）的<strong>含义</strong>：  </p>
-<p>包括三种反汇编视图:文本视图、图表视图、路径视图。  </p>
-<p>反汇编窗口属于逆向分析过程中关注频率最高的窗口，通过此窗口可以逆向分析反汇编代码。  </p>
-</li>
-<li><p><em><strong>Hex View</strong></em>的<strong>含义</strong>：  </p>
-<p>二进制查看窗口总共分为三部分，三部分内容分别位于上图左、中、右，三处含义分别为：  </p>
-<p>左边数据：表示二进制数据对应的内存相对偏移。  </p>
-<p>中间数据：表示内存中数据的具体内容。  </p>
-<p>右边数据：表示内存数据的字符串显示，该功能可辅助读者快速识别字符串内容。  </p>
-<p>用户可在二进制查看窗口中编辑二进制数据，从而满足篡改数据的测试需求。  </p>
-<p><img src="/image/view.png" alt="图标视图中红黄蓝线的应用">   </p>
-</li>
-<li><p><em><strong>Structures</strong></em>的<strong>含义</strong>：  </p>
-<p>结构窗口提供用户查询已定义的结构体，同时IDA可识别出可执行文件包含的部分结构体数据，结构窗口可通过快捷键“+”、“-”展开和收缩结构体，IDA结构窗口支持用户自定义结构体。  </p>
-</li>
-<li><p><em><strong>Imports</strong></em>的<strong>含义</strong>：  </p>
-<p>IDA提供导入函数窗口，用于可在导入函数窗口中查看当前可执行文件导入哪些外部函数库及函数，通过导入函数窗口可获取到函数内存相对偏移地址、函数名、导入函数所属的库文件。  </p>
-</li>
-<li><p><em><strong>Exports</strong></em>的<strong>含义</strong>：  </p>
-<p>IDA的导出函数窗口提供可执行文件导出函数信息，通过导出函数窗口可获取到导出的函数名、函数对应的内存相对偏移地址。  </p>
-</li>
-<li><p><em><strong>Function</strong></em>的<strong>含义</strong>：</p>
-<p>IDA提供函数窗口供玩家查找函数信息，在窗口按下“CTRL + F”快捷键便可根据需求搜索函数名，快速定位函数名方式可提供逆向分析效率。  </p>
-</li>
-<li><p><em><strong>Enum</strong></em>的<strong>含义</strong>：  </p>
-<p>枚举窗口。   </p>
-<h2 id="4-快捷键详细介绍"><a href="#4-快捷键详细介绍" class="headerlink" title="4.快捷键详细介绍"></a>4.快捷键详细介绍</h2><table>
+<p>注：0xAuLL 中的 uLL 表示这是一个无符号长长整型(unsigned long long)的常量，sleep(0x1BF52u)中的u表示无符号整型(unsigned)。</p>
+<h2 id="2-strcat"><a href="#2-strcat" class="headerlink" title="2.strcat"></a>2.<em><strong>strcat</strong></em></h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strcat(dest, buf);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这行代码将用户输入的内容追加到 dest 字符串后面</p>
+<p>双击跟进 dest</p>
+<p>可以看到 dest 被声明为一个大小为 4 字节的字符数组，用来存储字符串</p>
+<p>详细解释：</p>
+<pre><code>dest 是一个标签（label），它是程序中一个位置的名称或者符号。
+
+db 是汇编语言中的伪指令（pseudo-instruction），用于声明字节（byte）类型的数据。
+4 表示数组的大小为4字节。
+dup(?) 表示重复（duplicate）未知值（?）4次，即将4个未知值（通常为0）依次填充到数组中。
+</code></pre>
+<p><img src="/image/766e383b3bc7bcc635bdf609ee167f9.png"></p>
+<h2 id="3-setvbuf"><a href="#3-setvbuf" class="headerlink" title="3.setvbuf"></a>3.<em><strong>setvbuf</strong></em></h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>C 库函数 <strong>int setvbuf(FILE *stream, char *buffer, int mode, size_t size)</strong> 定义流 stream 应如何缓冲。</p>
+<p>stream： 指向需要设置缓冲区的流（stdin，stdout）</p>
+<p>buf： 指向缓冲区的指针。</p>
+<p>mode： 表示缓冲方式，值为0表示全缓冲（只有缓冲区填满才会输出）；值为1表示行缓冲（当遇到换行符或缓冲区满时输出）；值为2表示无缓冲（数据直接输出）。</p>
+<p>size： 表示缓冲区大小。</p>
+<p>返回值： 如果返回0表示函数调用成功，缓冲区设置成功。反之，函数调用失败。</p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>下面是 setvbuf() 函数的声明。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int setvbuf(FILE *stream, char *buffer, int mode, size_t size)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><strong>stream</strong> – 这是指向 FILE 对象的指针，该 FILE 对象标识了一个打开的流。</li>
+<li><strong>buffer</strong> – 这是分配给用户的缓冲。如果设置为 NULL，该函数会自动分配一个指定大小的缓冲。</li>
+<li><strong>mode</strong> – 这指定了文件缓冲的模式：</li>
+</ul>
+<table>
 <thead>
 <tr>
-<th align="center"><strong>快捷键</strong></th>
-<th align="center"><strong>功能说明</strong></th>
+<th>模式</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">空格键(space)</td>
-<td align="center">反汇编窗口切换文本与图形</td>
+<td>_IOFBF</td>
+<td><strong>全缓冲</strong>：对于输出，数据在缓冲填满时被一次性写入。对于输入，缓冲会在请求输入且缓冲为空时被填充。</td>
 </tr>
 <tr>
-<td align="center">Enter</td>
-<td align="center">跟进函数实现，查看标号对应的地址</td>
+<td>_IOLBF</td>
+<td><strong>行缓冲</strong>：对于输出，数据在遇到换行符或者在缓冲填满时被写入，具体视情况而定。对于输入，缓冲会在请求输入且缓冲为空时被填充，直到遇到下一个换行符。</td>
 </tr>
 <tr>
-<td align="center"><strong>Esc</strong></td>
-<td align="center">在反汇编窗口中使用为后退到上个操作的地址处</td>
-</tr>
-<tr>
-<td align="center"><strong>A</strong></td>
-<td align="center">将选择的信息转换成ASCII(转换成可读性跟强的字符串)</td>
-</tr>
-<tr>
-<td align="center">B</td>
-<td align="center">十六进制与二进制数转换</td>
-</tr>
-<tr>
-<td align="center">C</td>
-<td align="center">解释光标处的地址为一条指令（代码）</td>
-</tr>
-<tr>
-<td align="center">D</td>
-<td align="center">解释光标处的地址为数据，每按一次将会转换这个地址的数据长度</td>
-</tr>
-<tr>
-<td align="center">G</td>
-<td align="center">跳转到指定地址</td>
-</tr>
-<tr>
-<td align="center">H</td>
-<td align="center">十六进制与十进制数转换</td>
-</tr>
-<tr>
-<td align="center">K</td>
-<td align="center">将数据解释为栈变量</td>
-</tr>
-<tr>
-<td align="center">M</td>
-<td align="center">解释为枚举成员（转换为枚举类型常量）</td>
-</tr>
-<tr>
-<td align="center">N</td>
-<td align="center">对符号重新命名</td>
-</tr>
-<tr>
-<td align="center">O</td>
-<td align="center">解释地址为数据段偏移量，用于字符串标号</td>
-</tr>
-<tr>
-<td align="center">P</td>
-<td align="center">创建函数</td>
-</tr>
-<tr>
-<td align="center">R</td>
-<td align="center">将ASCII转换为字符</td>
-</tr>
-<tr>
-<td align="center">T</td>
-<td align="center">解释数据为一个结构体成员（解析结构体偏移）</td>
-</tr>
-<tr>
-<td align="center">U（indefine）</td>
-<td align="center">取消定义光标处函数、代码、数据的定义</td>
-</tr>
-<tr>
-<td align="center">X</td>
-<td align="center">转换视图到交叉参考模式</td>
-</tr>
-<tr>
-<td align="center">Y</td>
-<td align="center">设置变量类型</td>
-</tr>
-<tr>
-<td align="center"><strong>/</strong></td>
-<td align="center">伪代码中进行注释</td>
-</tr>
-<tr>
-<td align="center"><strong>:</strong></td>
-<td align="center">光标所在位置添加<strong>常规注释</strong>和可重复注释</td>
-</tr>
-<tr>
-<td align="center"><strong>F2</strong></td>
-<td align="center">设置断点（F2在十六进制窗口进行修改，然后再按F2应用）</td>
-</tr>
-<tr>
-<td align="center">F4</td>
-<td align="center">运行到光标所在处（可用于跳出循环）</td>
-</tr>
-<tr>
-<td align="center">F5</td>
-<td align="center">查看伪代码</td>
-</tr>
-<tr>
-<td align="center">F7</td>
-<td align="center">单步步进</td>
-</tr>
-<tr>
-<td align="center">F9</td>
-<td align="center">动态调试程序(其实IDA主要用作静态分析用的)</td>
-</tr>
-<tr>
-<td align="center">F10</td>
-<td align="center">打开反汇编选项菜单快捷键</td>
-</tr>
-<tr>
-<td align="center">F12</td>
-<td align="center">暂时停止</td>
-</tr>
-<tr>
-<td align="center">Ctrl+F2</td>
-<td align="center">重新开始</td>
-</tr>
-<tr>
-<td align="center">Art+F2</td>
-<td align="center">结束跟踪</td>
-</tr>
-<tr>
-<td align="center">Ctrl+F7</td>
-<td align="center">自动步入，在所有的函数调用中一条一条地执行命令，断点或异常时，自动 停止</td>
-</tr>
-<tr>
-<td align="center"><strong>Shift + E</strong></td>
-<td align="center">提取数据</td>
-</tr>
-<tr>
-<td align="center"><strong>Shift</strong> + F5</td>
-<td align="center">打开签名窗口</td>
-</tr>
-<tr>
-<td align="center">Shift + F9</td>
-<td align="center">添加结构体</td>
-</tr>
-<tr>
-<td align="center">Shift + F12</td>
-<td align="center">自动分析出参考字符串</td>
-</tr>
-<tr>
-<td align="center"><strong>Ctrl</strong> + F</td>
-<td align="center">搜索字符串</td>
-</tr>
-<tr>
-<td align="center">Ctrl + M</td>
-<td align="center">查看标签（列举出当前已经添加的标签）</td>
-</tr>
-<tr>
-<td align="center">Ctrl + S</td>
-<td align="center">查看段的信息（列举出二进制程序的段的开始地址、结束地址、权限等信息）</td>
-</tr>
-<tr>
-<td align="center">Ctrl + X</td>
-<td align="center">交叉引用,类似于OD中的栈回溯操作</td>
-</tr>
-<tr>
-<td align="center">Ctrl + F9</td>
-<td align="center">导入c头文件</td>
-</tr>
-<tr>
-<td align="center">CTRL + F12</td>
-<td align="center">函数调用图</td>
-</tr>
-<tr>
-<td align="center"><strong>Alt+T</strong></td>
-<td align="center">搜索字符串(文本搜索)(可用于搜索main函数)</td>
-</tr>
-<tr>
-<td align="center">Alt+B</td>
-<td align="center">搜索十六进制（用于搜索十六进制字节序列，通常在分析过程中可以用来搜索opcode）</td>
-</tr>
-<tr>
-<td align="center">Alt+G</td>
-<td align="center">转换局部变量为结构体</td>
-</tr>
-<tr>
-<td align="center">Alt+L</td>
-<td align="center">标记(Label)</td>
-</tr>
-<tr>
-<td align="center">ALT + M</td>
-<td align="center">添加标签(mark)</td>
-</tr>
-<tr>
-<td align="center">Ctrl+Shift+W</td>
-<td align="center">拍摄IDA快照</td>
-</tr>
-<tr>
-<td align="center">view–&gt;open subviews</td>
-<td align="center">可以恢复你无意中关闭的数据显示窗口</td>
-</tr>
-<tr>
-<td align="center">windows–&gt;reset desktop</td>
-<td align="center">可以恢复初始ida布局</td>
-</tr>
-<tr>
-<td align="center">option–&gt;font</td>
-<td align="center">option–&gt;font</td>
-</tr>
-<tr>
-<td align="center">option–&gt;general-&gt;Auto comments</td>
-<td align="center">自动添加反汇编注释</td>
+<td>_IONBF</td>
+<td><strong>无缓冲</strong>：不使用缓冲。每个 I/O 操作都被即时写入。buffer 和 size 参数被忽略。</td>
 </tr>
 </tbody></table>
-<h2 id="5-判断IDA分析可执行文件完毕的三种方法"><a href="#5-判断IDA分析可执行文件完毕的三种方法" class="headerlink" title="5.判断IDA分析可执行文件完毕的三种方法"></a>5.判断IDA分析可执行文件完毕的三种方法</h2><p>1.图中IDA的“Output Window”窗口输出“The initial autoanalysis has been<br> finished”日志时，则说明IDA已分析完毕。  </p>
-<p>2.如图所示进度条处黄色向上箭头消失时，则表明IDA分析完毕。  </p>
-<p>3.图中IDA界面左下角AU处于”idle”状态时，也表明IDA分析完毕。</p>
-</li>
+<ul>
+<li><strong>size</strong> –这是缓冲的大小，以字节为单位。</li>
 </ul>
-<h1 id="三、用IDA分析程序实例"><a href="#三、用IDA分析程序实例" class="headerlink" title="三、用IDA分析程序实例"></a>三、用IDA分析程序实例</h1><h2 id="1-查壳"><a href="#1-查壳" class="headerlink" title="1.查壳"></a>1.查壳</h2><ul>
-<li><p>使用exeinfo pe<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1837928-1-1.html">52破解</a>查壳看他是64位还是32位的程序或者其他类型的如ELF等，以便于事后进行分析。  </p>
-</li>
-<li><p>或者使用peid来进行查壳<a target="_blank" rel="noopener" href="https://www.softpedia.com/get/Programming/Packers-Crypters-Protectors/PEiD-updated.shtml">peid官网地址</a>。   </p>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p><img src="/image/easy64.png" alt="程序easy-64">  </p>
-<p>拖入exeinfope后如图  </p>
-<p><img src="/image/exeinfope.png" alt="壳"></p>
-<p>得到程序为ELF类型的。  </p>
-<h2 id="2-用IDA进行分析"><a href="#2-用IDA进行分析" class="headerlink" title="2.用IDA进行分析"></a>2.用IDA进行分析</h2><p>拖入IDA打开后点击main函数进行查看  </p>
-<p>由于对于汇编代码不熟悉，点击tab键进入伪代码。  </p>
-<p><img src="/image/easy64ida.png" alt="ida分析">  </p>
-<p><img src="/image/easy64flag.png" alt="伪代码">  </p>
-<p>由此我们得到了flag</p>
-</li>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>如果成功，则该函数返回 0，否则返回非零值。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>下面的实例演示了 setvbuf() 函数的用法。</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line"></span><br><span class="line">   <span class="type">char</span> buff[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">   <span class="built_in">memset</span>( buff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>( buff ));</span><br><span class="line"></span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"启用全缓冲\n"</span>);</span><br><span class="line">   setvbuf(<span class="built_in">stdout</span>, buff, _IOFBF, <span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"这里是 runoob.com\n"</span>);</span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"该输出将保存到 buff\n"</span>);</span><br><span class="line">   fflush( <span class="built_in">stdout</span> );</span><br><span class="line"></span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"这将在编程时出现\n"</span>);</span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"最后休眠五秒钟\n"</span>);</span><br><span class="line"></span><br><span class="line">   sleep(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>让我们编译并运行上面的程序，这将产生以下结果。在这里，程序把缓冲输出保存到 <strong>buff</strong>，直到首次调用 <strong>fflush()</strong> 为止，然后开始缓冲输出，最后休眠 5 秒钟。它会在程序结束之前，发送剩余的输出到 STDOUT。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">启用全缓冲</span><br><span class="line">这里是 runoob.com</span><br><span class="line">该输出将保存到 buff</span><br><span class="line">这将在编程时出现</span><br><span class="line">最后休眠五秒钟</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p><img src="/image/0e853309ca5b5902106461f8a1a2619.png"></p>
+<p><img src="/image/7714687b04bb989aa63673edc27efb7.png"></p>
+<p>  <code>v5 = __readfsqword(0x28u);</code></p>
+<pre><code>从线程本地存储 (FS segment) 的 0x28 偏移读取栈 canary（栈保护机制）；
+
+如果栈被溢出破坏，函数返回前会检查这个值是否被改动，如果改变就会触发异常/崩溃。
+</code></pre>
+<p> <code> setvbuf(_bss_start, 0LL, 2, 0LL);</code></p>
+<p>✅ 重点：这句很不常见！</p>
+<pre><code>通常：setvbuf(stdout, NULL, _IONBF, 0) 用来设置 stdout 的缓冲模式。
+
+但这里设置的是 _bss_start，这是**.bss 段的起始地址**，不应该是 FILE 指针！
+</code></pre>
+<p>说明：这行是为了造成混淆或隐藏 stdout 的关闭行为，你会发现这实际上等价于关闭了 stdout，或至少破坏了它的使用。</p>
+<p>类似行为在前文提到的：</p>
+<p><code>fclose(_bss_start);</code></p>
+<p>也是一样的意图。</p>
+<p>所以：</p>
+<pre><code>这句话的目的其实是 使程序不能正常通过 printf/puts 输出结果，增加难度。
+</code></pre>
+<p>  <code>setvbuf(stdin, 0LL, 1, 0LL);</code></p>
+<pre><code>关闭 stdin 的缓冲，使得输入行为是行缓冲或无缓冲；
+
+这让输入变得更实时，对交互有帮助。
+</code></pre>
+<h4 id="构造方法："><a href="#构造方法：" class="headerlink" title="构造方法："></a>构造方法：</h4><p><code>cat /ctf* 1&gt;&amp;0</code></p>
+<h5 id="1-0是什么意思？"><a href="#1-0是什么意思？" class="headerlink" title="1>&amp;0是什么意思？"></a>1&gt;&amp;0是什么意思？</h5><blockquote>
+<p>这是 Bash 的 <strong>文件描述符重定向语法</strong>，意思是：把 <strong>标准输出（1）</strong> 重定向到 <strong>标准输入（0）</strong></p>
+</blockquote>
+<blockquote>
+<p>也就是说：</p>
+<ul>
+<li><code>cat</code> 原本写入 <strong>stdout</strong></li>
+<li>现在 <code>stdout</code> 被重定向到了 <code>stdin</code>，而你还可以通过 <code>stdin</code> 接收数据（比如和程序交互时）</li>
 </ul>
+</blockquote>
+<h5 id="为什么这样能显示出-flag？"><a href="#为什么这样能显示出-flag？" class="headerlink" title="为什么这样能显示出 flag？"></a>为什么这样能显示出 flag？</h5><blockquote>
+<ul>
+<li>虽然 <code>stdout</code> 被程序关闭或破坏了，但 <code>stdin</code>（描述符 0）还在；</li>
+<li>通过 <code>1&gt;&amp;0</code>，让 <code>cat</code> 输出重定向到你还能“看见”的地方；</li>
+<li>因为你是通过 <code>read</code> + <code>system(buf)</code> 执行命令，这个子进程的输出其实是能从 stdin 中读到的；</li>
+<li>很多 CTF 沙箱中使用 pseudo terminal / 父进程通信 / pipe 来连接 stdin/stdout，所以这样能“绕过关闭 stdout”的限制。</li>
+</ul>
+</blockquote>
+<h2 id="4-fork"><a href="#4-fork" class="headerlink" title="4.fork"></a>4.fork</h2><h4 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h4><p><img src="/image/7714687b04bb989aa63673edc27efb7.png"></p>
+<p>fork开启了一个全新的进程，返回两次返回值，父进程返回子进程的PID，子进程返回值为0（如果出现错误，fork返回一个负值）,题目中当fork被调用，先是父进程返回值，因此PID＞0，执行if下面的代码，wait（0LL）执行，父进程堵塞，等待子进程结束，<strong>父进程将被挂起</strong>，直到子进程完成，sleep(3u)是等待3s。此时的子进程中，fork返回0，进入else，关闭了输出流，然后从标准输入中读取了32个字节到buf，然后执行system(&amp;buf)。</p>
+<blockquote>
+<p>引用一位网友的话来解释fpid的值为什么在父子进程中不同。“其实就相当于链表，进程形成了链表，父进程的fpid(p 意味point)指向子进程的进程id, 因为子进程没有子进程，所以其fpid为0.</p>
+</blockquote>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>很多 CTF 沙箱中使用 pseudo terminal / 父进程通信 / pipe 来连接 stdin/stdout，所以这样能“绕过关闭 stdout”的限制。</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_80976241/article/details/144294553?fromshare=blogdetail&amp;sharetype=blogdetail&amp;sharerId=144294553&amp;sharerefer=PC&amp;sharesource=2301_80976241&amp;sharefrom=from_link">流的理解，setvbuf函数</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-setvbuf.html">C 库函数 - setvbuf()</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Sunnyside_/article/details/108196543">【Linux】fork()函数详解 (深入浅出 实例讲解)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jixianghahaxiao/article/details/45717953">Linux中fork（）函数详解 父子进程变量的关系</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-system.html">C 库函数 - system()</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Myon5/article/details/137891670">CTFshow-PWN-前置基础（pwn18-pwn19）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_80976241/article/details/144295269">CTFshow-pwn入门-前置基础pwn13-pwn19</a></p>
 
                 
             </div>
@@ -658,7 +513,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Bark66675.github.io/2025/01/14/my-first-blog/">https://Bark66675.github.io/2025/01/14/my-first-blog/</a>
+                    <a href="https://Bark66675.github.io/2025/07/03/chang-jian-han-shu-yong-fa/">https://Bark66675.github.io/2025/07/03/chang-jian-han-shu-yong-fa/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -696,8 +551,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/IDA%E6%95%99%E7%A8%8B/">
-                                    <span class="chip bg-color">IDA教程</span>
+                                <a href="/tags/%E5%87%BD%E6%95%B0/">
+                                    <span class="chip bg-color">函数</span>
                                 </a>
                             
                         </div>
@@ -776,17 +631,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/01/19/webknow/">
+                <a href="/2025/07/03/chang-jian-han-shu-yong-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="web学习记录">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="常见函数用法">
                         
-                        <span class="card-title">web学习记录</span>
+                        <span class="card-title">常见函数用法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -796,9 +652,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -807,11 +663,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/web%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">web学习笔记</span>
+                    <a href="/tags/%E5%87%BD%E6%95%B0/">
+                        <span class="chip bg-color">函数</span>
                     </a>
                     
                 </div>
@@ -825,13 +682,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/01/14/hello-world/">
+                <a href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="寄存器寻址方式">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">寄存器寻址方式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -842,7 +699,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-03
                             </span>
                         <span class="publish-author">
                             
@@ -851,6 +708,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80/">
+                        <span class="chip bg-color">寄存器寻址</span>
+                    </a>
+                    
                 </div>
                 
             </div>
