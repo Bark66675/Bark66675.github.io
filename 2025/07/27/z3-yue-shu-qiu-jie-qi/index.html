@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="汇编助记符, Bark66675">
-    <meta name="description" content="offset取偏移地址，不去地址的值。  
-[esi]指向对应地址的值。  
-">
+    <meta name="keywords" content="z3约束求解器, Bark66675">
+    <meta name="description" content="z3约束求解器一、z3约束求解器理解
+z3介绍Z3是由微软公司开发的一个优秀的SMT求解器，它能够检查逻辑表达式的可满足性，可以用来软件/硬件验证和测试，约束求解，混合系统分析，安全性研究，生物学研究（计算机分析）以及几何问题。通俗的来讲我">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>汇编助记符 | Bark66675</title>
+    <title>z3约束求解器 | Bark66675</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -275,12 +274,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">汇编助记符</h1>
+                    <h1 class="description center-align post-title">z3约束求解器</h1>
                 </div>
             </div>
         </div>
@@ -304,8 +303,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
-                                <span class="chip bg-color">汇编语言</span>
+                            <a href="/tags/z3/">
+                                <span class="chip bg-color">z3</span>
                             </a>
                         
                     </div>
@@ -320,7 +319,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-03-08
+                    2025-07-27
                 </div>
                 
 
@@ -329,7 +328,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    21
+                    856
                 </div>
                 
 
@@ -351,8 +350,56 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>offset取偏移地址，不去地址的值。  </p>
-<p>[esi]指向对应地址的值。  </p>
+                <h2 id="z3约束求解器"><a href="#z3约束求解器" class="headerlink" title="z3约束求解器"></a>z3约束求解器</h2><h3 id="一、z3约束求解器理解"><a href="#一、z3约束求解器理解" class="headerlink" title="一、z3约束求解器理解"></a>一、z3约束求解器理解</h3><ol>
+<li><h4 id="z3介绍"><a href="#z3介绍" class="headerlink" title="z3介绍"></a>z3介绍</h4><p>Z3是由微软公司开发的一个优秀的SMT求解器，它能够检查逻辑表达式的可满足性，可以用来软件/硬件验证和测试，约束求解，混合系统分析，安全性研究，生物学研究（计算机分析）以及几何问题。通俗的来讲我们可以简单理解为它是一个解方程的计算器，Z3py是使用脚本来解决一些实际问题。</p>
+</li>
+<li><h4 id="z3在CTF逆向中有什么用？"><a href="#z3在CTF逆向中有什么用？" class="headerlink" title="z3在CTF逆向中有什么用？"></a>z3在CTF逆向中有什么用？</h4><p>我们在做CTF逆向题的时候，当我们已经逆向到最后求flag或者具体数值解的时候，例如最简单的：我们知道了未知量x,y，也知道了约束条件x+y=5，那么此时我们就可以使用Z3来求解x和y的值，因为x和y的值肯定有多个解，而我们最后的flag肯定只有一个，那么我们就可以继续添加约束条件来减少解的数量，最后得出正确的flag。</p>
+</li>
+</ol>
+<h3 id="二、z3语法简介："><a href="#二、z3语法简介：" class="headerlink" title="二、z3语法简介："></a>二、z3语法简介：</h3><p>z3在python中的未知数变量主要有以下数据类型：</p>
+<ol>
+<li><p>Int –&gt; 整型（注意逐个列出时使用Int()，一次全部列出使用Int<strong>s</strong>()）。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a,b,c,d=Ints(<span class="string">'a b c d'</span>)</span><br><span class="line"><span class="comment"># a = Int('a')</span></span><br><span class="line"><span class="comment"># b = Int('b')</span></span><br><span class="line"><span class="comment"># c = Int('c')</span></span><br><span class="line"><span class="comment"># d = Int('d')</span></span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li><p>如果参数多建议使用循环：<code>v = [Int(f'v{i}')    for i in range(0, 16)]</code></p>
+</li>
+<li><blockquote>
+<ul>
+<li><p><code>f'v{i}'</code> 是一种<strong>格式化字符串字面量</strong>（也称为 <strong>f-string</strong>），它允许你在字符串中嵌入表达式。具体来说：</p>
+</li>
+<li><p><strong><code>f</code> 前缀</strong>：表示这是一个 f-string,将字符串格式化的方法。</p>
+</li>
+<li><p><strong>大括号 <code>{}</code></strong>：用于包裹需要动态计算的表达式。</p>
+</li>
+<li><p><code>f'v{i}'</code> 会根据循环变量 <code>i</code> 的值动态生成字符串。</p>
+</li>
+<li><p>例如，当 <code>i=0</code> 时，<code>f'v{i}'</code> 会变成字符串 <code>'v0'</code>；当 <code>i=1</code> 时，会变成 <code>'v1'</code>，依此类推，直到 <code>i=15</code> 时生成 <code>'v15'</code>。</p>
+</li>
+<li><p>**Int()**是z3中用于将变量转换为特定类型的一个函数</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>Bool –&gt; 布尔型</p>
+</li>
+<li><p>Array –&gt; 数组</p>
+</li>
+<li><p>BitVec(‘a’,8) –&gt; char型（其中的数字不一定是8，例如C语言中的int型可以用BitVec(‘a’,32)表示）</p>
+</li>
+</ol>
+<h4 id="三、几个常用的API"><a href="#三、几个常用的API" class="headerlink" title="三、几个常用的API"></a>三、几个常用的API</h4><p>**Solver()：**创建一个通用求解器，创建后我们可以添加我们的约束条件，进行下一步的求解。</p>
+<p><em><em>add()：<strong>添加约束</strong></em>条件（方程）</em>**，通常在solver()命令之后，添加的约束条件通常是一个逻辑等式。</p>
+<p>**check()：**通常用来判断在添加完约束条件后，来检测解的情况，有解的时候会回显sat，无解的时候会回显unsat。</p>
+<p>**model()：**在存在解的时候，该函数会将每个限制条件所对应的解集取交集，进而得出正解。</p>
+<p>更多的使用方法大家可以参考这个说明文档[Z3 API IN PYTHON 中文文档 （官方文档翻译）](<a target="_blank" rel="noopener" href="https://arabelatso.github.io/2018/06/14/Z3">https://arabelatso.github.io/2018/06/14/Z3</a> API in Python/)</p>
+<p>和<a target="_blank" rel="noopener" href="https://z3prover.github.io/api/html/namespacez3py.html">z3py namespace reference</a>。</p>
+<h4 id="四、一个nssctf例题脚本："><a href="#四、一个nssctf例题脚本：" class="headerlink" title="四、一个nssctf例题脚本："></a>四、一个nssctf例题脚本：</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">v,w,x,y,z=Ints(<span class="string">"v w x y z"</span>)</span><br><span class="line">s=Solver()</span><br><span class="line">s.add(v * <span class="number">23</span> + w * -<span class="number">32</span> + x * <span class="number">98</span> + y * <span class="number">55</span> + z * <span class="number">90</span> == <span class="number">333322</span>)</span><br><span class="line">s.add(v * <span class="number">123</span> + w * -<span class="number">322</span> + x * <span class="number">68</span> + y * <span class="number">67</span> + z * <span class="number">32</span> == <span class="number">707724</span>)</span><br><span class="line">s.add(v * <span class="number">266</span> + w * -<span class="number">34</span> + x * <span class="number">43</span> + y * <span class="number">8</span> + z * <span class="number">32</span> == <span class="number">1272529</span>)</span><br><span class="line">s.add (v * <span class="number">343</span> + w * -<span class="number">352</span> + x * <span class="number">58</span> + y * <span class="number">65</span> + z * <span class="number">5</span> == <span class="number">1672457</span>)</span><br><span class="line">s.add (v * <span class="number">231</span> + w * -<span class="number">321</span> + x * <span class="number">938</span> + y * <span class="number">555</span> + z * <span class="number">970</span> == <span class="number">3372367</span>)</span><br><span class="line"><span class="keyword">if</span> s.check() == sat:</span><br><span class="line">    <span class="built_in">print</span>(s.model())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"无解"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+
+
 
                 
             </div>
@@ -379,7 +426,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Bark66675.github.io/2025/03/08/hui-bian-zhu-ji-fu/">https://Bark66675.github.io/2025/03/08/hui-bian-zhu-ji-fu/</a>
+                    <a href="https://Bark66675.github.io/2025/07/27/z3-yue-shu-qiu-jie-qi/">https://Bark66675.github.io/2025/07/27/z3-yue-shu-qiu-jie-qi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -417,8 +464,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
-                                    <span class="chip bg-color">汇编语言</span>
+                                <a href="/tags/z3/">
+                                    <span class="chip bg-color">z3</span>
                                 </a>
                             
                         </div>
@@ -497,17 +544,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/03/08/gcc-bian-yi/">
+                <a href="/2025/07/27/z3-yue-shu-qiu-jie-qi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="“gcc编译”">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="z3约束求解器">
                         
-                        <span class="card-title">“gcc编译”</span>
+                        <span class="card-title">z3约束求解器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -517,9 +565,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -528,11 +576,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
-                        <span class="chip bg-color">C++编译过程</span>
+                    <a href="/tags/z3/">
+                        <span class="chip bg-color">z3</span>
                     </a>
                     
                 </div>
@@ -546,13 +595,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/06/bit/">
+                <a href="/2025/07/03/chang-jian-han-shu-yong-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Base64编码解析">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="常见函数用法">
                         
-                        <span class="card-title">Base64编码解析</span>
+                        <span class="card-title">常见函数用法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -563,7 +612,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-03
                             </span>
                         <span class="publish-author">
                             
@@ -576,16 +625,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8D%95%E4%BD%8D/">
-                        <span class="chip bg-color">计算机单位</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%AD%97%E8%8A%82%E4%B8%8E%E5%AD%97%E7%AC%A6/">
-                        <span class="chip bg-color">字节与字符</span>
-                    </a>
-                    
-                    <a href="/tags/base64%E7%BC%96%E7%A0%81%E5%8E%9F%E7%90%86/">
-                        <span class="chip bg-color">base64编码原理</span>
+                    <a href="/tags/%E5%87%BD%E6%95%B0/">
+                        <span class="chip bg-color">函数</span>
                     </a>
                     
                 </div>
