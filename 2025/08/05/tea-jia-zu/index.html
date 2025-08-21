@@ -360,12 +360,12 @@ TEA算法是由剑桥大学计算机实验室的David Wheeler">
             <div id="articleContent">
                 <h1 id="TEA家族"><a href="#TEA家族" class="headerlink" title="TEA家族"></a>TEA家族</h1><h2 id="一、tea算法"><a href="#一、tea算法" class="headerlink" title="一、tea算法"></a>一、tea算法</h2><h3 id="1-简介："><a href="#1-简介：" class="headerlink" title="1.简介："></a>1.简介：</h3><p>TEA算法全称<font color="LightSteelBlue"><em>微型加密算法</em>（Tiny Encryption Algorithm）</font>是一种简单容易实现的加密算法，通常只需要很少的代码就可以实现。</p>
 <p>TEA算法是由剑桥大学计算机实验室的David Wheeler和Roger  Needham于1994年发明的一种分组密码算法。其特点是加密速度快，密钥长度为128比特（16字节），明文和密文块长度均为64比特（8字节）。TEA算法采用Feistel网络结构，通过一系列的线性变换和密钥轮来确保加密的安全性。</p>
-<h3 id="2-tea算法核心特征："><a href="#2-tea算法核心特征：" class="headerlink" title="2.tea算法核心特征："></a>2.tea算法核心特征：</h3><ol start="2">
-<li><p>1.DELTA值和十六个字节的密钥</p>
+<h3 id="2-tea算法核心特征："><a href="#2-tea算法核心特征：" class="headerlink" title="2.tea算法核心特征："></a>2.tea算法核心特征：</h3><ol>
+<li><p>.DELTA值和十六个字节的密钥</p>
 </li>
-<li><p>2.可以利用ida的插件findcypto识别tea算法</p>
+<li><p>.可以利用ida的插件findcypto识别tea算法</p>
 </li>
-<li><p>3.x-=0x61c88647和x+=0x9e3779b9，这两个值是等价的，可能会在反汇编中看到</p>
+<li><p>.x-=0x61c88647和x+=0x9e3779b9，这两个值是等价的，可能会在反汇编中看到</p>
 </li>
 </ol>
 <h3 id="3-tea加密算法原理："><a href="#3-tea加密算法原理：" class="headerlink" title="3.tea加密算法原理："></a>3.tea加密算法原理：</h3><figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint32_t</span> v[<span class="number">2</span>] = {*(<span class="type">uint32_t</span> *)&amp;input[i], *(<span class="type">uint32_t</span> *)&amp;input[i<span class="number">+4</span>]};</span><br></pre></td></tr></tbody></table></figure>
