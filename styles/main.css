@@ -1,0 +1,166 @@
+/* 鱼塘固定宽度 */
+canvas:not(#ribbon-canvas), #web_bg {
+    margin-bottom: -0.5rem;
+    display: block;
+    width: 100%;
+}
+ 
+/* 鱼塘渐变色 */
+body{
+ overflow-x: hidden;
+}
+#footer {
+ height:160px;
+ background: linear-gradient(
+  135deg,
+  rgba(23, 23, 116, 0.2),
+  rgba(28, 181, 224, 0.2)
+ );
+}
+#footer #footer-wrap,
+#footer-wrap a {
+ color: #000;
+}
+#footer #footer-wrap {
+ z-index: 1;
+}
+ 
+#footer .container {
+ line-height: 0;
+ position: relative;
+ height: 100%;
+ width: 100vw;
+}
+ 
+/* 侧边栏个人信息卡片动态渐变色 */
+#aside-content>.card-widget.card-info{
+    background: linear-gradient(-45deg, rgba(173, 216, 230, 0.7), 
+    rgba(182, 219, 224, 0.7), 
+    rgba(191, 239, 255, 0.7), 
+    rgba(224, 255, 255, 0.7));
+}
+[data-theme=dark] #aside-content>.card-widget.card-info {
+    background: linear-gradient(-45deg, rgba(45, 45, 45, 0.8), 
+    rgba(60, 60, 60, 0.8), 
+    rgba(75, 75, 75, 0.8), 
+    rgba(90, 90, 90, 0.8));
+}
+/* 侧边栏公告栏卡片渐变色 */
+#aside-content>.card-widget.card-announcement{
+    background: linear-gradient(-45deg, rgba(173, 216, 230, 0.7), 
+    rgba(182, 219, 224, 0.7), 
+    rgba(191, 239, 255, 0.7), 
+    rgba(224, 255, 255, 0.7));
+}
+[data-theme=dark] #aside-content>.card-widget.card-announcement {
+    background: linear-gradient(-45deg, rgba(45, 45, 45, 0.8), 
+    rgba(60, 60, 60, 0.8), 
+    rgba(75, 75, 75, 0.8), 
+    rgba(90, 90, 90, 0.8));
+}
+/* 侧边栏目录最新文章卡片渐变色 */
+#aside-content>.sticky_layout>.card-widget{
+    background: linear-gradient(-45deg, rgba(173, 216, 230, 0.7), 
+    rgba(182, 219, 224, 0.7), 
+    rgba(191, 239, 255, 0.7), 
+    rgba(224, 255, 255, 0.7));
+}
+[data-theme=dark] #aside-content>.sticky_layout>.card-widget{
+    background: linear-gradient(-45deg, rgba(45, 45, 45, 0.8), 
+    rgba(60, 60, 60, 0.8), 
+    rgba(75, 75, 75, 0.8), 
+    rgba(90, 90, 90, 0.8));
+}
+/* 个人信息Follow me按钮 */
+#aside-content>.card-widget.card-info>#card-info-btn {
+    background-color: #3eb8be;
+    border-radius: 8px;
+}
+
+/*主页文章预览页面*/
+#recent-posts>.recent-post-items>.recent-post-item{
+    background: linear-gradient(-45deg, rgba(173, 216, 230, 0.6), 
+    rgba(182, 219, 224, 0.6), 
+    rgba(191, 239, 255, 0.6), 
+    rgba(224, 255, 255, 0.6));
+}
+[data-theme=dark] #recent-posts>.recent-post-items>.recent-post-item{
+    background: linear-gradient(-45deg, rgba(45, 45, 45, 0.8), 
+    rgba(60, 60, 60, 0.8), 
+    rgba(75, 75, 75, 0.8), 
+    rgba(90, 90, 90, 0.8));
+}
+ 
+/*分类页面*/
+.layout>#page {
+    background: linear-gradient(-45deg, rgba(173, 216, 230, 0.7), 
+    rgba(182, 219, 224, 0.7), 
+    rgba(191, 239, 255, 0.7), 
+    rgba(224, 255, 255, 0.7));
+}
+[data-theme=dark] .layout>#page {
+    background: linear-gradient(-45deg, rgba(24,40,72,.2), 
+    rgba(35,37,58,.9), 
+    rgba(35,37,58,.9), 
+    rgba(24,40,72,.2));
+}
+ 
+/*时间轴页面*/
+.layout>#archive {
+    background: linear-gradient(-45deg, rgba(173, 216, 230, 0.7), 
+    rgba(182, 219, 224, 0.7), 
+    rgba(191, 239, 255, 0.7), 
+    rgba(224, 255, 255, 0.7));
+}
+[data-theme=dark] .layout>#archive {
+    background: linear-gradient(-45deg, rgba(24,40,72,.2), 
+    rgba(35,37,58,.9), 
+    rgba(35,37,58,.9), 
+    rgba(24,40,72,.2));
+}
+
+/* 🧲 分类磁贴卡片整体背景 */
+#catalog_magnet {
+    background: linear-gradient(-45deg,
+      rgba(173, 216, 230, 0.7),
+      rgba(182, 219, 224, 0.7),
+      rgba(191, 239, 255, 0.7),
+      rgba(224, 255, 255, 0.7)
+    );
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+  
+/* 暗色模式下 */
+[data-theme=dark] #catalog_magnet {
+    background: linear-gradient(-45deg,
+      rgba(45, 45, 45, 0.8),
+      rgba(60, 60, 60, 0.8),
+      rgba(75, 75, 75, 0.8),
+      rgba(90, 90, 90, 0.8)
+    );
+}
+  
+/* 轮播图卡片背景 */
+.blog-slider__item {
+  background: linear-gradient(-45deg,
+    rgba(173, 216, 230, 0.7),
+    rgba(182, 219, 224, 0.7),
+    rgba(191, 239, 255, 0.7),
+    rgba(224, 255, 255, 0.7));
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* 暗色模式 */
+[data-theme=dark] .blog-slider__item {
+  background: linear-gradient(-45deg,
+    rgba(45, 45, 45, 0.8),
+    rgba(60, 60, 60, 0.8),
+    rgba(75, 75, 75, 0.8),
+    rgba(90, 90, 90, 0.8));
+}

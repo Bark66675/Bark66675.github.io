@@ -1,0 +1,547 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>IDA超全使用方法 | BarkStarry</title><meta name="author" content="BarkStarry"><meta name="copyright" content="BarkStarry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="一、IDA的下载ida的官网下载地址ida下载，包含x64和x32.    也可以在52破解上下载。 二、IDA的介绍及如何使用1.IDA简介IDA，全称为交互式反汇编器专业版（Interactive Disassembler  Professional），是一款功能强大的静态反编译软件。它被广泛用于软件安全分析，尤其是在0day研究和ShellCode分析中不可或缺。IDA  Pro以其交互性、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDA超全使用方法">
+<meta property="og:url" content="https://bark66675.github.io/2025/01/14/my-first-blog/index.html">
+<meta property="og:site_name" content="BarkStarry">
+<meta property="og:description" content="一、IDA的下载ida的官网下载地址ida下载，包含x64和x32.    也可以在52破解上下载。 二、IDA的介绍及如何使用1.IDA简介IDA，全称为交互式反汇编器专业版（Interactive Disassembler  Professional），是一款功能强大的静态反编译软件。它被广泛用于软件安全分析，尤其是在0day研究和ShellCode分析中不可或缺。IDA  Pro以其交互性、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bark66675.github.io/img/logo1.png">
+<meta property="article:published_time" content="2025-01-14T11:48:38.000Z">
+<meta property="article:modified_time" content="2025-01-23T15:58:27.497Z">
+<meta property="article:author" content="BarkStarry">
+<meta property="article:tag" content="IDA教程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bark66675.github.io/img/logo1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "IDA超全使用方法",
+  "url": "https://bark66675.github.io/2025/01/14/my-first-blog/",
+  "image": "https://bark66675.github.io/img/logo1.png",
+  "datePublished": "2025-01-14T11:48:38.000Z",
+  "dateModified": "2025-01-23T15:58:27.497Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BarkStarry",
+      "url": "https://Bark66675.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon1.ico"><link rel="canonical" href="https://bark66675.github.io/2025/01/14/my-first-blog/index.html"><link rel="preconnect"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css?v=7.1.0"><link rel="stylesheet" href="/pluginsSrc/node-snackbar/dist/snackbar.min.css?v=0.1.16" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: BarkStarry","link":"链接: ","source":"来源: BarkStarry","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js?v=4.12.0',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'IDA超全使用方法',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/styles/css/cursors.css"><link rel="stylesheet" href="/css/transparent.css"><link rel="stylesheet" href="/styles/main.css"><script src="/css/custom.css"></script><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/a.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo1.png" alt="Logo"><span class="site-name">BarkStarry</span></a><a class="nav-page-title" href="/"><span class="site-name">IDA超全使用方法</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">IDA超全使用方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-14T11:48:38.000Z" title="发表于 2025-01-14 19:48:38">2025-01-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-23T15:58:27.497Z" title="更新于 2025-01-23 23:58:27">2025-01-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="一、IDA的下载"><a href="#一、IDA的下载" class="headerlink" title="一、IDA的下载"></a>一、IDA的下载</h1><p>ida的官网下载地址<a target="_blank" rel="noopener" href="https://hex-rays.com/ida-free#download" title="ida官网">ida下载</a>，包含x64和x32.   </p>
+<p>也可以在52破解上下载。</p>
+<h1 id="二、IDA的介绍及如何使用"><a href="#二、IDA的介绍及如何使用" class="headerlink" title="二、IDA的介绍及如何使用"></a>二、IDA的介绍及如何使用</h1><h2 id="1-IDA简介"><a href="#1-IDA简介" class="headerlink" title="1.IDA简介"></a>1.IDA简介</h2><p>IDA，全称为<strong>交互式反汇编器专业版</strong>（Interactive Disassembler  Professional），是一款功能强大的静态反编译软件。它被广泛用于软件安全分析，尤其是在0day研究和ShellCode分析中不可或缺。IDA  Pro以其交互性、可编程性、可扩展性以及对多处理器的支持而闻名，能够在Windows、Linux、WinCE、MacOS等多个平台上运行，分析各种程序代码。  </p>
+<p>IDA Pro支持多种CPU指令集，包括但不限于Intel  x86、x64、MIPS、PowerPC、ARM、Z80、68000和c8051。这使得IDA  Pro能够分析各种不同架构的程序，成为逆向工程领域的重要工具。IDA  Pro的递归下降反汇编能力，以及其在区分代码和数据、确定数据类型方面的高效算法，使得它能够提供接近源代码的反汇编输出。 </p>
+<h2 id="2-在IDA中打开文件"><a href="#2-在IDA中打开文件" class="headerlink" title="2.在IDA中打开文件"></a>2.在IDA中打开文件</h2><blockquote>
+<p><em>双击</em>ida  </p>
+</blockquote>
+<p><img src="/image/idajiemian.png" alt="ida"></p>
+<blockquote>
+<p><strong>new</strong>会打开一个空白页面，把想逆向的文件拖进去即可，或者点击<strong>go</strong>直接去打开文件。 </p>
+</blockquote>
+<p><img src="/image/buzhouwenjian1.png" alt="ida">  </p>
+<h2 id="3-界面简介"><a href="#3-界面简介" class="headerlink" title="3.界面简介"></a>3.界面简介</h2><p> 打开后如下界面  </p>
+<p><img src="/image/jiemianjieshao1.png" alt="界面简介">    </p>
+<hr>
+<h3 id="界面各个窗口介绍"><a href="#界面各个窗口介绍" class="headerlink" title="界面各个窗口介绍"></a>界面各个窗口介绍</h3><ul>
+<li><p><em><strong>导航条</strong></em>的<strong>含义</strong>：</p>
+<p>蓝色：表示常规的指令函数，绝大部分为用户编写的代码，上图中绝大部分数据属于蓝色数据。 </p>
+<p>黑色：表示间隙部分内容，可执行文件中包含多个节段，相邻节段之间存在空隙，红色表示空隙部分。 </p>
+<p>银白色：表示数据项部分内容，可执行文件中会包含大量数据，银白色表示数据项部分内容。 </p>
+<p>粉色：表示外部导入符号，通常可执行文件会导入外部的库函数。 </p>
+<p>暗黄色：表示IDA未识别的内容，需要用户根据需求自行分析。  </p>
+</li>
+<li><p><em><strong>IDA View</strong></em>（反汇编窗口）的<strong>含义</strong>：  </p>
+<p>包括三种反汇编视图:文本视图、图表视图、路径视图。  </p>
+<p>反汇编窗口属于逆向分析过程中关注频率最高的窗口，通过此窗口可以逆向分析反汇编代码。  </p>
+</li>
+<li><p><em><strong>Hex View</strong></em>的<strong>含义</strong>：  </p>
+<p>二进制查看窗口总共分为三部分，三部分内容分别位于上图左、中、右，三处含义分别为：  </p>
+<p>左边数据：表示二进制数据对应的内存相对偏移。  </p>
+<p>中间数据：表示内存中数据的具体内容。  </p>
+<p>右边数据：表示内存数据的字符串显示，该功能可辅助读者快速识别字符串内容。  </p>
+<p>用户可在二进制查看窗口中编辑二进制数据，从而满足篡改数据的测试需求。  </p>
+<p><img src="/image/view.png" alt="图标视图中红黄蓝线的应用">   </p>
+</li>
+<li><p><em><strong>Structures</strong></em>的<strong>含义</strong>：  </p>
+<p>结构窗口提供用户查询已定义的结构体，同时IDA可识别出可执行文件包含的部分结构体数据，结构窗口可通过快捷键“+”、“-”展开和收缩结构体，IDA结构窗口支持用户自定义结构体。  </p>
+</li>
+<li><p><em><strong>Imports</strong></em>的<strong>含义</strong>：  </p>
+<p>IDA提供导入函数窗口，用于可在导入函数窗口中查看当前可执行文件导入哪些外部函数库及函数，通过导入函数窗口可获取到函数内存相对偏移地址、函数名、导入函数所属的库文件。  </p>
+</li>
+<li><p><em><strong>Exports</strong></em>的<strong>含义</strong>：  </p>
+<p>IDA的导出函数窗口提供可执行文件导出函数信息，通过导出函数窗口可获取到导出的函数名、函数对应的内存相对偏移地址。  </p>
+</li>
+<li><p><em><strong>Function</strong></em>的<strong>含义</strong>：</p>
+<p>IDA提供函数窗口供玩家查找函数信息，在窗口按下“CTRL + F”快捷键便可根据需求搜索函数名，快速定位函数名方式可提供逆向分析效率。  </p>
+</li>
+<li><p><em><strong>Enum</strong></em>的<strong>含义</strong>：  </p>
+<p>枚举窗口。   </p>
+<h2 id="4-快捷键详细介绍"><a href="#4-快捷键详细介绍" class="headerlink" title="4.快捷键详细介绍"></a>4.快捷键详细介绍</h2><table>
+<thead>
+<tr>
+<th align="center"><strong>快捷键</strong></th>
+<th align="center"><strong>功能说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">空格键(space)</td>
+<td align="center">反汇编窗口切换文本与图形</td>
+</tr>
+<tr>
+<td align="center">Enter</td>
+<td align="center">跟进函数实现，查看标号对应的地址</td>
+</tr>
+<tr>
+<td align="center"><strong>Esc</strong></td>
+<td align="center">在反汇编窗口中使用为后退到上个操作的地址处</td>
+</tr>
+<tr>
+<td align="center"><strong>A</strong></td>
+<td align="center">将选择的信息转换成ASCII(转换成可读性跟强的字符串)</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td align="center">十六进制与二进制数转换</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="center">解释光标处的地址为一条指令（代码）</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td align="center">解释光标处的地址为数据，每按一次将会转换这个地址的数据长度</td>
+</tr>
+<tr>
+<td align="center">G</td>
+<td align="center">跳转到指定地址</td>
+</tr>
+<tr>
+<td align="center">H</td>
+<td align="center">十六进制与十进制数转换</td>
+</tr>
+<tr>
+<td align="center">K</td>
+<td align="center">将数据解释为栈变量</td>
+</tr>
+<tr>
+<td align="center">M</td>
+<td align="center">解释为枚举成员（转换为枚举类型常量）</td>
+</tr>
+<tr>
+<td align="center">N</td>
+<td align="center">对符号重新命名</td>
+</tr>
+<tr>
+<td align="center">O</td>
+<td align="center">解释地址为数据段偏移量，用于字符串标号</td>
+</tr>
+<tr>
+<td align="center">P</td>
+<td align="center">创建函数</td>
+</tr>
+<tr>
+<td align="center">R</td>
+<td align="center">将ASCII转换为字符</td>
+</tr>
+<tr>
+<td align="center">T</td>
+<td align="center">解释数据为一个结构体成员（解析结构体偏移）</td>
+</tr>
+<tr>
+<td align="center">U（indefine）</td>
+<td align="center">取消定义光标处函数、代码、数据的定义</td>
+</tr>
+<tr>
+<td align="center">X</td>
+<td align="center">转换视图到交叉参考模式</td>
+</tr>
+<tr>
+<td align="center">Y</td>
+<td align="center">设置变量类型</td>
+</tr>
+<tr>
+<td align="center"><strong>/</strong></td>
+<td align="center">伪代码中进行注释</td>
+</tr>
+<tr>
+<td align="center"><strong>:</strong></td>
+<td align="center">光标所在位置添加<strong>常规注释</strong>和可重复注释</td>
+</tr>
+<tr>
+<td align="center"><strong>F2</strong></td>
+<td align="center">设置断点（F2在十六进制窗口进行修改，然后再按F2应用）</td>
+</tr>
+<tr>
+<td align="center">F4</td>
+<td align="center">运行到光标所在处（可用于跳出循环）</td>
+</tr>
+<tr>
+<td align="center">F5</td>
+<td align="center">查看伪代码</td>
+</tr>
+<tr>
+<td align="center">F7</td>
+<td align="center">单步步进</td>
+</tr>
+<tr>
+<td align="center">F9</td>
+<td align="center">动态调试程序(其实IDA主要用作静态分析用的)</td>
+</tr>
+<tr>
+<td align="center">F10</td>
+<td align="center">打开反汇编选项菜单快捷键</td>
+</tr>
+<tr>
+<td align="center">F12</td>
+<td align="center">暂时停止</td>
+</tr>
+<tr>
+<td align="center">Ctrl+F2</td>
+<td align="center">重新开始</td>
+</tr>
+<tr>
+<td align="center">Art+F2</td>
+<td align="center">结束跟踪</td>
+</tr>
+<tr>
+<td align="center">Ctrl+F7</td>
+<td align="center">自动步入，在所有的函数调用中一条一条地执行命令，断点或异常时，自动 停止</td>
+</tr>
+<tr>
+<td align="center"><strong>Shift + E</strong></td>
+<td align="center">提取数据</td>
+</tr>
+<tr>
+<td align="center"><strong>Shift</strong> + F5</td>
+<td align="center">打开签名窗口</td>
+</tr>
+<tr>
+<td align="center">Shift + F9</td>
+<td align="center">添加结构体</td>
+</tr>
+<tr>
+<td align="center">Shift + F12</td>
+<td align="center">自动分析出参考字符串</td>
+</tr>
+<tr>
+<td align="center"><strong>Ctrl</strong> + F</td>
+<td align="center">搜索字符串</td>
+</tr>
+<tr>
+<td align="center">Ctrl + M</td>
+<td align="center">查看标签（列举出当前已经添加的标签）</td>
+</tr>
+<tr>
+<td align="center">Ctrl + S</td>
+<td align="center">查看段的信息（列举出二进制程序的段的开始地址、结束地址、权限等信息）</td>
+</tr>
+<tr>
+<td align="center">Ctrl + X</td>
+<td align="center">交叉引用,类似于OD中的栈回溯操作</td>
+</tr>
+<tr>
+<td align="center">Ctrl + F9</td>
+<td align="center">导入c头文件</td>
+</tr>
+<tr>
+<td align="center">CTRL + F12</td>
+<td align="center">函数调用图</td>
+</tr>
+<tr>
+<td align="center"><strong>Alt+T</strong></td>
+<td align="center">搜索字符串(文本搜索)(可用于搜索main函数)</td>
+</tr>
+<tr>
+<td align="center">Alt+B</td>
+<td align="center">搜索十六进制（用于搜索十六进制字节序列，通常在分析过程中可以用来搜索opcode）</td>
+</tr>
+<tr>
+<td align="center">Alt+G</td>
+<td align="center">转换局部变量为结构体</td>
+</tr>
+<tr>
+<td align="center">Alt+L</td>
+<td align="center">标记(Label)</td>
+</tr>
+<tr>
+<td align="center">ALT + M</td>
+<td align="center">添加标签(mark)</td>
+</tr>
+<tr>
+<td align="center">Ctrl+Shift+W</td>
+<td align="center">拍摄IDA快照</td>
+</tr>
+<tr>
+<td align="center">view–&gt;open subviews</td>
+<td align="center">可以恢复你无意中关闭的数据显示窗口</td>
+</tr>
+<tr>
+<td align="center">windows–&gt;reset desktop</td>
+<td align="center">可以恢复初始ida布局</td>
+</tr>
+<tr>
+<td align="center">option–&gt;font</td>
+<td align="center">option–&gt;font</td>
+</tr>
+<tr>
+<td align="center">option–&gt;general-&gt;Auto comments</td>
+<td align="center">自动添加反汇编注释</td>
+</tr>
+</tbody></table>
+<h2 id="5-判断IDA分析可执行文件完毕的三种方法"><a href="#5-判断IDA分析可执行文件完毕的三种方法" class="headerlink" title="5.判断IDA分析可执行文件完毕的三种方法"></a>5.判断IDA分析可执行文件完毕的三种方法</h2><p>1.图中IDA的“Output Window”窗口输出“The initial autoanalysis has been<br> finished”日志时，则说明IDA已分析完毕。  </p>
+<p>2.如图所示进度条处黄色向上箭头消失时，则表明IDA分析完毕。  </p>
+<p>3.图中IDA界面左下角AU处于”idle”状态时，也表明IDA分析完毕。</p>
+</li>
+</ul>
+<h1 id="三、用IDA分析程序实例"><a href="#三、用IDA分析程序实例" class="headerlink" title="三、用IDA分析程序实例"></a>三、用IDA分析程序实例</h1><h2 id="1-查壳"><a href="#1-查壳" class="headerlink" title="1.查壳"></a>1.查壳</h2><ul>
+<li><p>使用exeinfo pe<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1837928-1-1.html">52破解</a>查壳看他是64位还是32位的程序或者其他类型的如ELF等，以便于事后进行分析。  </p>
+</li>
+<li><p>或者使用peid来进行查壳<a target="_blank" rel="noopener" href="https://www.softpedia.com/get/Programming/Packers-Crypters-Protectors/PEiD-updated.shtml">peid官网地址</a>。   </p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p><img src="/image/easy64.png" alt="程序easy-64">  </p>
+<p>拖入exeinfope后如图  </p>
+<p><img src="/image/exeinfope.png" alt="壳"></p>
+<p>得到程序为ELF类型的。  </p>
+<h2 id="2-用IDA进行分析"><a href="#2-用IDA进行分析" class="headerlink" title="2.用IDA进行分析"></a>2.用IDA进行分析</h2><p>拖入IDA打开后点击main函数进行查看  </p>
+<p>由于对于汇编代码不熟悉，点击tab键进入伪代码。  </p>
+<p><img src="/image/easy64ida.png" alt="ida分析">  </p>
+<p><img src="/image/easy64flag.png" alt="伪代码">  </p>
+<p>由此我们得到了flag</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Bark66675.github.io">BarkStarry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bark66675.github.io/2025/01/14/my-first-blog/">https://bark66675.github.io/2025/01/14/my-first-blog/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Bark66675.github.io" target="_blank">BarkStarry</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/IDA%E6%95%99%E7%A8%8B/">IDA教程</a></div><div class="post-share"><div class="social-share" data-image="/img/logo1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css?v=1.1.6" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js?v=1.1.6" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="wechat"></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/01/19/webknow/" title="web学习记录"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">web学习记录</div></div><div class="info-2"><div class="info-item-1">一、万能密码万能密码：’ or ‘=’ #select * from user where username=’’or ‘=’#’ and password=’ ‘（*是通配符，#注释掉后面的语句，or前面是空的，为假，后面为真的，又因为是or语句，所以总体为真。）（除了 # 以外， – 也是SQL中的注释符，但SQL的语法格式规定–和后面的注释内容必须间隔一个空格，所以这需要使用 a’ or 1 – a 而不是 a’ or 1 – 其原理和 a’ or 1 # 大同小异）      二、SQL注入1.SQL注入的分类：1.根据注入位置分类：get、post、head头注入  根据反馈结果分类：有回显（显错注入）、无回显（盲注）  根据数据类型分类：                           1.数字型：0123456789                           2.字符型：输入的参数为字符串。最大的区别：字符型不需要闭合，字符串型一般需要闭合。  2.SQL注入的流程：？id=1asdfg   一、看是否报错：1.不报错：字符型  报错：数字型 二、看是...</div></div></div></a><a class="pagination-related" href="/2025/01/14/hello-world/" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Hello World</div></div><div class="info-2"><div class="info-item-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post"  More info: Writing Run server1$ hexo server  More info: Server Generate static files1$ hexo generate  More info: Generating Deploy to remote sites1$ hexo deploy  More info: Deployment </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">BarkStarry</div><div class="author-info-description">学学学学学学</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bark66675"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">刺骨的寒风，孕育出新生的希望。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81IDA%E7%9A%84%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">一、IDA的下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81IDA%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">二、IDA的介绍及如何使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-IDA%E7%AE%80%E4%BB%8B"><span class="toc-number">2.1.</span> <span class="toc-text">1.IDA简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9C%A8IDA%E4%B8%AD%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">2.在IDA中打开文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%95%8C%E9%9D%A2%E7%AE%80%E4%BB%8B"><span class="toc-number">2.3.</span> <span class="toc-text">3.界面简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%95%8C%E9%9D%A2%E5%90%84%E4%B8%AA%E7%AA%97%E5%8F%A3%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.3.1.</span> <span class="toc-text">界面各个窗口介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BF%AB%E6%8D%B7%E9%94%AE%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.4.</span> <span class="toc-text">4.快捷键详细介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%88%A4%E6%96%ADIDA%E5%88%86%E6%9E%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E5%AE%8C%E6%AF%95%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">2.5.</span> <span class="toc-text">5.判断IDA分析可执行文件完毕的三种方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%94%A8IDA%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F%E5%AE%9E%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">三、用IDA分析程序实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9F%A5%E5%A3%B3"><span class="toc-number">3.1.</span> <span class="toc-text">1.查壳</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C"><span class="toc-number">3.1.1.</span> <span class="toc-text">操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%94%A8IDA%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90"><span class="toc-number">3.2.</span> <span class="toc-text">2.用IDA进行分析</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/08/05/tea-jia-zu/" title="TEA家族"><img src="/img/2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEA家族"></a><div class="content"><a class="title" href="/2025/08/05/tea-jia-zu/" title="TEA家族">TEA家族</a><time datetime="2025-08-04T23:41:36.000Z" title="发表于 2025-08-05 07:41:36">2025-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/rc4/" title="rc4"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rc4"></a><div class="content"><a class="title" href="/2025/07/27/rc4/" title="rc4">rc4</a><time datetime="2025-07-27T05:58:08.000Z" title="发表于 2025-07-27 13:58:08">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器"><img src="/img/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="z3约束求解器"></a><div class="content"><a class="title" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器">z3约束求解器</a><time datetime="2025-07-26T19:37:35.000Z" title="发表于 2025-07-27 03:37:35">2025-07-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/chang-jian-han-shu-yong-fa/" title="常见函数用法">常见函数用法</a><time datetime="2025-07-03T12:15:18.000Z" title="发表于 2025-07-03 20:15:18">2025-07-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/" title="寄存器寻址方式">寄存器寻址方式</a><time datetime="2025-07-03T03:39:31.000Z" title="发表于 2025-07-03 11:39:31">2025-07-03</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2025 By BarkStarry</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><script src="/js/tw_cn.js?v=5.5.2"></script><script src="/pluginsSrc/node-snackbar/dist/snackbar.min.js?v=0.1.16"></script><div class="js-pjax"></div><script src="/styles/js/snowflake.js"></script><meting-js class="no-destroy" id="2869859820" server="netease" type="playlist" fixed="true" autoplay="false" order="random" volume="0.3" list-folded="false" list-max-height="36vh"> </meting-js><script src="/js/aplayer-lrc.js"></script><script src="/js/continuous-play.js"></script><script id="click-show-text" src="/pluginsSrc/butterfly-extsrc/dist/click-show-text.min.js?v=1.1.6" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/meting/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="/pluginsSrc/pjax/pjax.min.js?v=0.2.8"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async="" data-pjax="" src="/"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

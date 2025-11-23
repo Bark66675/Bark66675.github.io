@@ -1,0 +1,463 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Android动态调试小记 | BarkStarry</title><meta name="author" content="BarkStarry"><meta name="copyright" content="BarkStarry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="安卓动态调试——apk加上动态可调试属性 刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。  用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。      先用雷电模拟器在程序里面运行这个程序，接着用adb测试远程连接：输入adb devices。如图显示就算端口连接好了。      adb devices -l查看连接的设备     adb she">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android动态调试小记">
+<meta property="og:url" content="https://bark66675.github.io/2025/04/01/android-dong-tai-diao-shi/index.html">
+<meta property="og:site_name" content="BarkStarry">
+<meta property="og:description" content="安卓动态调试——apk加上动态可调试属性 刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。  用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。      先用雷电模拟器在程序里面运行这个程序，接着用adb测试远程连接：输入adb devices。如图显示就算端口连接好了。      adb devices -l查看连接的设备     adb she">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bark66675.github.io/img/logo1.png">
+<meta property="article:published_time" content="2025-04-01T11:41:55.000Z">
+<meta property="article:modified_time" content="2025-04-02T08:11:29.405Z">
+<meta property="article:author" content="BarkStarry">
+<meta property="article:tag" content="安卓动态调试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bark66675.github.io/img/logo1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Android动态调试小记",
+  "url": "https://bark66675.github.io/2025/04/01/android-dong-tai-diao-shi/",
+  "image": "https://bark66675.github.io/img/logo1.png",
+  "datePublished": "2025-04-01T11:41:55.000Z",
+  "dateModified": "2025-04-02T08:11:29.405Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BarkStarry",
+      "url": "https://Bark66675.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon1.ico"><link rel="canonical" href="https://bark66675.github.io/2025/04/01/android-dong-tai-diao-shi/index.html"><link rel="preconnect"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css?v=7.1.0"><link rel="stylesheet" href="/pluginsSrc/node-snackbar/dist/snackbar.min.css?v=0.1.16" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: BarkStarry","link":"链接: ","source":"来源: BarkStarry","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js?v=4.12.0',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Android动态调试小记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/styles/css/cursors.css"><link rel="stylesheet" href="/css/transparent.css"><link rel="stylesheet" href="/styles/main.css"><script src="/css/custom.css"></script><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/a.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo1.png" alt="Logo"><span class="site-name">BarkStarry</span></a><a class="nav-page-title" href="/"><span class="site-name">Android动态调试小记</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Android动态调试小记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-01T11:41:55.000Z" title="发表于 2025-04-01 19:41:55">2025-04-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-02T08:11:29.405Z" title="更新于 2025-04-02 16:11:29">2025-04-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="安卓动态调试——apk加上动态可调试属性"><a href="#安卓动态调试——apk加上动态可调试属性" class="headerlink" title="安卓动态调试——apk加上动态可调试属性"></a>安卓动态调试——apk加上动态可调试属性</h1><hr>
+<p>刷了一下2024xyctf的DebugMe题目，记一下这次动态调试过程。</p>
+<hr>
+<p>用jeb打开后看到有调试检查，再根据题目提示为动态调试。知道需要进行动调。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401200202.png">  </p>
+<p>先用雷电模拟器在程序里面运行这个程序，接着用adb测试远程连接：输入adb devices。如图显示就算端口连接好了。</p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401200756.png">  </p>
+<p>  adb devices -l查看连接的设备  </p>
+<p>  adb shell ps查看线程状态  </p>
+<p>然后才能在jeb里面点击调试器或者甲虫下图标进行动态调试，不然会显示调试的目标不存在。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201241.png" alt="有可以连接的设备">    </p>
+<p>点击attach附上。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201443.png" alt="报错">   </p>
+<p>提示程序不可调试nondebuggable。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401201623.png">  </p>
+<p>提示无法attach上。   </p>
+<h2 id="一、用Android-Killer编译的方法修改apk为可调式"><a href="#一、用Android-Killer编译的方法修改apk为可调式" class="headerlink" title="一、用Android Killer编译的方法修改apk为可调式"></a>一、用Android Killer编译的方法修改apk为可调式</h2><ol>
+<li>用Android Killer打开apk，可以解包这个程序。</li>
+</ol>
+<p>​    <img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401213521.png">  </p>
+<ol start="2">
+<li><p>点开AndroidMainfest.xml，在&lt;application那一行后面加上android:debuggable=”true”这个属性（记得要ctrl+s保存）。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202410.png" alt="原本的样子">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202526.png" alt="更改后的样子"></p>
+</li>
+<li><p>把编译先设置成AndroidKiller选项，然后进行编译。会生成编译后可调试的apk（如果有报错根据提示修改）。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401202951.png">  </p>
+<blockquote>
+<p>在Android Killer工具中，<strong>“default”</strong> 和 <strong>“AndroidKiller”</strong> 是两种不同的编译配置选项，它们的核心区别在于 <strong>签名配置</strong> 和 <strong>编译参数</strong>。以下是具体分析：</p>
+</blockquote>
+<blockquote>
+<h3 id="1-两者的核心区别"><a href="#1-两者的核心区别" class="headerlink" title="1. 两者的核心区别"></a><strong>1. 两者的核心区别</strong></h3><table>
+<thead>
+<tr>
+<th><strong>配置项</strong></th>
+<th><strong>default（默认配置）</strong></th>
+<th><strong>AndroidKiller（工具自定义配置）</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>签名文件</strong></td>
+<td>通常使用空签名或无有效签名</td>
+<td>预置工具自带的调试签名（如 <code>debug.keystore</code>）</td>
+</tr>
+<tr>
+<td><strong>签名对齐</strong></td>
+<td>可能未启用 <code>zipalign</code> 优化</td>
+<td>默认启用 <code>zipalign</code> 对齐优化</td>
+</tr>
+<tr>
+<td><strong>兼容性</strong></td>
+<td>可能因签名问题导致安装失败</td>
+<td>针对重新打包场景优化，兼容性更好</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>临时测试或无需安装的场景（如静态分析）</td>
+<td>需要重新打包并安装到设备的调试场景</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="2-如何选择？"><a href="#2-如何选择？" class="headerlink" title="2. 如何选择？"></a><strong>2. 如何选择？</strong></h3><ul>
+<li><strong>选择 <code>AndroidKiller</code> 配置的情况</strong>：<ul>
+<li>需要重新打包APK并安装到设备（尤其是非Root设备）。</li>
+<li>希望自动处理签名和对齐，避免手动操作。</li>
+<li>遇到安装失败问题时（如 <code>INSTALL_PARSE_FAILED_NO_CERTIFICATES</code> 错误）。</li>
+</ul>
+</li>
+<li><strong>选择 <code>default</code> 配置的情况</strong>：<ul>
+<li>仅需反编译查看代码/资源，无需重新安装。</li>
+<li>已手动配置签名文件（如自有证书）或有特殊编译需求。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-验证配置差异的方法"><a href="#3-验证配置差异的方法" class="headerlink" title="3. 验证配置差异的方法"></a><strong>3. 验证配置差异的方法</strong></h3><ol>
+<li><strong>检查签名配置</strong>：<ul>
+<li>在Android Killer中打开 <strong><code>配置</code></strong> → <strong><code>签名配置</code></strong>，查看两种选项是否使用不同的 <code>.keystore</code> 文件。</li>
+<li>若 <code>AndroidKiller</code> 使用 <code>debug.keystore</code> 而 <code>default</code> 为空，则前者能生成有效签名的APK。</li>
+</ul>
+</li>
+<li><strong>查看编译日志</strong>：<ul>
+<li>编译时观察日志中是否包含 <code>zipalign</code> 步骤。<code>AndroidKiller</code> 配置通常会自动对齐优化。</li>
+</ul>
+</li>
+<li><strong>安装测试</strong>：<ul>
+<li>分别用两种配置编译APK，尝试安装到模拟器或真机。若 <code>default</code> 失败，说明其签名无效。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="4-常见问题解决"><a href="#4-常见问题解决" class="headerlink" title="4. 常见问题解决"></a><strong>4. 常见问题解决</strong></h3><ul>
+<li><strong>安装失败（签名错误）</strong>：<ul>
+<li>使用 <code>AndroidKiller</code> 配置（自带有效签名）。</li>
+<li>若仍需自定义签名，手动替换配置中的 <code>.keystore</code> 文件。</li>
+</ul>
+</li>
+<li><strong>APK无法运行（对齐问题）</strong>：<ul>
+<li>确保启用 <code>zipalign</code>（在 <code>AndroidKiller</code> 配置中默认开启）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li><strong>优先选择 <code>AndroidKiller</code> 配置</strong>：它能自动处理签名和对齐，适合大多数重新打包场景。</li>
+<li><strong>仅在特殊需求时使用 <code>default</code></strong>：如需自定义签名或调试未安装的APK逻辑。</li>
+</ul>
+<p>通过理解配置差异并针对性选择，可显著提高逆向工程和APK修改的效率。</p>
+</blockquote>
+</li>
+<li><p>最后用jeb再进行动态调试，发现可以附上了，click一下flag就出来了。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401204037.jpg"></p>
+</li>
+</ol>
+<h2 id="二、用apktool手动解包修改他的属性，再进行对齐签名的方法"><a href="#二、用apktool手动解包修改他的属性，再进行对齐签名的方法" class="headerlink" title="二、用apktool手动解包修改他的属性，再进行对齐签名的方法"></a>二、用apktool手动解包修改他的属性，再进行对齐签名的方法</h2><p>​    <em><strong>参考自视频<a href="%E3%80%90JNSEC2023-2024%E5%B9%B4%E5%BA%A6Android%E9%80%86%E5%90%91%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BE%8B%E4%BC%9A%E3%80%91https://www.bilibili.com/video/BV182421T7BS?vd_source=5f5c761091725078a8c620d82a23116b">27分21秒开始</a></strong></em>    </p>
+<p>​    参考自文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25844803/article/details/84953332?ops_request_misc=%257B%2522request%255Fid%2522%253A%25221d689afc40bfd0ce9087069360d7897a%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=1d689afc40bfd0ce9087069360d7897a&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-84953332-null-null.nonecase&amp;utm_term=APK%E5%8F%8D%E7%BC%96%E8%AF%91%E9%87%8D%E6%89%93%E5%8C%85&amp;spm=1018.2226.3001.4450">APK反编译、重打包、签名之apktool实现</a></p>
+<ol>
+<li><p>把apk放到apk目录下面，并且在apktool目录下打开cmd输入<code>apktool d DebugeMe.apk</code>会将解包的数据输出在其目录下。  </p>
+</li>
+<li><p>在<em><strong>AndroidMainfest.xml</strong></em>的<strong>application</strong>里面添加<code>android:debuggable="true"</code>的<strong>属性</strong>。</p>
+</li>
+<li><p>再输入<code>apktool b DebugeMe</code>进行打包，打包后在DebugeMe的dist目录下看到新的apk。</p>
+</li>
+<li><p>生成keystone：</p>
+<p>Keystore生成命令：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -alias abc.<span class="property">keystore</span> -keyalg <span class="variable constant_">RSA</span> -validity <span class="number">20000</span> -keystore abc.<span class="property">keystore</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211050.png"></p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211117.png"></p>
+</li>
+<li><p>签名  </p>
+<p>签名命令：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jarsigner -verbose -keystore abc.<span class="property">keystore</span> -signedjar <span class="title class_">TestPrint</span>_1.<span class="property">apk</span> <span class="title class_">TestPrint</span>.<span class="property">APK</span> abc.<span class="property">keystore</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>输入之前填写的密码  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211213.png">  </p>
+<p>此时，签名完毕，apktool文件夹下出现新的APK–&gt;TestPrint_1.apk  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211307.png">  </p>
+<p>至此，apk反编译，修改文件，重打包，签名全部完成。</p>
+</li>
+</ol>
+<h2 id="三、绕过apk不可调试的属性限制"><a href="#三、绕过apk不可调试的属性限制" class="headerlink" title="三、绕过apk不可调试的属性限制"></a>三、绕过apk不可调试的属性限制</h2><ul>
+<li><strong>无需</strong>开启apk的可调试（debuggable）属性</li>
+</ul>
+<ol>
+<li><p>打开<em><strong>Root权限</strong></em>和<em><strong>adb调试的远程连接模式</strong></em>  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401211754.png">  </p>
+</li>
+<li><p>adb devices后，直接用jadx远程调试（点击甲虫图标）  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250401212652.png"></p>
+</li>
+<li><p>直接click得到flag。</p>
+</li>
+</ol>
+<blockquote>
+<h3 id="1-原APK无法调试的原因"><a href="#1-原APK无法调试的原因" class="headerlink" title="1. 原APK无法调试的原因"></a><strong>1. 原APK无法调试的原因</strong></h3><ul>
+<li><strong>默认不可调试属性</strong>：原APK可能在构建时未设置 <code>android:debuggable="true"</code>，导致JEB/Jadx无法附加调试器（端口报错是典型表现）。</li>
+<li><strong>调试依赖条件</strong>：正常调试需要APK的 <code>AndroidManifest.xml</code> 中明确声明可调试，否则ADB会拒绝连接。</li>
+</ul>
+<hr>
+<h3 id="2-修改APK后安装失败的原因"><a href="#2-修改APK后安装失败的原因" class="headerlink" title="2. 修改APK后安装失败的原因"></a><strong>2. 修改APK后安装失败的原因</strong></h3><ul>
+<li><strong>签名问题</strong>：修改APK后需重新签名。若未正确签名（如使用调试密钥对齐签名），雷电模拟器会拒绝安装。</li>
+<li><strong>Manifest格式错误</strong>：手动修改XML可能导致格式错误（如标签未闭合），引发解析失败。</li>
+<li><strong>回编工具问题</strong>：使用<code>apktool</code>等工具解包/回编时，若版本不兼容或参数错误，可能导致APK损坏。</li>
+</ul>
+<hr>
+<h3 id="3-Root权限-远程ADB成功的原因"><a href="#3-Root权限-远程ADB成功的原因" class="headerlink" title="3. Root权限+远程ADB成功的原因"></a><strong>3. Root权限+远程ADB成功的原因</strong></h3><ul>
+<li><strong>绕过调试属性限制</strong>：Root权限允许通过系统级操作（如修改 <code>ro.debuggable</code> 属性）强制开启全局调试，此时<strong>无需APK自身可调试</strong>。</li>
+<li><strong>ADB远程连接模式</strong>：远程连接可能绕过了本地ADB的某些限制，或直接以更高权限附加到进程（如通过<code>ptrace</code>）。</li>
+<li><strong>原APK的漏洞利用</strong>：若APK本身存在逻辑漏洞（如硬编码密钥），Root后可直接提取内存数据或修改运行时行为，无需动态调试。</li>
+</ul>
+<hr>
+<h3 id="关键结论"><a href="#关键结论" class="headerlink" title="关键结论"></a><strong>关键结论</strong></h3><ul>
+<li><strong>Root权限的作用</strong>：开启Root后，可通过系统命令（如 <code>setprop ro.debuggable 1</code>）强制允许调试所有应用，此时原APK即使未标记为可调试也能被调试。</li>
+<li><strong>修改APK的替代方案</strong>：直接使用Root权限调试，避免了因签名或打包错误导致安装失败的问题，是一种更高效的绕过手段。</li>
+</ul>
+<hr>
+<h3 id="解决方案建议"><a href="#解决方案建议" class="headerlink" title="解决方案建议"></a><strong>解决方案建议</strong></h3><ol>
+<li><p><strong>签名验证</strong>：若需修改APK，务必用 <code>jarsigner</code> 或 <code>apksigner</code> 重新签名，并使用 <code>zipalign</code> 对齐。</p>
+</li>
+<li><p><strong>Root环境利用</strong>：优先在Root环境下调试，通过<code>frida</code>、<code>GDB</code>等工具直接注入或分析内存，避免修改APK的繁琐流程。</p>
+</li>
+<li><p><strong>系统属性修改</strong>：Root后执行以下命令强制开启全局调试：</p>
+<p>bash</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb root          # 获取ADB Root权限</span><br><span class="line">adb shell setprop ro.debuggable 1</span><br><span class="line">adb shell stop &amp;&amp; adb shell start  # 重启ADB</span><br></pre></td></tr></tbody></table></figure>
+
+<p>此后可调试任意APK，无需修改Manifest。</p>
+</li>
+</ol>
+<hr>
+<p>通过Root权限绕过APK本身的调试限制，是CTF中常见的技巧，既能避免打包错误，又能直接深入分析进程内存，是高效解题的关键。</p>
+</blockquote>
+<hr>
+<p>参考文献：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25844803/article/details/84953332?ops_request_misc=%257B%2522request%255Fid%2522%253A%25221d689afc40bfd0ce9087069360d7897a%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=1d689afc40bfd0ce9087069360d7897a&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-84953332-null-null.nonecase&amp;utm_term=APK%E5%8F%8D%E7%BC%96%E8%AF%91%E9%87%8D%E6%89%93%E5%8C%85&amp;spm=1018.2226.3001.4450">APK反编译、重打包、签名之apktool实现</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zerorzeror/article/details/138043395">XYCTF 2024</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Bark66675.github.io">BarkStarry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bark66675.github.io/2025/04/01/android-dong-tai-diao-shi/">https://bark66675.github.io/2025/04/01/android-dong-tai-diao-shi/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Bark66675.github.io" target="_blank">BarkStarry</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AE%89%E5%8D%93%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">安卓动态调试</a></div><div class="post-share"><div class="social-share" data-image="/img/logo1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css?v=1.1.6" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js?v=1.1.6" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="wechat"></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/" title="寄存器寻址方式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">寄存器寻址方式</div></div><div class="info-2"><div class="info-item-1">寄存器寻址section .data    msg db “Welcome_to_CTFshow_PWN”, 0 section .text    global _start _start: ; 立即寻址方式    mov eax, 11         ; 将11赋值给eax    add eax, 114504     ; eax加上114504    sub eax, 1          ; eax减去1 ; 寄存器寻址方式    mov ebx, 0x36d      ; 将0x36d赋值给ebx    mov edx, ebx        ; 将ebx的值赋值给edx ; 直接寻址方式    mov ecx, msg      ; 将msg的地址赋值给ecx**（找msg的地址）**。 ; 寄存器间接寻址方式    mov esi, msg        ; 将msg的地址赋值给esi    mov eax, [esi]      ; 将esi所指向的地址的值赋值给eax**（等于找msg地址存储的值）**。 ; 寄存器相对寻址方式    mov ecx, msg ...</div></div></div></a><a class="pagination-related" href="/2025/03/08/gcc-bian-yi/" title="“gcc编译”"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">“gcc编译”</div></div><div class="info-2"><div class="info-item-1">C++编译全过程 gcc flag.c -o flag(用gcc编译成可执行文件)   一、四个步骤： 预处理（Processing）     gcc -E flag.cpp -o flag.ii    -E     Preprocess only; do not compile, assemble or link.  编译（Compilation）      gcc -S flag.ii -o flag.s       -S      Compile only; do not assemble or link.  汇编（Assemble）        gcc -c flag.s  -o flag.o      -c      Compile and assemble, but do not link.     nasm -f elf64 -o flag.o flag.asm    # 使用 nasm 将 .asm 文件编译成 .o 文件     (有的asm文件nasm汇编后需要这样操作，因为他是NASM语法编写的代码，gcc无法直接处理)    链接（linking）   ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">BarkStarry</div><div class="author-info-description">学学学学学学</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bark66675"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">刺骨的寒风，孕育出新生的希望。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E2%80%94%E2%80%94apk%E5%8A%A0%E4%B8%8A%E5%8A%A8%E6%80%81%E5%8F%AF%E8%B0%83%E8%AF%95%E5%B1%9E%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">安卓动态调试——apk加上动态可调试属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%94%A8Android-Killer%E7%BC%96%E8%AF%91%E7%9A%84%E6%96%B9%E6%B3%95%E4%BF%AE%E6%94%B9apk%E4%B8%BA%E5%8F%AF%E8%B0%83%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">一、用Android Killer编译的方法修改apk为可调式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%A4%E8%80%85%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 两者的核心区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 如何选择？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE%E5%B7%AE%E5%BC%82%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. 验证配置差异的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. 常见问题解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.5.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8apktool%E6%89%8B%E5%8A%A8%E8%A7%A3%E5%8C%85%E4%BF%AE%E6%94%B9%E4%BB%96%E7%9A%84%E5%B1%9E%E6%80%A7%EF%BC%8C%E5%86%8D%E8%BF%9B%E8%A1%8C%E5%AF%B9%E9%BD%90%E7%AD%BE%E5%90%8D%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">二、用apktool手动解包修改他的属性，再进行对齐签名的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%BB%95%E8%BF%87apk%E4%B8%8D%E5%8F%AF%E8%B0%83%E8%AF%95%E7%9A%84%E5%B1%9E%E6%80%A7%E9%99%90%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">三、绕过apk不可调试的属性限制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8E%9FAPK%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 原APK无法调试的原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9APK%E5%90%8E%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 修改APK后安装失败的原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Root%E6%9D%83%E9%99%90-%E8%BF%9C%E7%A8%8BADB%E6%88%90%E5%8A%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. Root权限+远程ADB成功的原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%BB%93%E8%AE%BA"><span class="toc-number">1.3.4.</span> <span class="toc-text">关键结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.3.5.</span> <span class="toc-text">解决方案建议</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/08/05/tea-jia-zu/" title="TEA家族"><img src="/img/2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEA家族"></a><div class="content"><a class="title" href="/2025/08/05/tea-jia-zu/" title="TEA家族">TEA家族</a><time datetime="2025-08-04T23:41:36.000Z" title="发表于 2025-08-05 07:41:36">2025-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/rc4/" title="rc4"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rc4"></a><div class="content"><a class="title" href="/2025/07/27/rc4/" title="rc4">rc4</a><time datetime="2025-07-27T05:58:08.000Z" title="发表于 2025-07-27 13:58:08">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器"><img src="/img/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="z3约束求解器"></a><div class="content"><a class="title" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器">z3约束求解器</a><time datetime="2025-07-26T19:37:35.000Z" title="发表于 2025-07-27 03:37:35">2025-07-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/chang-jian-han-shu-yong-fa/" title="常见函数用法">常见函数用法</a><time datetime="2025-07-03T12:15:18.000Z" title="发表于 2025-07-03 20:15:18">2025-07-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/" title="寄存器寻址方式">寄存器寻址方式</a><time datetime="2025-07-03T03:39:31.000Z" title="发表于 2025-07-03 11:39:31">2025-07-03</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2025 By BarkStarry</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><script src="/js/tw_cn.js?v=5.5.2"></script><script src="/pluginsSrc/node-snackbar/dist/snackbar.min.js?v=0.1.16"></script><div class="js-pjax"></div><script src="/styles/js/snowflake.js"></script><meting-js class="no-destroy" id="2869859820" server="netease" type="playlist" fixed="true" autoplay="false" order="random" volume="0.3" list-folded="false" list-max-height="36vh"> </meting-js><script src="/js/aplayer-lrc.js"></script><script src="/js/continuous-play.js"></script><script id="click-show-text" src="/pluginsSrc/butterfly-extsrc/dist/click-show-text.min.js?v=1.1.6" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/meting/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="/pluginsSrc/pjax/pjax.min.js?v=0.2.8"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async="" data-pjax="" src="/"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

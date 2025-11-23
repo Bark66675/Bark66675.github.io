@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>rc4 | BarkStarry</title><meta name="author" content="BarkStarry"><meta name="copyright" content="BarkStarry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="rc4加密过程  密钥调度算法（KSA）（Key Scheduling Algorithm） 初始化一个长度为256的数组S，值为S[i]=i,其中i是索引. s=list(range(256))  根据密钥（char类型）和S[i]生成j，S[j],并进行置换: 初始化：j=0 开循环：  j=j+S[i]+key[i%len(key)]%256  交换S[i]和S[j]     伪随机数生成算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rc4">
+<meta property="og:url" content="https://bark66675.github.io/2025/07/27/rc4/index.html">
+<meta property="og:site_name" content="BarkStarry">
+<meta property="og:description" content="rc4加密过程  密钥调度算法（KSA）（Key Scheduling Algorithm） 初始化一个长度为256的数组S，值为S[i]=i,其中i是索引. s=list(range(256))  根据密钥（char类型）和S[i]生成j，S[j],并进行置换: 初始化：j=0 开循环：  j=j+S[i]+key[i%len(key)]%256  交换S[i]和S[j]     伪随机数生成算">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bark66675.github.io/img/1.png">
+<meta property="article:published_time" content="2025-07-27T05:58:08.000Z">
+<meta property="article:modified_time" content="2025-11-21T11:09:47.569Z">
+<meta property="article:author" content="BarkStarry">
+<meta property="article:tag" content="rc4">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bark66675.github.io/img/1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "rc4",
+  "url": "https://bark66675.github.io/2025/07/27/rc4/",
+  "image": "https://bark66675.github.io/img/1.png",
+  "datePublished": "2025-07-27T05:58:08.000Z",
+  "dateModified": "2025-11-21T11:09:47.569Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BarkStarry",
+      "url": "https://Bark66675.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon1.ico"><link rel="canonical" href="https://bark66675.github.io/2025/07/27/rc4/index.html"><link rel="preconnect"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css?v=7.1.0"><link rel="stylesheet" href="/pluginsSrc/node-snackbar/dist/snackbar.min.css?v=0.1.16" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: BarkStarry","link":"链接: ","source":"来源: BarkStarry","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js?v=4.12.0',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'rc4',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/styles/css/cursors.css"><link rel="stylesheet" href="/css/transparent.css"><link rel="stylesheet" href="/styles/main.css"><script src="/css/custom.css"></script><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/a.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/1.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo1.png" alt="Logo"><span class="site-name">BarkStarry</span></a><a class="nav-page-title" href="/"><span class="site-name">rc4</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">rc4</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-27T05:58:08.000Z" title="发表于 2025-07-27 13:58:08">2025-07-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-21T11:09:47.569Z" title="更新于 2025-11-21 19:09:47">2025-11-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url(/img/1.png);"></div><article class="container post-content" id="article-container"><h1 id="rc4加密过程"><a href="#rc4加密过程" class="headerlink" title="rc4加密过程"></a>rc4加密过程</h1><hr>
+<p><img src="/rc4.assets/8da295cad33223e43084a59bdde0a625-1.webp"></p>
+<h3 id="密钥调度算法（KSA）（Key-Scheduling-Algorithm）"><a href="#密钥调度算法（KSA）（Key-Scheduling-Algorithm）" class="headerlink" title="密钥调度算法（KSA）（Key Scheduling Algorithm）"></a>密钥调度算法（KSA）（<em>Key Scheduling Algorithm</em>）</h3><ol>
+<li><p><strong>初始化一个长度为256的数组S，值为S[i]=i,其中i是索引.</strong></p>
+<p><code>s=list(range(256))</code></p>
+</li>
+<li><p><strong>根据密钥（char类型）和S[i]生成j，S[j],并进行置换:</strong></p>
+<p>初始化：<code>j=0</code></p>
+<p>开循环：</p>
+<ul>
+<li><p><code>j=j+S[i]+key[i%len(key)]%256</code></p>
+</li>
+<li><p>交换S[i]和S[j]</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="伪随机数生成算法（PRGA）"><a href="#伪随机数生成算法（PRGA）" class="headerlink" title="伪随机数生成算法（PRGA）"></a>伪随机数生成算法（PRGA）</h3><ol>
+<li><p><strong>初始化两个索引变量：i，j=0</strong></p>
+</li>
+<li><p><strong>以密文字节长度开循环：</strong></p>
+<p><code>i = (i+1)%256</code>s</p>
+<p><code>j = (j+s[i])%256</code></p>
+<p><code>交换S[i]和S[j]</code></p>
+<p><code>t = ( S[i]+S[j] )%256</code></p>
+<p><code>KEY = S[t]</code></p>
+<p><code>enc[h]^KEY</code></p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Bark66675.github.io">BarkStarry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bark66675.github.io/2025/07/27/rc4/">https://bark66675.github.io/2025/07/27/rc4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Bark66675.github.io" target="_blank">BarkStarry</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/rc4/">rc4</a></div><div class="post-share"><div class="social-share" data-image="/img/1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css?v=1.1.6" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js?v=1.1.6" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="wechat"></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2025/08/05/tea-jia-zu/" title="TEA家族"><img class="cover" src="/img/2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">TEA家族</div></div></div></a><a class="pagination-related" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器"><img class="cover" src="/img/7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">z3约束求解器</div></div><div class="info-2"><div class="info-item-1">z3约束求解器一、z3约束求解器理解 z3介绍Z3是由微软公司开发的一个优秀的SMT求解器，它能够检查逻辑表达式的可满足性，可以用来软件/硬件验证和测试，约束求解，混合系统分析，安全性研究，生物学研究（计算机分析）以及几何问题。通俗的来讲我们可以简单理解为它是一个解方程的计算器，Z3py是使用脚本来解决一些实际问题。  z3在CTF逆向中有什么用？我们在做CTF逆向题的时候，当我们已经逆向到最后求flag或者具体数值解的时候，例如最简单的：我们知道了未知量x,y，也知道了约束条件x+y=5，那么此时我们就可以使用Z3来求解x和y的值，因为x和y的值肯定有多个解，而我们最后的flag肯定只有一个，那么我们就可以继续添加约束条件来减少解的数量，最后得出正确的flag。   二、z3语法简介：z3在python中的未知数变量主要有以下数据类型：  Int –&gt; 整型（注意逐个列出时使用Int()，一次全部列出使用Ints()）。 12345a,b,c,d=Ints('a b c d')# a = Int('a')# b = Int('b')# c = Int('c')# d = ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">BarkStarry</div><div class="author-info-description">学学学学学学</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bark66675"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">刺骨的寒风，孕育出新生的希望。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rc4%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">rc4加密过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88KSA%EF%BC%89%EF%BC%88Key-Scheduling-Algorithm%EF%BC%89"><span class="toc-number">1.0.1.</span> <span class="toc-text">密钥调度算法（KSA）（Key Scheduling Algorithm）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%94%9F%E6%88%90%E7%AE%97%E6%B3%95%EF%BC%88PRGA%EF%BC%89"><span class="toc-number">1.0.2.</span> <span class="toc-text">伪随机数生成算法（PRGA）</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/08/05/tea-jia-zu/" title="TEA家族"><img src="/img/2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEA家族"></a><div class="content"><a class="title" href="/2025/08/05/tea-jia-zu/" title="TEA家族">TEA家族</a><time datetime="2025-08-04T23:41:36.000Z" title="发表于 2025-08-05 07:41:36">2025-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/rc4/" title="rc4"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rc4"></a><div class="content"><a class="title" href="/2025/07/27/rc4/" title="rc4">rc4</a><time datetime="2025-07-27T05:58:08.000Z" title="发表于 2025-07-27 13:58:08">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器"><img src="/img/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="z3约束求解器"></a><div class="content"><a class="title" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器">z3约束求解器</a><time datetime="2025-07-26T19:37:35.000Z" title="发表于 2025-07-27 03:37:35">2025-07-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/chang-jian-han-shu-yong-fa/" title="常见函数用法">常见函数用法</a><time datetime="2025-07-03T12:15:18.000Z" title="发表于 2025-07-03 20:15:18">2025-07-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/" title="寄存器寻址方式">寄存器寻址方式</a><time datetime="2025-07-03T03:39:31.000Z" title="发表于 2025-07-03 11:39:31">2025-07-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/1.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2025 By BarkStarry</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><script src="/js/tw_cn.js?v=5.5.2"></script><script src="/pluginsSrc/node-snackbar/dist/snackbar.min.js?v=0.1.16"></script><div class="js-pjax"></div><script src="/styles/js/snowflake.js"></script><meting-js class="no-destroy" id="2869859820" server="netease" type="playlist" fixed="true" autoplay="false" order="random" volume="0.3" list-folded="false" list-max-height="36vh"> </meting-js><script src="/js/aplayer-lrc.js"></script><script src="/js/continuous-play.js"></script><script id="click-show-text" src="/pluginsSrc/butterfly-extsrc/dist/click-show-text.min.js?v=1.1.6" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/meting/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="/pluginsSrc/pjax/pjax.min.js?v=0.2.8"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async="" data-pjax="" src="/"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

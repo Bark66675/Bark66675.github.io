@@ -1,0 +1,426 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>逆向破解010 Editor | BarkStarry</title><meta name="author" content="BarkStarry"><meta name="copyright" content="BarkStarry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="前几天做misc的时候发现010Editor试用期结束了，这回无论怎么卸载再安装也没法使用了，也找不到注册码，于是我想着逆向分析一下这个程序看能不能把他给破解了，多次尝试无果，于是上网查找相关资料，最后真的成功破解了！   接下来记录一下这次破解过程：   一.明确思路：破解010 Editor需要注册码，如果找不出注册码，只要始终把注册标志标记为已注册，就可以成功破解。      二.完整流程：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆向破解010 Editor">
+<meta property="og:url" content="https://bark66675.github.io/2025/01/22/010editor/index.html">
+<meta property="og:site_name" content="BarkStarry">
+<meta property="og:description" content="前几天做misc的时候发现010Editor试用期结束了，这回无论怎么卸载再安装也没法使用了，也找不到注册码，于是我想着逆向分析一下这个程序看能不能把他给破解了，多次尝试无果，于是上网查找相关资料，最后真的成功破解了！   接下来记录一下这次破解过程：   一.明确思路：破解010 Editor需要注册码，如果找不出注册码，只要始终把注册标志标记为已注册，就可以成功破解。      二.完整流程：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bark66675.github.io/img/logo1.png">
+<meta property="article:published_time" content="2025-01-21T18:35:18.000Z">
+<meta property="article:modified_time" content="2025-11-22T13:35:27.519Z">
+<meta property="article:author" content="BarkStarry">
+<meta property="article:tag" content="010 Editor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bark66675.github.io/img/logo1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "逆向破解010 Editor",
+  "url": "https://bark66675.github.io/2025/01/22/010editor/",
+  "image": "https://bark66675.github.io/img/logo1.png",
+  "datePublished": "2025-01-21T18:35:18.000Z",
+  "dateModified": "2025-11-22T13:35:27.519Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BarkStarry",
+      "url": "https://Bark66675.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon1.ico"><link rel="canonical" href="https://bark66675.github.io/2025/01/22/010editor/index.html"><link rel="preconnect"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css?v=7.1.0"><link rel="stylesheet" href="/pluginsSrc/node-snackbar/dist/snackbar.min.css?v=0.1.16" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: BarkStarry","link":"链接: ","source":"来源: BarkStarry","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js?v=4.12.0',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '逆向破解010 Editor',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/styles/css/cursors.css"><link rel="stylesheet" href="/css/transparent.css"><link rel="stylesheet" href="/styles/main.css"><script src="/css/custom.css"></script><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/a.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo1.png" alt="Logo"><span class="site-name">BarkStarry</span></a><a class="nav-page-title" href="/"><span class="site-name">逆向破解010 Editor</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">逆向破解010 Editor</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-21T18:35:18.000Z" title="发表于 2025-01-22 02:35:18">2025-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-22T13:35:27.519Z" title="更新于 2025-11-22 21:35:27">2025-11-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>前几天做misc的时候发现010Editor试用期结束了，这回无论怎么卸载再安装也没法使用了，也找不到注册码，于是我想着逆向分析一下这个程序看能不能把他给破解了，多次尝试无果，于是上网查找相关资料，最后真的成功破解了！  </p>
+<p>接下来记录一下这次破解过程：  </p>
+<h2 id="一-明确思路："><a href="#一-明确思路：" class="headerlink" title="一.明确思路："></a>一.明确思路：</h2><p>破解010 Editor需要注册码，如果找不出注册码，只要始终把注册标志标记为已注册，就可以成功破解。  </p>
+<p><img src="/image/010editor.png" alt="010editor">  </p>
+<h2 id="二-完整流程："><a href="#二-完整流程：" class="headerlink" title="二.完整流程："></a>二.完整流程：</h2><h3 id="1-下载010-Editor"><a href="#1-下载010-Editor" class="headerlink" title="1.下载010 Editor"></a>1.下载010 Editor</h3><p>从官网<a target="_blank" rel="noopener" href="https://www.sweetscape.com/010editor/" title="官网">下载010 Editor</a>  </p>
+<h3 id="2-固定PE基址"><a href="#2-固定PE基址" class="headerlink" title="2.固定PE基址"></a>2.固定PE基址</h3><p>我们在windows逆向时，经常会遇到PE文件的基地址随机的情况，不利于反汇编的对比分析，比如利用OD反汇编时的地址和<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1874203-1-1.html">IDA</a>反汇编时就会有不同，两者在对比分析过程中就很难对应上。  </p>
+<p>这时我们利用反汇编查壳神器<a target="_blank" rel="noopener" href="https://down.52pojie.cn/?query=studype">study PE++ x64</a>来固定基址  </p>
+<p>把exe拖入studype，点击固定PE基址，再点击文件保存更改。  </p>
+<p><img src="/image/studype++.png">  </p>
+<h3 id="3-拖入x64dbg分析"><a href="#3-拖入x64dbg分析" class="headerlink" title="3.拖入x64dbg分析"></a>3.拖入x64dbg分析</h3><h4 id="1-找程序入口："><a href="#1-找程序入口：" class="headerlink" title="1>找程序入口："></a>1&gt;找程序入口：</h4><p><img src="/image/x64dbgkaishi.png" alt="拖入后的界面">  </p>
+<p>按F9运行程序直到出现程序入口(Entrypoint)，能看到一堆jmp指令。  </p>
+<p><img src="/image/x64dbgentrypoint.png" alt="找到了程序入口">  </p>
+<h4 id="2-找Evaluation-Version-n："><a href="#2-找Evaluation-Version-n：" class="headerlink" title="2>找Evaluation Version\n："></a>2&gt;找Evaluation Version\n：</h4><p>接下来找突破口：</p>
+<p><strong>！！！重点</strong>：由于一打开010editor界面会出现<em><strong>Evaluation</strong></em>！  </p>
+<p><img src="/image/010Editorkaishi.png">  </p>
+<p>在程序入口按<strong>Shift + D</strong>，在当前模块进行字符搜索，输入<strong>Evaluation</strong>。  </p>
+<p><img src="/image/x64dbgEvaluation.png">  </p>
+<p>发现四个带有换行的Evaluation Version，这四个便是我们要找的（已设置断点(f2设置断点)的四个）。  </p>
+<p>运行一下发现听到断点处，说明这段子程序就是在程序启动时用于检查注册状态的。  </p>
+<h4 id="3-找注册标志："><a href="#3-找注册标志：" class="headerlink" title="3>找注册标志："></a>3&gt;找注册标志：</h4><p>选一个点进去发现他们都在同一个函数的下面。  </p>
+<p><img src="/image/dainjidasimfocasmnviapsvni.png">  </p>
+<p>向上翻找这个函数的头部。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126170549.png" alt="子程序头部">  </p>
+<p>点击这个子程序函数的第一条指令查看流程图。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126170902.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126171328.png" alt="流程图">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126171420.png" alt="总览"></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmp   edi,DB</span><br><span class="line">jne   010editor.140392FC0 // 结果不为零（或不相等）的情况下进行跳转</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>通过分析流程图可知，子程序流程在这里分成两个方向：EAX = 0xDB，表示各种已注册的状态，EAX &lt;&gt; 0xDB，表示各种未注册状态。由此可知，EAX = 0xDB是成功注册标志。  </p>
+<p>找到注册标志后，改程序流向是无效的，必须找到设置注册标志的公共CALL，在CALL里边改程序流向，才能真正实现破解。</p>
+<p>在这个程序中，判断注册标志指令是cmp edi, 0xDB，它上面的CALL是一个模块外的系统子程序调用，再往上没有CALL了，怎么办？这说明这个标志已经提前由真正的CALL算好了，下面的关键是怎么找到这个真正的CALL</p>
+</blockquote>
+<hr>
+<ul>
+<li><p><strong>cmp指令</strong>的使用和理解：  </p>
+<p><em><strong>cmp指令</strong></em>是汇编语言中用于比较两个操作数的大小的指令。它执行的是一个隐含的减法操作，即从目的操作数中减去源操作数，但不会改变任何操作数的值。CMP指令的结果会影响处理器的标志位，这些标志位随后可以用于条件跳转指令。</p>
+</li>
+</ul>
+<p>两个<strong>无符号数</strong>的比较：</p>
+<table>
+<thead>
+<tr>
+<th>CMP结果</th>
+<th>ZF</th>
+<th>CF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目的操作数 ＜ 源操作数</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>目的操作数 ＞ 源操作数</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>目的操作数 = 源操作数</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>两个<strong>有符号数</strong>的比较：</p>
+<table>
+<thead>
+<tr>
+<th>CMP结果</th>
+<th>标志位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目的操作数 ＜ 源操作数</td>
+<td>SF ≠ OF</td>
+</tr>
+<tr>
+<td>目的操作数 ＞ 源操作数</td>
+<td>SF = OF</td>
+</tr>
+<tr>
+<td>目的操作数 = 源操作数</td>
+<td>ZF = 1</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><em><strong>jnz</strong></em>指令：</p>
+<p><strong>JNZ</strong> 指令，全称为 <strong>Jump if Not Zero</strong>，是汇编语言中的条件转移指令。这条指令的作用是在结果不为零（或不相等）的情况下进行跳转。 </p>
+</li>
+<li><p><em><strong>jz</strong></em>指令</p>
+<p>与之相对的是 <strong>JZ</strong> 指令，它在结果为零时触发跳转。在实际编程中，<strong>JNZ</strong> 通常与比较指令 <strong>CMP</strong> 或测试指令 <strong>TEST</strong> 结合使用，以根据比较或测试的结果决定程序的执行流程。</p>
+</li>
+</ul>
+<hr>
+<h4 id="4-找真正的call"><a href="#4-找真正的call" class="headerlink" title="4>找真正的call"></a>4&gt;找真正的call</h4><p>接下来脱离流程图。  </p>
+<p>找到并选中代表<strong>注册标志</strong>的指令：cmp edi,D8  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126181532.png">  </p>
+<p>复制他的二进制指令码，并在当前模块进行<strong>匹配特征搜索</strong>，查找所有的注册标志指令。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126181949.png" alt="复制二进制指令码">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126182205.png" alt="匹配特征搜索">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126182316.png" alt="粘贴二进制码搜索">  </p>
+<p>结果只有一个  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126182434.png">  </p>
+<p>之后上网搜索发现使用了别的寄存器：</p>
+<p><code>cmp eax,DB // 3D DB 00 00 00 </code>  </p>
+<p>重新搜索匹配特征  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183108.png" alt="3D DB 00 00 00">  </p>
+<p>得到七个结果。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183330.png" alt="结果"> </p>
+<p>挨个点击去查看  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183632.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183731.png">   </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183830.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126183950.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184022.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184046.png">  </p>
+<p>发现四个代码中都出现了<code>ca11 010editor.140007630</code>，所以是这个call影响了寄存器eax的值，是<em><strong>真正的call</strong></em>！    </p>
+<p>持续跟进这个call的代码段  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184907.png" alt="跟进">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184933.png" alt="再跟进">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126184948.png" alt="最终子程序的代码段">  </p>
+<h4 id="5-修改注册标志"><a href="#5-修改注册标志" class="headerlink" title="5>修改注册标志"></a>5&gt;修改注册标志</h4><p>由图可知这个子程序出口有很多，只要把eax的值修改为0xD8即可注册成功。  </p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">74 10          je 010editor.140392A95  </span><br><span class="line">B8 13010000    mov eax,113  </span><br></pre></td></tr></tbody></table></figure>
+
+<p>修改为  </p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">74 00          je 010editor.140392A85  </span><br><span class="line">B8 DB000000    eax,DB</span><br></pre></td></tr></tbody></table></figure>
+
+<p>修改前  </p>
+<p><img src="/iamge/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126192129.png" alt="修改前">  </p>
+<p>右键，点二进制，点编辑（Ctrl + E）,先修改je跳转，防止他乱赋值。   </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126192244.png" alt="二进制，编辑">  </p>
+<p>修改后为  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126192543.png" alt="修改后">   </p>
+<p>Ctrl + P或者右键，补丁，修补文件。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126193751.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194006.png">  </p>
+<p>发现无法修补文件</p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194035.png">  </p>
+<p>用IDA进行逆向，再修改Assembly（安装keypatch插件）  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194359.png">   </p>
+<p>发现encode值为···，点击Patch后无法修改。  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194725.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126194750.png">  </p>
+<blockquote>
+<p>这种情况只能通过kstool工具(支持很多架构)(git上)，手动去翻译汇编指令称机器码然后手动填写可以完成patch  </p>
+</blockquote>
+<blockquote>
+<p>-&gt;&gt;kstool arm64 “需要翻译的汇编指令” [指令所在的地址]<br>-&gt;&gt;得到机器码</p>
+</blockquote>
+<p>由于之前我们在x64dbg修改过，得到了指令对应的机器码。  </p>
+<h4 id="6-保存修改的补丁"><a href="#6-保存修改的补丁" class="headerlink" title="6>保存修改的补丁"></a>6&gt;保存修改的补丁</h4><p>右键机器码，点Patching，点Change byte…直接更改   </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200251.png" alt="change byte"></p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126195802.png" alt="修改前">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200053.png" alt="修改后">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200204.png" alt="修改后">  </p>
+<p>右键Edit，Program，Apply Patches to…来保存  </p>
+<p><img src="/iamge/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200449.png">   </p>
+<h4 id="7-成功逆向"><a href="#7-成功逆向" class="headerlink" title="7>成功逆向"></a>7&gt;成功逆向</h4><p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126200942.png">  </p>
+<p><img src="/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250126201302.png" alt="成功打开"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Bark66675.github.io">BarkStarry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bark66675.github.io/2025/01/22/010editor/">https://bark66675.github.io/2025/01/22/010editor/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Bark66675.github.io" target="_blank">BarkStarry</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/010-Editor/">010 Editor</a></div><div class="post-share"><div class="social-share" data-image="/img/logo1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css?v=1.1.6" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js?v=1.1.6" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="wechat"></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/01/26/qhctfwp/" title="启航杯rewp"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">启航杯rewp</div></div><div class="info-2"><div class="info-item-1">.rainbow一、rainbow1&gt;查壳拖入ida查看伪代码    点击跟进hide-flag。      2&gt;分析代码点开 xor_encrypt发现是简单的异或，分析得出flag异或后得到encryped-flag。   打开output文件。      3&gt;写脚本发现是十六进制字符串，写代码把它转换成字节再进行异或即可得到flag。          二、小明的note1&gt;查壳拖入idaupx -d脱壳，进入主函数查看伪代码。    2&gt;分析伪代码进入decryped_flag，发现是dest的异或，又是异或！并且v6又是十六进制字符，要转化为字节。   a1是dest，即长度便是dest的长度    往前看发现unk_2010值赋给了dest，查看unk_2010。      3&gt;写脚本 三、checker查壳32位ida分析，跟进check_flag，跟进encrypt flag，发现又是异或。          再查看encrypted_flag      写脚本      </div></div></div></a><a class="pagination-related" href="/2025/01/19/webknow/" title="web学习记录"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">web学习记录</div></div><div class="info-2"><div class="info-item-1">一、万能密码万能密码：’ or ‘=’ #select * from user where username=’’or ‘=’#’ and password=’ ‘（*是通配符，#注释掉后面的语句，or前面是空的，为假，后面为真的，又因为是or语句，所以总体为真。）（除了 # 以外， – 也是SQL中的注释符，但SQL的语法格式规定–和后面的注释内容必须间隔一个空格，所以这需要使用 a’ or 1 – a 而不是 a’ or 1 – 其原理和 a’ or 1 # 大同小异）      二、SQL注入1.SQL注入的分类：1.根据注入位置分类：get、post、head头注入  根据反馈结果分类：有回显（显错注入）、无回显（盲注）  根据数据类型分类：                           1.数字型：0123456789                           2.字符型：输入的参数为字符串。最大的区别：字符型不需要闭合，字符串型一般需要闭合。  2.SQL注入的流程：？id=1asdfg   一、看是否报错：1.不报错：字符型  报错：数字型 二、看是...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">BarkStarry</div><div class="author-info-description">学学学学学学</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bark66675"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">刺骨的寒风，孕育出新生的希望。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E6%98%8E%E7%A1%AE%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">一.明确思路：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">二.完整流程：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BD010-Editor"><span class="toc-number">2.1.</span> <span class="toc-text">1.下载010 Editor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9B%BA%E5%AE%9APE%E5%9F%BA%E5%9D%80"><span class="toc-number">2.2.</span> <span class="toc-text">2.固定PE基址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8B%96%E5%85%A5x64dbg%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">3.拖入x64dbg分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%89%BE%E7%A8%8B%E5%BA%8F%E5%85%A5%E5%8F%A3%EF%BC%9A"><span class="toc-number">2.3.1.</span> <span class="toc-text">1&gt;找程序入口：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%89%BEEvaluation-Version-n%EF%BC%9A"><span class="toc-number">2.3.2.</span> <span class="toc-text">2&gt;找Evaluation Version\n：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%89%BE%E6%B3%A8%E5%86%8C%E6%A0%87%E5%BF%97%EF%BC%9A"><span class="toc-number">2.3.3.</span> <span class="toc-text">3&gt;找注册标志：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%89%BE%E7%9C%9F%E6%AD%A3%E7%9A%84call"><span class="toc-number">2.3.4.</span> <span class="toc-text">4&gt;找真正的call</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E4%BF%AE%E6%94%B9%E6%B3%A8%E5%86%8C%E6%A0%87%E5%BF%97"><span class="toc-number">2.3.5.</span> <span class="toc-text">5&gt;修改注册标志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E4%BF%9D%E5%AD%98%E4%BF%AE%E6%94%B9%E7%9A%84%E8%A1%A5%E4%B8%81"><span class="toc-number">2.3.6.</span> <span class="toc-text">6&gt;保存修改的补丁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%88%90%E5%8A%9F%E9%80%86%E5%90%91"><span class="toc-number">2.3.7.</span> <span class="toc-text">7&gt;成功逆向</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/08/05/tea-jia-zu/" title="TEA家族"><img src="/img/2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEA家族"></a><div class="content"><a class="title" href="/2025/08/05/tea-jia-zu/" title="TEA家族">TEA家族</a><time datetime="2025-08-04T23:41:36.000Z" title="发表于 2025-08-05 07:41:36">2025-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/rc4/" title="rc4"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rc4"></a><div class="content"><a class="title" href="/2025/07/27/rc4/" title="rc4">rc4</a><time datetime="2025-07-27T05:58:08.000Z" title="发表于 2025-07-27 13:58:08">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器"><img src="/img/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="z3约束求解器"></a><div class="content"><a class="title" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器">z3约束求解器</a><time datetime="2025-07-26T19:37:35.000Z" title="发表于 2025-07-27 03:37:35">2025-07-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/chang-jian-han-shu-yong-fa/" title="常见函数用法">常见函数用法</a><time datetime="2025-07-03T12:15:18.000Z" title="发表于 2025-07-03 20:15:18">2025-07-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/" title="寄存器寻址方式">寄存器寻址方式</a><time datetime="2025-07-03T03:39:31.000Z" title="发表于 2025-07-03 11:39:31">2025-07-03</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2025 By BarkStarry</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><script src="/js/tw_cn.js?v=5.5.2"></script><script src="/pluginsSrc/node-snackbar/dist/snackbar.min.js?v=0.1.16"></script><div class="js-pjax"></div><script src="/styles/js/snowflake.js"></script><meting-js class="no-destroy" id="2869859820" server="netease" type="playlist" fixed="true" autoplay="false" order="random" volume="0.3" list-folded="false" list-max-height="36vh"> </meting-js><script src="/js/aplayer-lrc.js"></script><script src="/js/continuous-play.js"></script><script id="click-show-text" src="/pluginsSrc/butterfly-extsrc/dist/click-show-text.min.js?v=1.1.6" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/meting/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="/pluginsSrc/pjax/pjax.min.js?v=0.2.8"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async="" data-pjax="" src="/"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

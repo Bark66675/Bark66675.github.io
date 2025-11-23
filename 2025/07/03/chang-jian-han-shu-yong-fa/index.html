@@ -1,0 +1,415 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>常见函数用法 | BarkStarry</title><meta name="author" content="BarkStarry"><meta name="copyright" content="BarkStarry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="常见函数用法1.read1read(0, buf, 0xAuLL);  用法： 12ssize_t read(int fd, void *buf, size_t count);bash  参数解释：  fd：文件描述符，表示要读取的文件或者输入源。在 UNIX 系统中，0 表示标准输入(STDIN)，1 表示标准输出(STDOUT)，2 表示标准错误(STDERR)。  文件描述符0：用于接收用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见函数用法">
+<meta property="og:url" content="https://bark66675.github.io/2025/07/03/chang-jian-han-shu-yong-fa/index.html">
+<meta property="og:site_name" content="BarkStarry">
+<meta property="og:description" content="常见函数用法1.read1read(0, buf, 0xAuLL);  用法： 12ssize_t read(int fd, void *buf, size_t count);bash  参数解释：  fd：文件描述符，表示要读取的文件或者输入源。在 UNIX 系统中，0 表示标准输入(STDIN)，1 表示标准输出(STDOUT)，2 表示标准错误(STDERR)。  文件描述符0：用于接收用户">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bark66675.github.io/img/logo1.png">
+<meta property="article:published_time" content="2025-07-03T12:15:18.000Z">
+<meta property="article:modified_time" content="2025-10-24T03:14:49.804Z">
+<meta property="article:author" content="BarkStarry">
+<meta property="article:tag" content="函数">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bark66675.github.io/img/logo1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "常见函数用法",
+  "url": "https://bark66675.github.io/2025/07/03/chang-jian-han-shu-yong-fa/",
+  "image": "https://bark66675.github.io/img/logo1.png",
+  "datePublished": "2025-07-03T12:15:18.000Z",
+  "dateModified": "2025-10-24T03:14:49.804Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BarkStarry",
+      "url": "https://Bark66675.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon1.ico"><link rel="canonical" href="https://bark66675.github.io/2025/07/03/chang-jian-han-shu-yong-fa/index.html"><link rel="preconnect"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css?v=7.1.0"><link rel="stylesheet" href="/pluginsSrc/node-snackbar/dist/snackbar.min.css?v=0.1.16" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: BarkStarry","link":"链接: ","source":"来源: BarkStarry","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js?v=4.12.0',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '常见函数用法',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/styles/css/cursors.css"><link rel="stylesheet" href="/css/transparent.css"><link rel="stylesheet" href="/styles/main.css"><script src="/css/custom.css"></script><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/a.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo1.png" alt="Logo"><span class="site-name">BarkStarry</span></a><a class="nav-page-title" href="/"><span class="site-name">常见函数用法</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">常见函数用法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-03T12:15:18.000Z" title="发表于 2025-07-03 20:15:18">2025-07-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-24T03:14:49.804Z" title="更新于 2025-10-24 11:14:49">2025-10-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="常见函数用法"><a href="#常见函数用法" class="headerlink" title="常见函数用法"></a>常见函数用法</h1><h2 id="1-read"><a href="#1-read" class="headerlink" title="1.read"></a>1.<em><strong>read</strong></em></h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span>(0, buf, 0xAuLL);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>用法：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssize_t <span class="built_in">read</span>(int fd, void *buf, size_t count);</span><br><span class="line">bash</span><br></pre></td></tr></tbody></table></figure>
+
+<p>参数解释：</p>
+<blockquote>
+<p>fd：文件描述符，表示要读取的文件或者输入源。在 UNIX 系统中，0 表示标准输入(STDIN)，1 表示标准输出(STDOUT)，2 表示标准错误(STDERR)。</p>
+<ul>
+<li>文件描述符0：用于接收用户输入或者从管道、重定向或者其他输入源读取数据。</li>
+<li>文件描述符1：用于向终端或者其他输出目标输出数据。</li>
+</ul>
+<p>buf：指向存储读取数据的缓冲区的指针。</p>
+<p>count：要读取的最大字节数。</p>
+</blockquote>
+<p>注：0xAuLL 中的 uLL 表示这是一个无符号长长整型(unsigned long long)的常量，sleep(0x1BF52u)中的u表示无符号整型(unsigned)。</p>
+<h2 id="2-strcat"><a href="#2-strcat" class="headerlink" title="2.strcat"></a>2.<em><strong>strcat</strong></em></h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strcat(dest, buf);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这行代码将用户输入的内容追加到 dest 字符串后面</p>
+<p>双击跟进 dest</p>
+<p>可以看到 dest 被声明为一个大小为 4 字节的字符数组，用来存储字符串</p>
+<p>详细解释：</p>
+<pre><code>dest 是一个标签（label），它是程序中一个位置的名称或者符号。
+
+db 是汇编语言中的伪指令（pseudo-instruction），用于声明字节（byte）类型的数据。
+4 表示数组的大小为4字节。
+dup(?) 表示重复（duplicate）未知值（?）4次，即将4个未知值（通常为0）依次填充到数组中。
+</code></pre>
+<p><img src="/image/766e383b3bc7bcc635bdf609ee167f9.png"></p>
+<h2 id="3-setvbuf"><a href="#3-setvbuf" class="headerlink" title="3.setvbuf"></a>3.<em><strong>setvbuf</strong></em></h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-setvbuf.html">C 库函数 - setvbuf()</a></p>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>C 库函数 <strong>int setvbuf(FILE *stream, char *buffer, int mode, size_t size)</strong> 定义流 stream 应如何缓冲。</p>
+<p>stream： 指向需要设置缓冲区的流（stdin，stdout）</p>
+<p>buf： 指向缓冲区的指针。</p>
+<p>mode： 表示缓冲方式，值为0表示全缓冲（只有缓冲区填满才会输出）；值为1表示行缓冲（当遇到换行符或缓冲区满时输出）；值为2表示无缓冲（数据直接输出）。</p>
+<p>size： 表示缓冲区大小。</p>
+<p>返回值： 如果返回0表示函数调用成功，缓冲区设置成功。反之，函数调用失败。</p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>下面是 setvbuf() 函数的声明。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int setvbuf(FILE *stream, char *buffer, int mode, size_t size)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><strong>stream</strong> – 这是指向 FILE 对象的指针，该 FILE 对象标识了一个打开的流。</li>
+<li><strong>buffer</strong> – 这是分配给用户的缓冲。如果设置为 NULL，该函数会自动分配一个指定大小的缓冲。</li>
+<li><strong>mode</strong> – 这指定了文件缓冲的模式：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_IOFBF</td>
+<td><strong>全缓冲</strong>：对于输出，数据在缓冲填满时被一次性写入。对于输入，缓冲会在请求输入且缓冲为空时被填充。</td>
+</tr>
+<tr>
+<td>_IOLBF</td>
+<td><strong>行缓冲</strong>：对于输出，数据在遇到换行符或者在缓冲填满时被写入，具体视情况而定。对于输入，缓冲会在请求输入且缓冲为空时被填充，直到遇到下一个换行符。</td>
+</tr>
+<tr>
+<td>_IONBF</td>
+<td><strong>无缓冲</strong>：不使用缓冲。每个 I/O 操作都被即时写入。buffer 和 size 参数被忽略。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>size</strong> –这是缓冲的大小，以字节为单位。</li>
+</ul>
+<blockquote>
+<p> 无缓冲模式（第二个参数为 0，第三个参数为 2 表示_IONBF 模式）</p>
+</blockquote>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>如果成功，则该函数返回 0，否则返回非零值。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>下面的实例演示了 setvbuf() 函数的用法。</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line"></span><br><span class="line">   <span class="type">char</span> buff[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">   <span class="built_in">memset</span>( buff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>( buff ));</span><br><span class="line"></span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"启用全缓冲\n"</span>);</span><br><span class="line">   setvbuf(<span class="built_in">stdout</span>, buff, _IOFBF, <span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"这里是 runoob.com\n"</span>);</span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"该输出将保存到 buff\n"</span>);</span><br><span class="line">   fflush( <span class="built_in">stdout</span> );</span><br><span class="line"></span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"这将在编程时出现\n"</span>);</span><br><span class="line">   <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"最后休眠五秒钟\n"</span>);</span><br><span class="line"></span><br><span class="line">   sleep(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>让我们编译并运行上面的程序，这将产生以下结果。在这里，程序把缓冲输出保存到 <strong>buff</strong>，直到首次调用 <strong>fflush()</strong> 为止，然后开始缓冲输出，最后休眠 5 秒钟。它会在程序结束之前，发送剩余的输出到 STDOUT。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">启用全缓冲</span><br><span class="line">这里是 runoob.com</span><br><span class="line">该输出将保存到 buff</span><br><span class="line">这将在编程时出现</span><br><span class="line">最后休眠五秒钟</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p><img src="/image/0e853309ca5b5902106461f8a1a2619.png"></p>
+<p><img src="/image/7714687b04bb989aa63673edc27efb7.png"></p>
+<p>  <code>v5 = __readfsqword(0x28u);</code></p>
+<pre><code>从线程本地存储 (FS segment) 的 0x28 偏移读取栈 canary（栈保护机制）；
+
+如果栈被溢出破坏，函数返回前会检查这个值是否被改动，如果改变就会触发异常/崩溃。
+</code></pre>
+<p> <code> setvbuf(_bss_start, 0LL, 2, 0LL);</code></p>
+<p>✅ 重点：这句很不常见！</p>
+<pre><code>通常：setvbuf(stdout, NULL, _IONBF, 0) 用来设置 stdout 的缓冲模式。
+
+但这里设置的是 _bss_start，这是**.bss 段的起始地址**，不应该是 FILE 指针！
+</code></pre>
+<p>说明：这行是为了造成混淆或隐藏 stdout 的关闭行为，你会发现这实际上等价于关闭了 stdout，或至少破坏了它的使用。</p>
+<p>类似行为在前文提到的：</p>
+<p><code>fclose(_bss_start);</code></p>
+<p>也是一样的意图。</p>
+<p>所以：</p>
+<pre><code>这句话的目的其实是 使程序不能正常通过 printf/puts 输出结果，增加难度。
+</code></pre>
+<p>  <code>setvbuf(stdin, 0LL, 1, 0LL);</code></p>
+<pre><code>关闭 stdin 的缓冲，使得输入行为是行缓冲或无缓冲；
+
+这让输入变得更实时，对交互有帮助。
+</code></pre>
+<h4 id="构造方法："><a href="#构造方法：" class="headerlink" title="构造方法："></a>构造方法：</h4><p><code>cat /ctf* 1&gt;&amp;0</code></p>
+<h5 id="1-0是什么意思？"><a href="#1-0是什么意思？" class="headerlink" title="1>&amp;0是什么意思？"></a>1&gt;&amp;0是什么意思？</h5><blockquote>
+<p>这是 Bash 的 <strong>文件描述符重定向语法</strong>，意思是：把 <strong>标准输出（1）</strong> 重定向到 <strong>标准输入（0）</strong></p>
+</blockquote>
+<blockquote>
+<p>也就是说：</p>
+<ul>
+<li><code>cat</code> 原本写入 <strong>stdout</strong></li>
+<li>现在 <code>stdout</code> 被重定向到了 <code>stdin</code>，而你还可以通过 <code>stdin</code> 接收数据（比如和程序交互时）</li>
+</ul>
+</blockquote>
+<h5 id="为什么这样能显示出-flag？"><a href="#为什么这样能显示出-flag？" class="headerlink" title="为什么这样能显示出 flag？"></a>为什么这样能显示出 flag？</h5><blockquote>
+<ul>
+<li>虽然 <code>stdout</code> 被程序关闭或破坏了，但 <code>stdin</code>（描述符 0）还在；</li>
+<li>通过 <code>1&gt;&amp;0</code>，让 <code>cat</code> 输出重定向到你还能“看见”的地方；</li>
+<li>因为你是通过 <code>read</code> + <code>system(buf)</code> 执行命令，这个子进程的输出其实是能从 stdin 中读到的；</li>
+<li>很多 CTF 沙箱中使用 pseudo terminal / 父进程通信 / pipe 来连接 stdin/stdout，所以这样能“绕过关闭 stdout”的限制。</li>
+</ul>
+</blockquote>
+<h2 id="4-fork"><a href="#4-fork" class="headerlink" title="4.fork"></a>4.fork</h2><h4 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h4><p><img src="/image/7714687b04bb989aa63673edc27efb7.png"></p>
+<p>fork开启了一个全新的进程，返回两次返回值，父进程返回子进程的PID，子进程返回值为0（如果出现错误，fork返回一个负值）,题目中当fork被调用，先是父进程返回值，因此PID＞0，执行if下面的代码，wait（0LL）执行，父进程堵塞，等待子进程结束，<strong>父进程将被挂起</strong>，直到子进程完成，sleep(3u)是等待3s。此时的子进程中，fork返回0，进入else，关闭了输出流，然后从标准输入中读取了32个字节到buf，然后执行system(&amp;buf)。</p>
+<blockquote>
+<p>引用一位网友的话来解释fpid的值为什么在父子进程中不同。“其实就相当于链表，进程形成了链表，父进程的fpid(p 意味point)指向子进程的进程id, 因为子进程没有子进程，所以其fpid为0.</p>
+</blockquote>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>很多 CTF 沙箱中使用 pseudo terminal / 父进程通信 / pipe 来连接 stdin/stdout，所以这样能“绕过关闭 stdout”的限制。</p>
+<h2 id="5-waitpid"><a href="#5-waitpid" class="headerlink" title="5.waitpid()"></a>5.waitpid()</h2><p>大家知道，当用fork启动一个新的子进程的时候，子进程就有了新的生命周期，并将在其自己的地址空间内独立运行。但有的时候，我们希望知道某一个自己创建的子进程何时结束，从而方便父进程做一些处理动作。同样的，在用ptrace去attach一个进程滞后，那个被attach的进程某种意义上说可以算作那个attach它进程的子进程，这种情况下，有时候就想知道被调试的进程何时停止运行。</p>
+<p>以上两种情况下，都可以使用Linux中的waitpid()函数做到。先来看看waitpid函数的定义：</p>
+<h3 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h3><pre><code>#include &lt;sys/types.h&gt; 
+#include &lt;sys/wait.h&gt;
+pid_t waitpid(pid_t pid,int *status,int options);
+</code></pre>
+<p>cpp<br>运行</p>
+<p>如果在调用waitpid()函数时，当指定等待的子进程已经停止运行或结束了，则waitpid()会立即返回；但是如果子进程还没有停止运行或结束，则调用waitpid()函数的父进程则会被阻塞，暂停运行。</p>
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><p>下面来解释以下调用参数的含义：</p>
+<p>1）pid_t pid</p>
+<p>参数pid为欲等待的子进程识别码，其具体含义如下：</p>
+<p>参数值	说明<br>pid&lt;-1	等待进程组号为pid绝对值的任何子进程。<br>pid=-1	等待任何子进程，此时的waitpid()函数就退化成了普通的wait()函数。<br>pid=0	等待进程组号与目前进程相同的任何子进程，也就是说任何和调用waitpid()函数的进程在同一个进程组的进程。<br>pid&gt;0	等待进程号为pid的子进程。</p>
+<p>2）int *status<br>这个参数将保存子进程的状态信息，有了这个信息父进程就可以了解子进程为什么会推出，是正常推出还是出了什么错误。如果status不是空指针，则状态信息将被写入<br>器指向的位置。当然，如果不关心子进程为什么推出的话，也可以传入空指针。<br>Linux提供了一些非常有用的宏来帮助解析这个状态信息，这些宏都定义在sys/wait.h头文件中。主要有以下几个：<br>宏	说明<br>WIFEXITED(status)	如果子进程正常结束，它就返回真；否则返回假。<br>WEXITSTATUS(status)	如果WIFEXITED(status)为真，则可以用该宏取得子进程exit()返回的结束代码。<br>WIFSIGNALED(status)	如果子进程因为一个未捕获的信号而终止，它就返回真；否则返回假。<br>WTERMSIG(status)	如果WIFSIGNALED(status)为真，则可以用该宏获得导致子进程终止的信号代码。<br>WIFSTOPPED(status)	如果当前子进程被暂停了，则返回真；否则返回假。<br>WSTOPSIG(status)	如果WIFSTOPPED(status)为真，则可以使用该宏获得导致子进程暂停的信号代码。</p>
+<p>3）int options<br>参数options提供了一些另外的选项来控制waitpid()函数的行为。如果不想使用这些选项，则可以把这个参数设为0。<br>主要使用的有以下两个选项：<br>参数	说明<br>WNOHANG	如果pid指定的子进程没有结束，则waitpid()函数立即返回0，而不是阻塞在这个函数上等待；如果结束了，则返回该子进程的进程号。<br>WUNTRACED	如果子进程进入暂停状态，则马上返回。<br>这些参数可以用“|”运算符连接起来使用。<br>如果waitpid()函数执行成功，则返回子进程的进程号；如果有错误发生，则返回-1，并且将失败的原因存放在errno变量中。<br>失败的原因主要有：没有子进程（errno设置为ECHILD），调用被某个信号中断（errno设置为EINTR）或选项参数无效（errno设置为EINVAL）<br>如果像这样调用waitpid函数：waitpid(-1, status, 0)，这此时waitpid()函数就完全退化成了wait()函数。</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_80976241/article/details/144294553?fromshare=blogdetail&amp;sharetype=blogdetail&amp;sharerId=144294553&amp;sharerefer=PC&amp;sharesource=2301_80976241&amp;sharefrom=from_link">流的理解，setvbuf函数</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-setvbuf.html">C 库函数 - setvbuf()</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Sunnyside_/article/details/108196543">【Linux】fork()函数详解 (深入浅出 实例讲解)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jixianghahaxiao/article/details/45717953">Linux中fork（）函数详解 父子进程变量的关系</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-system.html">C 库函数 - system()</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Myon5/article/details/137891670">CTFshow-PWN-前置基础（pwn18-pwn19）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_80976241/article/details/144295269">CTFshow-pwn入门-前置基础pwn13-pwn19</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Bark66675.github.io">BarkStarry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bark66675.github.io/2025/07/03/chang-jian-han-shu-yong-fa/">https://bark66675.github.io/2025/07/03/chang-jian-han-shu-yong-fa/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Bark66675.github.io" target="_blank">BarkStarry</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%87%BD%E6%95%B0/">函数</a></div><div class="post-share"><div class="social-share" data-image="/img/logo1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css?v=1.1.6" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js?v=1.1.6" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="wechat"></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器"><img class="cover" src="/img/7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">z3约束求解器</div></div><div class="info-2"><div class="info-item-1">z3约束求解器一、z3约束求解器理解 z3介绍Z3是由微软公司开发的一个优秀的SMT求解器，它能够检查逻辑表达式的可满足性，可以用来软件/硬件验证和测试，约束求解，混合系统分析，安全性研究，生物学研究（计算机分析）以及几何问题。通俗的来讲我们可以简单理解为它是一个解方程的计算器，Z3py是使用脚本来解决一些实际问题。  z3在CTF逆向中有什么用？我们在做CTF逆向题的时候，当我们已经逆向到最后求flag或者具体数值解的时候，例如最简单的：我们知道了未知量x,y，也知道了约束条件x+y=5，那么此时我们就可以使用Z3来求解x和y的值，因为x和y的值肯定有多个解，而我们最后的flag肯定只有一个，那么我们就可以继续添加约束条件来减少解的数量，最后得出正确的flag。   二、z3语法简介：z3在python中的未知数变量主要有以下数据类型：  Int –&gt; 整型（注意逐个列出时使用Int()，一次全部列出使用Ints()）。 12345a,b,c,d=Ints('a b c d')# a = Int('a')# b = Int('b')# c = Int('c')# d = ...</div></div></div></a><a class="pagination-related" href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/" title="寄存器寻址方式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">寄存器寻址方式</div></div><div class="info-2"><div class="info-item-1">寄存器寻址section .data    msg db “Welcome_to_CTFshow_PWN”, 0 section .text    global _start _start: ; 立即寻址方式    mov eax, 11         ; 将11赋值给eax    add eax, 114504     ; eax加上114504    sub eax, 1          ; eax减去1 ; 寄存器寻址方式    mov ebx, 0x36d      ; 将0x36d赋值给ebx    mov edx, ebx        ; 将ebx的值赋值给edx ; 直接寻址方式    mov ecx, msg      ; 将msg的地址赋值给ecx**（找msg的地址）**。 ; 寄存器间接寻址方式    mov esi, msg        ; 将msg的地址赋值给esi    mov eax, [esi]      ; 将esi所指向的地址的值赋值给eax**（等于找msg地址存储的值）**。 ; 寄存器相对寻址方式    mov ecx, msg ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">BarkStarry</div><div class="author-info-description">学学学学学学</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bark66675"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">刺骨的寒风，孕育出新生的希望。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">常见函数用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-read"><span class="toc-number">1.1.</span> <span class="toc-text">1.read</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-strcat"><span class="toc-number">1.2.</span> <span class="toc-text">2.strcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-setvbuf"><span class="toc-number">1.3.</span> <span class="toc-text">3.setvbuf</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.3.1.</span> <span class="toc-text">描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E"><span class="toc-number">1.3.2.</span> <span class="toc-text">声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.3.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.3.4.</span> <span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.3.5.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-number">1.3.6.</span> <span class="toc-text">例题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">1.3.6.1.</span> <span class="toc-text">构造方法：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-0%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F"><span class="toc-number">1.3.6.1.1.</span> <span class="toc-text">1&gt;&amp;0是什么意思？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E6%A0%B7%E8%83%BD%E6%98%BE%E7%A4%BA%E5%87%BA-flag%EF%BC%9F"><span class="toc-number">1.3.6.1.2.</span> <span class="toc-text">为什么这样能显示出 flag？</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-fork"><span class="toc-number">1.4.</span> <span class="toc-text">4.fork</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98-1"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">例题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-waitpid"><span class="toc-number">1.5.</span> <span class="toc-text">5.waitpid()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="toc-number">1.5.1.</span> <span class="toc-text">定义：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-number">1.5.2.</span> <span class="toc-text">参数：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/08/05/tea-jia-zu/" title="TEA家族"><img src="/img/2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEA家族"></a><div class="content"><a class="title" href="/2025/08/05/tea-jia-zu/" title="TEA家族">TEA家族</a><time datetime="2025-08-04T23:41:36.000Z" title="发表于 2025-08-05 07:41:36">2025-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/rc4/" title="rc4"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rc4"></a><div class="content"><a class="title" href="/2025/07/27/rc4/" title="rc4">rc4</a><time datetime="2025-07-27T05:58:08.000Z" title="发表于 2025-07-27 13:58:08">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器"><img src="/img/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="z3约束求解器"></a><div class="content"><a class="title" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器">z3约束求解器</a><time datetime="2025-07-26T19:37:35.000Z" title="发表于 2025-07-27 03:37:35">2025-07-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/chang-jian-han-shu-yong-fa/" title="常见函数用法">常见函数用法</a><time datetime="2025-07-03T12:15:18.000Z" title="发表于 2025-07-03 20:15:18">2025-07-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/" title="寄存器寻址方式">寄存器寻址方式</a><time datetime="2025-07-03T03:39:31.000Z" title="发表于 2025-07-03 11:39:31">2025-07-03</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2025 By BarkStarry</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><script src="/js/tw_cn.js?v=5.5.2"></script><script src="/pluginsSrc/node-snackbar/dist/snackbar.min.js?v=0.1.16"></script><div class="js-pjax"></div><script src="/styles/js/snowflake.js"></script><meting-js class="no-destroy" id="2869859820" server="netease" type="playlist" fixed="true" autoplay="false" order="random" volume="0.3" list-folded="false" list-max-height="36vh"> </meting-js><script src="/js/aplayer-lrc.js"></script><script src="/js/continuous-play.js"></script><script id="click-show-text" src="/pluginsSrc/butterfly-extsrc/dist/click-show-text.min.js?v=1.1.6" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/meting/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="/pluginsSrc/pjax/pjax.min.js?v=0.2.8"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async="" data-pjax="" src="/"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

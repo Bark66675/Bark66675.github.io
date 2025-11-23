@@ -1,0 +1,379 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>z3约束求解器 | BarkStarry</title><meta name="author" content="BarkStarry"><meta name="copyright" content="BarkStarry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="z3约束求解器一、z3约束求解器理解 z3介绍Z3是由微软公司开发的一个优秀的SMT求解器，它能够检查逻辑表达式的可满足性，可以用来软件/硬件验证和测试，约束求解，混合系统分析，安全性研究，生物学研究（计算机分析）以及几何问题。通俗的来讲我们可以简单理解为它是一个解方程的计算器，Z3py是使用脚本来解决一些实际问题。  z3在CTF逆向中有什么用？我们在做CTF逆向题的时候，当我们已经逆向到最后求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="z3约束求解器">
+<meta property="og:url" content="https://bark66675.github.io/2025/07/27/z3-yue-shu-qiu-jie-qi/index.html">
+<meta property="og:site_name" content="BarkStarry">
+<meta property="og:description" content="z3约束求解器一、z3约束求解器理解 z3介绍Z3是由微软公司开发的一个优秀的SMT求解器，它能够检查逻辑表达式的可满足性，可以用来软件/硬件验证和测试，约束求解，混合系统分析，安全性研究，生物学研究（计算机分析）以及几何问题。通俗的来讲我们可以简单理解为它是一个解方程的计算器，Z3py是使用脚本来解决一些实际问题。  z3在CTF逆向中有什么用？我们在做CTF逆向题的时候，当我们已经逆向到最后求">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bark66675.github.io/img/7.jpg">
+<meta property="article:published_time" content="2025-07-26T19:37:35.000Z">
+<meta property="article:modified_time" content="2025-11-22T03:02:06.369Z">
+<meta property="article:author" content="BarkStarry">
+<meta property="article:tag" content="z3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bark66675.github.io/img/7.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "z3约束求解器",
+  "url": "https://bark66675.github.io/2025/07/27/z3-yue-shu-qiu-jie-qi/",
+  "image": "https://bark66675.github.io/img/7.jpg",
+  "datePublished": "2025-07-26T19:37:35.000Z",
+  "dateModified": "2025-11-22T03:02:06.369Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BarkStarry",
+      "url": "https://Bark66675.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon1.ico"><link rel="canonical" href="https://bark66675.github.io/2025/07/27/z3-yue-shu-qiu-jie-qi/index.html"><link rel="preconnect"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css?v=7.1.0"><link rel="stylesheet" href="/pluginsSrc/node-snackbar/dist/snackbar.min.css?v=0.1.16" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: BarkStarry","link":"链接: ","source":"来源: BarkStarry","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js?v=4.12.0',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'z3约束求解器',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/styles/css/cursors.css"><link rel="stylesheet" href="/css/transparent.css"><link rel="stylesheet" href="/styles/main.css"><script src="/css/custom.css"></script><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/a.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/7.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo1.png" alt="Logo"><span class="site-name">BarkStarry</span></a><a class="nav-page-title" href="/"><span class="site-name">z3约束求解器</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">z3约束求解器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-26T19:37:35.000Z" title="发表于 2025-07-27 03:37:35">2025-07-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-22T03:02:06.369Z" title="更新于 2025-11-22 11:02:06">2025-11-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url(/img/7.jpg);"></div><article class="container post-content" id="article-container"><h2 id="z3约束求解器"><a href="#z3约束求解器" class="headerlink" title="z3约束求解器"></a>z3约束求解器</h2><h3 id="一、z3约束求解器理解"><a href="#一、z3约束求解器理解" class="headerlink" title="一、z3约束求解器理解"></a>一、z3约束求解器理解</h3><ol>
+<li><h4 id="z3介绍"><a href="#z3介绍" class="headerlink" title="z3介绍"></a>z3介绍</h4><p>Z3是由微软公司开发的一个优秀的SMT求解器，它能够检查逻辑表达式的可满足性，可以用来软件/硬件验证和测试，约束求解，混合系统分析，安全性研究，生物学研究（计算机分析）以及几何问题。通俗的来讲我们可以简单理解为它是一个解方程的计算器，Z3py是使用脚本来解决一些实际问题。</p>
+</li>
+<li><h4 id="z3在CTF逆向中有什么用？"><a href="#z3在CTF逆向中有什么用？" class="headerlink" title="z3在CTF逆向中有什么用？"></a>z3在CTF逆向中有什么用？</h4><p>我们在做CTF逆向题的时候，当我们已经逆向到最后求flag或者具体数值解的时候，例如最简单的：我们知道了未知量x,y，也知道了约束条件x+y=5，那么此时我们就可以使用Z3来求解x和y的值，因为x和y的值肯定有多个解，而我们最后的flag肯定只有一个，那么我们就可以继续添加约束条件来减少解的数量，最后得出正确的flag。</p>
+</li>
+</ol>
+<h3 id="二、z3语法简介："><a href="#二、z3语法简介：" class="headerlink" title="二、z3语法简介："></a>二、z3语法简介：</h3><p>z3在python中的未知数变量主要有以下数据类型：</p>
+<ol>
+<li><p>Int –&gt; 整型（注意逐个列出时使用Int()，一次全部列出使用Int<strong>s</strong>()）。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a,b,c,d=Ints(<span class="string">'a b c d'</span>)</span><br><span class="line"><span class="comment"># a = Int('a')</span></span><br><span class="line"><span class="comment"># b = Int('b')</span></span><br><span class="line"><span class="comment"># c = Int('c')</span></span><br><span class="line"><span class="comment"># d = Int('d')</span></span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li><p>如果参数多建议使用循环：<code>v = [Int(f'v{i}')    for i in range(0, 16)]</code></p>
+</li>
+<li><blockquote>
+<ul>
+<li><p><code>f'v{i}'</code> 是一种<strong>格式化字符串字面量</strong>（也称为 <strong>f-string</strong>），它允许你在字符串中嵌入表达式。具体来说：</p>
+</li>
+<li><p><strong><code>f</code> 前缀</strong>：表示这是一个 f-string,将字符串格式化的方法。</p>
+</li>
+<li><p><strong>大括号 <code>{}</code></strong>：用于包裹需要动态计算的表达式。</p>
+</li>
+<li><p><code>f'v{i}'</code> 会根据循环变量 <code>i</code> 的值动态生成字符串。</p>
+</li>
+<li><p>例如，当 <code>i=0</code> 时，<code>f'v{i}'</code> 会变成字符串 <code>'v0'</code>；当 <code>i=1</code> 时，会变成 <code>'v1'</code>，依此类推，直到 <code>i=15</code> 时生成 <code>'v15'</code>。</p>
+</li>
+<li><p>**Int()**是z3中用于将变量转换为特定类型的一个函数</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>Bool –&gt; 布尔型</p>
+</li>
+<li><p>Array –&gt; 数组</p>
+</li>
+<li><p>BitVec(‘a’,8) –&gt; char型（其中的数字不一定是8，例如C语言中的int型（32位位向量）可以用BitVec(‘a’,32)表示）</p>
+<blockquote>
+<p>将 <code>Ints</code> 改为 <code>BitVecs</code>，并指定位数（这里用 32 位，可根据实际场景调整为 64 位等）。<code>BitVec</code> 是 Z3 中专门用于位运算的类型，支持 <code>Xor</code>、移位等操作。</p>
+<p><code>Xor</code> 函数对 <code>BitVec</code> 类型有效（用于位异或）</p>
+</blockquote>
+<blockquote>
+<p>[!tip]</p>
+<p><mark>一般unsigned int a;这种32位无符号整数对应的是 <strong>32位位向量</strong>，不是数学整数！！！！</mark></p>
+</blockquote>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a,b,c,d=BitVecs(<span class="string">'a b c d'</span>,<span class="number">32</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<blockquote>
+<h1 id="BitVecs-vs-Ints-的区别"><a href="#BitVecs-vs-Ints-的区别" class="headerlink" title="BitVecs vs Ints 的区别"></a>BitVecs vs Ints 的区别</h1><p>用 <code>Ints</code> 确实可以，但 <code>BitVecs</code> 更合适。让我详细解释：</p>
+<h2 id="1-语义差异"><a href="#1-语义差异" class="headerlink" title="1. 语义差异"></a>1. 语义差异</h2><p>python</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line"></span><br><span class="line"># Ints - 数学整数（无限精度）</span><br><span class="line">a_int, b_int = Ints('a b')</span><br><span class="line"># BitVecs - 位向量（固定位宽，模拟CPU寄存器）</span><br><span class="line">a_bv, b_bv = BitVecs('a b', 32)</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h2 id="2-关键区别"><a href="#2-关键区别" class="headerlink" title="2. 关键区别"></a>2. 关键区别</h2><h3 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h3><p>python</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Ints: 数学运算，可能溢出到任意大数</span><br><span class="line">result_int = a_int + b_int  # 永远不会溢出</span><br><span class="line"></span><br><span class="line"># BitVecs: 模运算，模拟真实CPU行为  </span><br><span class="line">result_bv = a_bv + b_bv  # 结果会被 2^32 取模</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="位移运算"><a href="#位移运算" class="headerlink" title="位移运算"></a>位移运算</h3><p>python</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Ints: 逻辑位移</span><br><span class="line">result = a_int &lt;&lt; 1  # 只是乘以2</span><br><span class="line"></span><br><span class="line"># BitVecs: 精确的位级操作</span><br><span class="line">result = a_bv &lt;&lt; 1   # 低位补0，高位丢弃</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h2 id="3-在本题中的重要性"><a href="#3-在本题中的重要性" class="headerlink" title="3. 在本题中的重要性"></a>3. 在本题中的重要性</h2><p>看你的C代码：</p>
+<p>c</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsigned int a; // 32位无符号整数</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>这对应的是 <strong>32位位向量</strong>，不是数学整数。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="三、几个常用的API"><a href="#三、几个常用的API" class="headerlink" title="三、几个常用的API"></a>三、几个常用的API</h4><p>**Solver()：**创建一个通用求解器，创建后我们可以添加我们的约束条件，进行下一步的求解。</p>
+<p><em><em>add()：<strong>添加约束</strong></em>条件（方程）</em>**，通常在solver()命令之后，添加的约束条件通常是一个逻辑等式。</p>
+<p>**check()：**通常用来判断在添加完约束条件后，来检测解的情况，有解的时候会回显sat，无解的时候会回显unsat。</p>
+<p>**model()：**在存在解的时候，该函数会将每个限制条件所对应的解集取交集，进而得出正解。</p>
+<p>更多的使用方法大家可以参考这个说明文档[Z3 API IN PYTHON 中文文档 （官方文档翻译）](<a target="_blank" rel="noopener" href="https://arabelatso.github.io/2018/06/14/Z3">https://arabelatso.github.io/2018/06/14/Z3</a> API in Python/)</p>
+<p>和<a target="_blank" rel="noopener" href="https://z3prover.github.io/api/html/namespacez3py.html">z3py namespace reference</a>。</p>
+<h4 id="四、一个nssctf例题脚本："><a href="#四、一个nssctf例题脚本：" class="headerlink" title="四、一个nssctf例题脚本："></a>四、一个nssctf例题脚本：</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">v,w,x,y,z=Ints(<span class="string">"v w x y z"</span>)</span><br><span class="line">s=Solver()</span><br><span class="line">s.add(v * <span class="number">23</span> + w * -<span class="number">32</span> + x * <span class="number">98</span> + y * <span class="number">55</span> + z * <span class="number">90</span> == <span class="number">333322</span>)</span><br><span class="line">s.add(v * <span class="number">123</span> + w * -<span class="number">322</span> + x * <span class="number">68</span> + y * <span class="number">67</span> + z * <span class="number">32</span> == <span class="number">707724</span>)</span><br><span class="line">s.add(v * <span class="number">266</span> + w * -<span class="number">34</span> + x * <span class="number">43</span> + y * <span class="number">8</span> + z * <span class="number">32</span> == <span class="number">1272529</span>)</span><br><span class="line">s.add (v * <span class="number">343</span> + w * -<span class="number">352</span> + x * <span class="number">58</span> + y * <span class="number">65</span> + z * <span class="number">5</span> == <span class="number">1672457</span>)</span><br><span class="line">s.add (v * <span class="number">231</span> + w * -<span class="number">321</span> + x * <span class="number">938</span> + y * <span class="number">555</span> + z * <span class="number">970</span> == <span class="number">3372367</span>)</span><br><span class="line"><span class="keyword">if</span> s.check() == sat:</span><br><span class="line">    <span class="built_in">print</span>(s.model())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"无解"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建10个变量</span></span><br><span class="line">a = [Int(<span class="string">f'a<span class="subst">{i}</span>'</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">s = Solver()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加ASCII字符范围约束（关键修改）</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    s.add(a[i] &gt;= <span class="number">32</span>, a[i] &lt;= <span class="number">126</span>)  <span class="comment"># 可打印ASCII字符</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加方程约束（注意修正索引错误）</span></span><br><span class="line">s.add(<span class="number">2</span>*a[<span class="number">7</span>] + <span class="number">8</span>*a[<span class="number">6</span>] + <span class="number">8</span>*a[<span class="number">5</span>] + <span class="number">2</span>*a[<span class="number">4</span>] + <span class="number">4</span>*a[<span class="number">3</span>] + <span class="number">5</span>*a[<span class="number">1</span>] + <span class="number">2</span>*a[<span class="number">0</span>] + <span class="number">6</span>*a[<span class="number">2</span>] + a[<span class="number">8</span>] + <span class="number">5</span>*a[<span class="number">9</span>] == <span class="number">3976</span>)</span><br><span class="line">s.add(a[<span class="number">5</span>] + <span class="number">9</span>*a[<span class="number">3</span>] + <span class="number">7</span>*a[<span class="number">2</span>] + <span class="number">5</span>*a[<span class="number">1</span>] + <span class="number">3</span>*a[<span class="number">0</span>] + <span class="number">7</span>*a[<span class="number">4</span>] + <span class="number">4</span>*a[<span class="number">6</span>] + <span class="number">6</span>*a[<span class="number">7</span>] + <span class="number">8</span>*a[<span class="number">8</span>] + <span class="number">5</span>*a[<span class="number">9</span>] == <span class="number">5265</span>)</span><br><span class="line">s.add(<span class="number">7</span>*a[<span class="number">8</span>] + <span class="number">2</span>*a[<span class="number">6</span>] + <span class="number">6</span>*a[<span class="number">4</span>] + <span class="number">7</span>*a[<span class="number">3</span>] + <span class="number">7</span>*a[<span class="number">2</span>] + <span class="number">3</span>*a[<span class="number">1</span>] + <span class="number">8</span>*a[<span class="number">0</span>] + <span class="number">5</span>*a[<span class="number">5</span>] + <span class="number">4</span>*a[<span class="number">7</span>] + <span class="number">9</span>*a[<span class="number">9</span>] == <span class="number">5284</span>)</span><br><span class="line">s.add(<span class="number">7</span>*a[<span class="number">6</span>] + <span class="number">5</span>*a[<span class="number">5</span>] + <span class="number">6</span>*a[<span class="number">4</span>] + <span class="number">3</span>*a[<span class="number">3</span>] + <span class="number">9</span>*a[<span class="number">0</span>] + <span class="number">6</span>*a[<span class="number">1</span>] + <span class="number">4</span>*a[<span class="number">2</span>] + <span class="number">9</span>*a[<span class="number">7</span>] + <span class="number">8</span>*a[<span class="number">8</span>] + <span class="number">7</span>*a[<span class="number">9</span>] == <span class="number">5925</span>)  <span class="comment"># 修正</span></span><br><span class="line">s.add(<span class="number">7</span>*a[<span class="number">8</span>] + <span class="number">8</span>*a[<span class="number">6</span>] + <span class="number">6</span>*a[<span class="number">4</span>] + a[<span class="number">2</span>] + <span class="number">4</span>*a[<span class="number">1</span>] + <span class="number">3</span>*a[<span class="number">0</span>] + <span class="number">2</span>*a[<span class="number">3</span>] + <span class="number">5</span>*a[<span class="number">5</span>] + <span class="number">2</span>*a[<span class="number">7</span>] + <span class="number">3</span>*a[<span class="number">9</span>] == <span class="number">4048</span>)</span><br><span class="line">s.add(<span class="number">3</span>*a[<span class="number">8</span>] + <span class="number">9</span>*a[<span class="number">7</span>] + <span class="number">7</span>*a[<span class="number">6</span>] + <span class="number">4</span>*a[<span class="number">4</span>] + <span class="number">4</span>*a[<span class="number">3</span>] + <span class="number">5</span>*a[<span class="number">0</span>] + <span class="number">8</span>*a[<span class="number">1</span>] + <span class="number">6</span>*a[<span class="number">2</span>] + <span class="number">4</span>*a[<span class="number">5</span>] + <span class="number">7</span>*a[<span class="number">9</span>] == <span class="number">5072</span>)  <span class="comment"># 修正</span></span><br><span class="line">s.add(<span class="number">5</span>*a[<span class="number">7</span>] + <span class="number">2</span>*a[<span class="number">3</span>] + <span class="number">2</span>*(a[<span class="number">0</span>] + a[<span class="number">1</span>]) + <span class="number">3</span>*a[<span class="number">2</span>] + a[<span class="number">4</span>] + <span class="number">7</span>*a[<span class="number">5</span>] + <span class="number">2</span>*a[<span class="number">6</span>] + <span class="number">3</span>*a[<span class="number">8</span>] + <span class="number">2</span>*a[<span class="number">9</span>] == <span class="number">2813</span>)</span><br><span class="line">s.add(<span class="number">3</span>*a[<span class="number">8</span>] + <span class="number">5</span>*a[<span class="number">7</span>] + <span class="number">7</span>*a[<span class="number">6</span>] + <span class="number">3</span>*a[<span class="number">5</span>] + <span class="number">7</span>*a[<span class="number">4</span>] + <span class="number">7</span>*a[<span class="number">1</span>] + a[<span class="number">0</span>] + <span class="number">7</span>*a[<span class="number">2</span>] + <span class="number">8</span>*a[<span class="number">3</span>] + <span class="number">6</span>*a[<span class="number">9</span>] == <span class="number">5004</span>)</span><br><span class="line">s.add(<span class="number">2</span>*a[<span class="number">8</span>] + <span class="number">5</span>*a[<span class="number">6</span>] + <span class="number">5</span>*a[<span class="number">5</span>] + <span class="number">5</span>*a[<span class="number">4</span>] + <span class="number">9</span>*a[<span class="number">3</span>] + <span class="number">5</span>*a[<span class="number">0</span>] + <span class="number">9</span>*a[<span class="number">1</span>] + a[<span class="number">2</span>] + <span class="number">5</span>*a[<span class="number">7</span>] + a[<span class="number">9</span>] == <span class="number">4490</span>)  <span class="comment"># 修正</span></span><br><span class="line">s.add(<span class="number">6</span>*a[<span class="number">8</span>] + <span class="number">7</span>*a[<span class="number">7</span>] + <span class="number">5</span>*a[<span class="number">6</span>] + <span class="number">6</span>*a[<span class="number">3</span>] + <span class="number">4</span>*a[<span class="number">1</span>] + <span class="number">6</span>*a[<span class="number">0</span>] + <span class="number">8</span>*a[<span class="number">2</span>] + <span class="number">6</span>*a[<span class="number">4</span>] + <span class="number">8</span>*a[<span class="number">5</span>] + <span class="number">7</span>*a[<span class="number">9</span>] == <span class="number">5936</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> s.check() == sat:</span><br><span class="line">    model = s.model()</span><br><span class="line">    result = [<span class="built_in">chr</span>(model[a[i]].as_long()) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]<span class="comment">#..as_long() 方法将其转换为Python的整数类型</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">''</span>.join(result))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"无解"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">solve_equations</span>():</span><br><span class="line">    <span class="comment"># 定义四个32位整数变量</span></span><br><span class="line">    a,b,c,d=BitVecs(<span class="string">'a b c d'</span>,<span class="number">32</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 创建求解器</span></span><br><span class="line">    s = Solver()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 添加四个方程约束</span></span><br><span class="line">    s.add(<span class="number">3</span>*b + <span class="number">5</span>*a + <span class="number">7</span>*d + <span class="number">2</span>*c == <span class="number">0xA9D0D227</span>)</span><br><span class="line">    s.add(<span class="number">2</span>*(<span class="number">2</span>*(<span class="number">2</span>*b + c) + a) + d == <span class="number">0xD7E7EB42</span>)</span><br><span class="line">    s.add(<span class="number">7</span>*b + <span class="number">3</span>*a + <span class="number">5</span>*d + <span class="number">4</span>*c == <span class="number">0x39210093</span>)</span><br><span class="line">    s.add(((a ^ b) &lt;&lt; <span class="number">6</span>) + ((c &gt;&gt; <span class="number">6</span>) ^ <span class="number">0x4514</span>) == <span class="number">0x755F6E9</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 检查是否有解</span></span><br><span class="line">    <span class="keyword">if</span> s.check() == sat:</span><br><span class="line">        model = s.model()</span><br><span class="line">        a_val = model[a].as_long()</span><br><span class="line">        b_val = model[b].as_long()</span><br><span class="line">        c_val = model[c].as_long()</span><br><span class="line">        d_val = model[d].as_long()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 构造 flag</span></span><br><span class="line">        flag = <span class="string">f"0xGame{{<span class="subst">{a_val:08x}</span><span class="subst">{b_val:08x}</span><span class="subst">{c_val:08x}</span><span class="subst">{d_val:08x}</span>}}"</span>  <span class="comment"># 单个 { 和 } 需要转义，使用双大括号 {{ 和 }}</span></span><br><span class="line">                                                                          <span class="comment">#"0xGame{{...}}"       实际输出: 0xGame{...}</span></span><br><span class="line">        <span class="keyword">return</span> flag</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"No solution found"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 求解</span></span><br><span class="line">flag = solve_equations()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"Flag: <span class="subst">{flag}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<blockquote>
+<h2 id="分解说明"><a href="#分解说明" class="headerlink" title="分解说明"></a>分解说明</h2><h3 id="1-f-string-基础"><a href="#1-f-string-基础" class="headerlink" title="1. f-string 基础"></a>1. f-string 基础</h3><ul>
+<li><code>f"..."</code> 表示这是一个格式化字符串</li>
+<li>在字符串中可以用 <code>{表达式}</code> 插入变量值</li>
+</ul>
+<h3 id="2-大括号转义"><a href="#2-大括号转义" class="headerlink" title="2. 大括号转义"></a>2. 大括号转义</h3><p>python</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单个 { 和 } 需要转义，使用双大括号 {{ 和 }}</span></span><br><span class="line"><span class="string">"0xGame{{...}}"</span>  <span class="comment"># 实际输出: 0xGame{...}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="3-格式化说明符-08x"><a href="#3-格式化说明符-08x" class="headerlink" title="3. 格式化说明符 :08x"></a>3. 格式化说明符 <code>:08x</code></h3><ul>
+<li><code>:</code> 开始格式化说明</li>
+<li><code>0</code> 用零填充</li>
+<li><code>8</code> 总宽度为8个字符</li>
+<li><code>x</code> 小写十六进制格式</li>
+</ul>
+<h3 id="示例演示"><a href="#示例演示" class="headerlink" title="示例演示"></a>示例演示</h3><p>python</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a_val = <span class="number">255</span></span><br><span class="line">b_val = <span class="number">4095</span></span><br><span class="line">c_val = <span class="number">65535</span></span><br><span class="line">d_val = <span class="number">16777215</span></span><br><span class="line"></span><br><span class="line">flag = <span class="string">f"0xGame{{<span class="subst">{a_val:08x}</span><span class="subst">{b_val:08x}</span><span class="subst">{c_val:08x}</span><span class="subst">{d_val:08x}</span>}}"</span></span><br><span class="line"><span class="built_in">print</span>(flag)  <span class="comment"># 输出: 0xGame{000000ff00000fff0000ffff00ffffff}</span></span><br></pre></td></tr></tbody></table></figure></blockquote>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_both_versions</span>():</span><br><span class="line">    target_hash = <span class="string">"4aba519d4666f5421488afaaf89efdcbe48e7a53f814ce5c1d82b46b55032651"</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 测试两个版本</span></span><br><span class="line">    versions = [</span><br><span class="line">        (<span class="string">"0x755F6E9"</span>, <span class="number">0x755F6E9</span>),</span><br><span class="line">        (<span class="string">"0x0755F6E9"</span>, <span class="number">0x0755F6E9</span>)</span><br><span class="line">    ]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> name, value <span class="keyword">in</span> versions:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"\n测试版本: <span class="subst">{name}</span>"</span>)</span><br><span class="line">        </span><br><span class="line">        s = Solver()</span><br><span class="line">        a, b, c, d = BitVecs(<span class="string">'a b c d'</span>, <span class="number">32</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 四个方程</span></span><br><span class="line">        s.add(<span class="number">3</span> * b + <span class="number">5</span> * a + <span class="number">7</span> * d + <span class="number">2</span> * c == <span class="number">0xA9D0D227</span>)</span><br><span class="line">        s.add(<span class="number">2</span> * (<span class="number">2</span> * (<span class="number">2</span> * b + c) + a) + d == <span class="number">0xD7E7EB42</span>)</span><br><span class="line">        s.add(<span class="number">7</span> * b + <span class="number">3</span> * a + <span class="number">5</span> * d + <span class="number">4</span> * c == <span class="number">0x39210093</span>)</span><br><span class="line">        s.add(((a ^ b) &lt;&lt; <span class="number">6</span>) + ((c &gt;&gt; <span class="number">6</span>) ^ <span class="number">0x4514</span>) == value)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> s.check() == sat:</span><br><span class="line">            model = s.model()</span><br><span class="line">            a_val = model[a].as_long()</span><br><span class="line">            b_val = model[b].as_long()</span><br><span class="line">            c_val = model[c].as_long()</span><br><span class="line">            d_val = model[d].as_long()</span><br><span class="line">            </span><br><span class="line">            flag = <span class="string">f"0xGame{{<span class="subst">{a_val:08x}</span><span class="subst">{b_val:08x}</span><span class="subst">{c_val:08x}</span><span class="subst">{d_val:08x}</span>}}"</span></span><br><span class="line">            sha256 = hashlib.sha256(flag.encode()).hexdigest()</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"Flag: <span class="subst">{flag}</span>"</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"SHA-256: <span class="subst">{sha256}</span>"</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"匹配目标: <span class="subst">{sha256 == target_hash}</span>"</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 验证方程</span></span><br><span class="line">            eq4 = (((a_val ^ b_val) &lt;&lt; <span class="number">6</span>) + ((c_val &gt;&gt; <span class="number">6</span>) ^ <span class="number">0x4514</span>)) &amp; <span class="number">0xFFFFFFFF</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"方程4计算值: 0x<span class="subst">{eq4:08x}</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行测试</span></span><br><span class="line">test_both_versions()</span><br></pre></td></tr></tbody></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Bark66675.github.io">BarkStarry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bark66675.github.io/2025/07/27/z3-yue-shu-qiu-jie-qi/">https://bark66675.github.io/2025/07/27/z3-yue-shu-qiu-jie-qi/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Bark66675.github.io" target="_blank">BarkStarry</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/z3/">z3</a></div><div class="post-share"><div class="social-share" data-image="/img/7.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css?v=1.1.6" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js?v=1.1.6" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="wechat"></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/07/27/rc4/" title="rc4"><img class="cover" src="/img/1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">rc4</div></div><div class="info-2"><div class="info-item-1">rc4加密过程  密钥调度算法（KSA）（Key Scheduling Algorithm） 初始化一个长度为256的数组S，值为S[i]=i,其中i是索引. s=list(range(256))  根据密钥（char类型）和S[i]生成j，S[j],并进行置换: 初始化：j=0 开循环：  j=j+S[i]+key[i%len(key)]%256  交换S[i]和S[j]     伪随机数生成算法（PRGA） 初始化两个索引变量：i，j=0  以密文字节长度开循环： i = (i+1)%256s j = (j+s[i])%256 交换S[i]和S[j] t = ( S[i]+S[j] )%256 KEY = S[t] enc[h]^KEY   </div></div></div></a><a class="pagination-related" href="/2025/07/03/chang-jian-han-shu-yong-fa/" title="常见函数用法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">常见函数用法</div></div><div class="info-2"><div class="info-item-1">常见函数用法1.read1read(0, buf, 0xAuLL);  用法： 12ssize_t read(int fd, void *buf, size_t count);bash  参数解释：  fd：文件描述符，表示要读取的文件或者输入源。在 UNIX 系统中，0 表示标准输入(STDIN)，1 表示标准输出(STDOUT)，2 表示标准错误(STDERR)。  文件描述符0：用于接收用户输入或者从管道、重定向或者其他输入源读取数据。 文件描述符1：用于向终端或者其他输出目标输出数据。  buf：指向存储读取数据的缓冲区的指针。 count：要读取的最大字节数。  注：0xAuLL 中的 uLL 表示这是一个无符号长长整型(unsigned long long)的常量，sleep(0x1BF52u)中的u表示无符号整型(unsigned)。 2.strcat1strcat(dest, buf);  这行代码将用户输入的内容追加到 dest 字符串后面 双击跟进 dest 可以看到 dest 被声明为一个大小为 4 字节的字符数组，用来存储字符串 详细解释： dest 是一...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/logo1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">BarkStarry</div><div class="author-info-description">学学学学学学</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bark66675"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">刺骨的寒风，孕育出新生的希望。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#z3%E7%BA%A6%E6%9D%9F%E6%B1%82%E8%A7%A3%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">z3约束求解器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81z3%E7%BA%A6%E6%9D%9F%E6%B1%82%E8%A7%A3%E5%99%A8%E7%90%86%E8%A7%A3"><span class="toc-number">1.1.</span> <span class="toc-text">一、z3约束求解器理解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#z3%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.1.</span> <span class="toc-text">z3介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#z3%E5%9C%A8CTF%E9%80%86%E5%90%91%E4%B8%AD%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="toc-number">1.1.2.</span> <span class="toc-text">z3在CTF逆向中有什么用？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81z3%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">二、z3语法简介：</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#BitVecs-vs-Ints-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number"></span> <span class="toc-text">BitVecs vs Ints 的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AF%AD%E4%B9%89%E5%B7%AE%E5%BC%82"><span class="toc-number">1.</span> <span class="toc-text">1. 语义差异</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%85%B3%E9%94%AE%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">2. 关键区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97"><span class="toc-number">2.1.</span> <span class="toc-text">算术运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E7%A7%BB%E8%BF%90%E7%AE%97"><span class="toc-number">2.2.</span> <span class="toc-text">位移运算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%9C%A8%E6%9C%AC%E9%A2%98%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">3. 在本题中的重要性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84API"><span class="toc-number">3.0.1.</span> <span class="toc-text">三、几个常用的API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%B8%80%E4%B8%AAnssctf%E4%BE%8B%E9%A2%98%E8%84%9A%E6%9C%AC%EF%BC%9A"><span class="toc-number">3.0.2.</span> <span class="toc-text">四、一个nssctf例题脚本：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E8%A7%A3%E8%AF%B4%E6%98%8E"><span class="toc-number">4.</span> <span class="toc-text">分解说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-f-string-%E5%9F%BA%E7%A1%80"><span class="toc-number">4.1.</span> <span class="toc-text">1. f-string 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%A4%A7%E6%8B%AC%E5%8F%B7%E8%BD%AC%E4%B9%89"><span class="toc-number">4.2.</span> <span class="toc-text">2. 大括号转义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%AF%B4%E6%98%8E%E7%AC%A6-08x"><span class="toc-number">4.3.</span> <span class="toc-text">3. 格式化说明符 :08x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="toc-number">4.4.</span> <span class="toc-text">示例演示</span></a></li></ol></li></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/08/05/tea-jia-zu/" title="TEA家族"><img src="/img/2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEA家族"></a><div class="content"><a class="title" href="/2025/08/05/tea-jia-zu/" title="TEA家族">TEA家族</a><time datetime="2025-08-04T23:41:36.000Z" title="发表于 2025-08-05 07:41:36">2025-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/rc4/" title="rc4"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rc4"></a><div class="content"><a class="title" href="/2025/07/27/rc4/" title="rc4">rc4</a><time datetime="2025-07-27T05:58:08.000Z" title="发表于 2025-07-27 13:58:08">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器"><img src="/img/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="z3约束求解器"></a><div class="content"><a class="title" href="/2025/07/27/z3-yue-shu-qiu-jie-qi/" title="z3约束求解器">z3约束求解器</a><time datetime="2025-07-26T19:37:35.000Z" title="发表于 2025-07-27 03:37:35">2025-07-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/chang-jian-han-shu-yong-fa/" title="常见函数用法">常见函数用法</a><time datetime="2025-07-03T12:15:18.000Z" title="发表于 2025-07-03 20:15:18">2025-07-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/03/ji-cun-qi-xun-zhi-fang-shi/" title="寄存器寻址方式">寄存器寻址方式</a><time datetime="2025-07-03T03:39:31.000Z" title="发表于 2025-07-03 11:39:31">2025-07-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/7.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2025 By BarkStarry</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><script src="/js/tw_cn.js?v=5.5.2"></script><script src="/pluginsSrc/node-snackbar/dist/snackbar.min.js?v=0.1.16"></script><div class="js-pjax"></div><script src="/styles/js/snowflake.js"></script><meting-js class="no-destroy" id="2869859820" server="netease" type="playlist" fixed="true" autoplay="false" order="random" volume="0.3" list-folded="false" list-max-height="36vh"> </meting-js><script src="/js/aplayer-lrc.js"></script><script src="/js/continuous-play.js"></script><script id="click-show-text" src="/pluginsSrc/butterfly-extsrc/dist/click-show-text.min.js?v=1.1.6" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/meting/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="/pluginsSrc/pjax/pjax.min.js?v=0.2.8"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async="" data-pjax="" src="/"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
